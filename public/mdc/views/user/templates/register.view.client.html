@@ -1,0 +1,57 @@
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container-fluid">
+        <div class="navbar-header mdc-logo pull-left">
+            <a class="navbar-brand" href="/">
+                <img src="../../../../img/logo-100x70.png"/>
+            </a>
+        </div>
+        <div class="navbar-header">
+            <a class="navbar-brand">
+                My Digital Cookbook
+            </a>
+        </div>
+    </div>
+</nav>
+
+<div>
+    <section>
+        <div class="alert alert-danger" ng-show="model.error">
+            {{model.error}}
+        </div>
+        <div class="alert alert-success" ng-show="model.message">
+            {{model.message}}
+        </div>
+    </section>
+
+    <h2>Join for free today and start creating your own digital cookbooks!</h2>
+
+    <div class="list-group mdc-nobullets">
+        <div>
+            <a href="/auth/google" class="btn btn-block btn-danger"><span class="fa fa-google-plus"></span> Google</a>
+        </div>
+        <p class="mdc-or-divider">OR</p>
+        <form>
+            <h2>Sign up with email</h2>
+            <input class="form-control "
+                   type="text"
+                   placeholder="Display Name"/>
+            <input class="form-control"
+                   type="text"
+                   placeholder="Email"/>
+            <input class="form-control"
+                   type="text"
+                   placeholder="Password"/>
+            <button class="btn btn-block btn-primary">Sign up</button>
+        </form>
+
+        <div>
+            <span class="btn btn-block btn-default">Already cookin'? <a href="#/login">Sign in</a></span>
+        </div>
+    </div>
+</div>
+
+<nav class="navbar navbar-default navbar-fixed-bottom">
+    <div class="container-fluid">
+
+    </div>
+</nav>

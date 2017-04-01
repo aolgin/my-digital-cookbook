@@ -1,5 +1,5 @@
 module.exports = function(app, model) {
-    var bookModel = model.bookModel;
+    // var bookModel = model.bookModel;
 
     app.get("/api/file/:fid", findFileById);
     app.post("/api/file", uploadFile);

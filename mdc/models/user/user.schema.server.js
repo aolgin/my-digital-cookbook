@@ -8,7 +8,11 @@ module.exports = function() {
         lastName: String,
         email: String,
         books: [{type: mongoose.Schema.Types.ObjectId, ref:'BookModel'}],
-        recipes: [{type: mongoose.Schema.Types.ObjectId, ref:'RecipeModel'}]
+        recipes: [{type: mongoose.Schema.Types.ObjectId, ref:'RecipeModel'}],
+        about: String,
+        favorites: [{type: mongoose.Schema.Types.ObjectId, ref:'RecipeModel'}],
+        photos: [String],
+        friends: [{type: mongoose.Schema.Types.ObjectId, ref:'UserModel'}] // hopefully this doesn't cause an infinite loop
     }, {collection: "user",
         timestamps: {
             createdAt: "dateCreated",

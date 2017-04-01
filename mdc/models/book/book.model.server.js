@@ -2,7 +2,7 @@ module.exports = function() {
     var mongoose = require("mongoose");
     var q = require('q');
     mongoose.Promise = q.Promise;
-    var BookSchema = require("./user.schema.server")();
+    var BookSchema = require("./book.schema.server")();
     var BookModel  = mongoose.model("BookModel", BookSchema);
 
     var api = {

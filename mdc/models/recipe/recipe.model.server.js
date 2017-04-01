@@ -2,7 +2,7 @@ module.exports = function() {
     var mongoose = require("mongoose");
     var q = require('q');
     mongoose.Promise = q.Promise;
-    var RecipeSchema = require("./user.schema.server")();
+    var RecipeSchema = require("./recipe.schema.server")();
     var RecipeModel  = mongoose.model("RecipeModel", RecipeSchema);
 
     var api = {

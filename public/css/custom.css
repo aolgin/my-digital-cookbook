@@ -3,42 +3,19 @@ body {
     padding-bottom: 55px;
 }
 
-.ado-left-pane {
-    position: absolute;
-    top: 0px;
-    bottom: 0px;
-    overflow: auto;
-    padding-top: 15px;
-    margin-bottom: 50px;
-    margin-top: 50px;
+.mdc-logo {
+    margin-top: -15px;
 }
 
-.ado-right-pane {
-    position: absolute;
-    top: 0px;
-    right: 0px;
-    bottom: 0px;
-    padding-left: 15px;
-    padding-right: 15px;
-    padding-top: 15px;
-    margin-bottom: 52px;
-    margin-top: 50px;
-    overflow-y: auto;
+.mdc-or-divider {
+    text-align: center;
+    width: 75%;
+    margin: 1rem auto;
+    position: relative;
 }
 
-.ado-widget {
-    z-index: 0;
-}
-
-.ado-widget-icons {
-    position: absolute;
-    right: 15px;
-    postion: absolute;
-    background-color: white;
-    padding-left: 5px;
-    padding-bottom: 5px;
-    border-bottom-left-radius: 5px;
-    opacity: 0.7;
+.mdc-clean-list {
+    list-style: none;
 }
 
 .btn-orange {
@@ -57,17 +34,4 @@ body {
     color: #fff;
     background-color: #3b5998;
     border-color: #2e6da4;
-}
-
-.ado-youtube-widget {
-    position: relative;
-    padding-bottom: 56.25%; /* 16:9 */
-    height: 0;
-}
-.ado-youtube-widget iframe {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
 }
