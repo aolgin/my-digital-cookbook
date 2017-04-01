@@ -24,6 +24,12 @@ body {
     border-color: #FF8C00;
 }
 
+.btn-severe {
+    color: #fff;
+    background-color: #961914;
+    border-color: #962500;
+}
+
 .btn-teal {
     color: #fff;
     background-color: #008B8B;

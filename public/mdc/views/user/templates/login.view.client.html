@@ -32,19 +32,25 @@
         <h2>Sign in with your email</h2>
         <input type="text"
                placeholder="Email Address"
+               autocorrect="off"
+               autocapitalize="off"
                class="form-control"/>
         <input type="password"
                placeholder="Password"
+               autocorrect="off"
+               autocapitalize="off"
                class="form-control"/>
-        <button class="btn btn-block btn-primary">Sign In</button>
+        <a href="#/profile">
+            <button class="btn btn-block btn-primary">Sign In</button>
+        </a>
     </section>
     <div>
         <span class="btn btn-block btn-default">New to MDC? <a href="#/register">Join for free!</a></span>
     </div>
 </div>
 
-<nav class="navbar navbar-default navbar-fixed-bottom">
-    <div class="container-fluid">
-
+<nav class="visible-md navbar navbar-default navbar-fixed-bottom">
+    <div class="container-fluid pull-right">
+        <p class="navbar-text">Source code available on <a href="https://github.com/aolgin/my-digital-cookbook/tree/master/public">Github</a></p>
     </div>
 </nav>

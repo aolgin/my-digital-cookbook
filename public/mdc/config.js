@@ -42,13 +42,13 @@
                 controller: 'registerController',
                 controllerAs: 'model'
             })
-            .when("/profile/:uid",{
+            .when("/profile",{
                 templateUrl: 'views/user/templates/profile.view.client.html',
                 controller: 'profileController',
                 controllerAs: 'model'
                 // resolve: { loggedin: checkLoggedin }
             })
-            .when("/profile/:uid/changePassword",{
+            .when("/profile/changePassword",{
                 templateUrl: 'views/user/templates/password.view.client.html',
                 controller: 'passwordController',
                 controllerAs: 'model'

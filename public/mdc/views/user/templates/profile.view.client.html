@@ -1,0 +1,114 @@
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container-fluid">
+        <div class="navbar-header mdc-logo pull-left">
+            <a class="navbar-brand" href="/">
+                <img src="../../../../img/logo-100x70.png"/>
+            </a>
+        </div>
+        <div class="navbar-header">
+            <a class="navbar-brand">
+                My Digital Cookbook
+            </a>
+        </div>
+        <div class="pull-right">
+            <a class="navbar-brand" href="/">
+                <span class="fa fa-sign-out" aria-hidden="true"></span>
+            </a>
+        </div>
+    </div>
+</nav>
+
+<div>
+    <section>
+        <div class="alert alert-danger" ng-show="model.error">
+            {{model.error}}
+        </div>
+        <div class="alert alert-success" ng-show="model.message">
+            {{model.message}}
+        </div>
+    </section>
+
+    <form>
+        <div class="form-group">
+            <label for="profile-pic">Profile Picture</label>
+            <input ng-model="model.user.profile_pic"
+                   name="myFile"
+                   type="file"
+                   class="form-control"
+                   id="profile-pic">
+        </div>
+        <div class="form-group">
+            <label for="display-name">Username</label>
+            <input ng-model="model.user.displayName"
+                   type="text"
+                   autocorrect="off"
+                   autocapitalize="off"
+                   class="form-control"
+                   id="display-name"
+                   placeholder="Display Name">
+        </div>
+        <div class="form-group">
+            <label for="email">Email Address</label>
+            <input ng-model="model.user.email"
+                   type="email"
+                   autocorrect="off"
+                   autocapitalize="off"
+                   class="form-control"
+                   id="email"
+                   placeholder="j.smith@aol.com">
+        </div>
+        <div class="form-group">
+            <label for="first-name">First Name</label>
+            <input ng-model="model.user.firstName"
+                   type="text"
+                   autocorrect="off"
+                   autocapitalize="off"
+                   class="form-control"
+                   id="first-name"
+                   placeholder="John">
+        </div>
+        <div class="form-group">
+            <label for="last-name">Last Name</label>
+            <input ng-model="model.user.lastName"
+                   type="text"
+                   autocorrect="off"
+                   autocapitalize="off"
+                   class="form-control"
+                   id="last-name"
+                   placeholder="Smith">
+        </div>
+        <div class="form-group">
+            <label for="about">About Me</label>
+            <textarea ng-model="model.user.about"
+                      class="form-control"
+                      id="about"
+                      placeholder="A little bit about yourself..."></textarea>
+        </div>
+    </form>
+
+    <a class="btn btn-primary btn-block"
+       ng-click="model.update(model.user)">
+        Save
+    </a>
+    <a class="btn btn-danger btn-block"
+       href="/">
+        Cancel
+    </a>
+
+    <a class="btn btn-success btn-block"
+       href="#/profile/{{model.userId}}/changePassword">
+        Change Password
+    </a>
+
+
+    <a class="btn btn-severe btn-block"
+       ng-click="model.unregister()">
+        Delete Account
+    </a>
+</div>
+
+<nav class="visible-md navbar navbar-default navbar-fixed-bottom">
+    <div class="container-fluid pull-right">
+        <p class="navbar-text">Source code available on <a href="https://github.com/aolgin/my-digital-cookbook/tree/master/public">Github</a></p>
+    </div>
+</nav>
