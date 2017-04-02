@@ -6,8 +6,37 @@ module.exports = function(app, model) {
     app.get("/api/recipe/:rid", findRecipeById);
     app.delete("/api/recipe/:rid", deleteRecipe);
     app.put("/api/recipe/:rid", updateRecipe);
+    app.get("/api/recipe/search", searchRecipes);
 
     // Service Functions
+
+    function searchRecipes(req, res) {
+        if (req.query['category']) {
+            searchRecipesByCategory(req, res);
+        } else {
+            var term = req.query['term'];
+            console.log("Searching for recipe matching: " + term);
+            // recipeModel.searchRecipes(term)
+            //     .then(function(response) {
+            //         res.json(response);
+            //     }, function (err) {
+            //         console.log(err);
+            //         res.sendStatus(404);
+            //     });
+        }
+    }
+
+    function searchRecipesByCategory(req, res) {
+        var term = req.query['category'];
+        console.log("Searching for recipe matching the category: " + term);
+        // recipeModel.searchRecipesByCategory(term)
+        //     .then(function(response) {
+        //         res.json(response);
+        //     }, function (err) {
+        //         console.log(err);
+        //         res.sendStatus(404);
+        //     });
+    }
 
     function findRecipesByBook(req, res) {
         var bid = req.params['bid'];

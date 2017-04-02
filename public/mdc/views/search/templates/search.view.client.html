@@ -1,0 +1,185 @@
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container-fluid">
+        <div class="navbar-header mdc-logo pull-left">
+            <a class="navbar-brand" href="/">
+                <img src="../../../../img/logo-100x70.png"/>
+            </a>
+        </div>
+        <div class="navbar-header">
+            <a class="navbar-brand">
+                My Digital Cookbook
+            </a>
+        </div>
+        <div class="pull-right">
+            <a class="navbar-brand" href="/">
+                <span class="fa fa-sign-out" aria-hidden="true"></span>
+            </a>
+        </div>
+    </div>
+</nav>
+
+<div>
+    <div class="mdc-search-bar">
+        <div class="input-group">
+            <input type="text"
+                   class="form-control"
+                   ng-model="searchText"
+                   placeholder="Search for..."/>
+            <div class="input-group-btn">
+                <button type="button"
+                        class="btn btn-default dropdown-toggle"
+                        data-toggle="dropdown"
+                        aria-haspopup="true"
+                        aria-expanded="false">
+                    By...<span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu">
+                    <li><a ng-click="model.changeSearchType('user')">Chef</a></li>
+                    <li><a ng-click="model.changeSearchType('book')">Cookbook</a></li>
+                    <li><a ng-click="model.changeSearchType('recipe')">Recipe</a></li>
+                    <li><a ng-click="model.changeSearchType('category')">Category</a></li>
+                </ul>
+            </div>
+            <a class="input-group-addon btn btn-default"
+               ng-click="model.search(searchText)">
+                <span class="glyphicon glyphicon-search"></span>
+            </a>
+        </div>
+    </div>
+
+    <div>
+        <div class="alert alert-danger" ng-show="model.error">
+            {{model.error}}
+        </div>
+        <div class="alert alert-success" ng-show="model.message">
+            {{model.message}}
+        </div>
+    </div>
+
+    <div class="mdc-search-results container-fluid" ng-switch="model.resType">
+        <div ng-switch-when="user">
+            <ul class="list-group">
+                <li class="list-group-item">
+                    <div class="row">
+                        <div class="col-sm-3 hidden-xs">
+                            Image
+                        </div>
+                        <div class="col-sm-5 col-xs-10">
+                            Name
+                        </div>
+                        <div class="col-sm-3 hidden-xs">
+                            About
+                        </div>
+                    </div>
+                </li>
+
+                <li ng-repeat="result in model.results" class="list-group-item">
+                    <div class="row">
+                        <div class="col-sm-5 col-xs-10">
+                            <a href="#/chef/{{result._id}}">
+                                {{result.displayName}}
+                            </a>
+                        </div>
+                        <div class="col-sm-3 hidden-xs">
+                            {{result.about}}
+                        </div>
+                        <div class="col-sm-2 hidden-xs">
+                            {{result.image_id}}
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+        <div ng-switch-when="book">
+            <ul class="list-group">
+                <li class="list-group-item">
+                    <div class="row">
+                        <div class="col-sm-5 col-xs-10">
+                            Name
+                        </div>
+                        <div class="col-sm-3 hidden-xs">
+                            Chef
+                        </div>
+                        <div class="col-sm-3 hidden-xs">
+                            Description
+                        </div>
+                        <div class="col-sm-3 hidden-xs">
+                            Image
+                        </div>
+                    </div>
+                </li>
+                <li ng-repeat="result in model.results" class="list-group-item">
+                    <div class="row">
+                        <div class="col-sm-5 col-xs-10">
+                            <a href="#/book/{{result._id}}">
+                                {{result.name}}
+                            </a>
+                        </div>
+                        <div class="col-sm-3 hidden-xs">
+                            {{result._user}}
+                        </div>
+                        <div class="col-sm-2 hidden-xs">
+                            {{result.description}}
+                        </div>
+                        <div class="col-sm-2 hidden-xs">
+                            {{result.image_id}}
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+        <div ng-switch-when="recipe">
+            <ul class="list-group">
+                <li class="list-group-item">
+                    <div class="row">
+                        <div class="col-sm-5 col-xs-10">
+                            Name
+                            <span class="glyphicon glyphicon-triangle-top"></span>
+                        </div>
+                        <div class="col-sm-3 hidden-xs">
+                            Description
+                        </div>
+                        <div class="col-sm-3 hidden-xs">
+                            Chef
+                        </div>
+                        <div class="col-sm-3 hidden-xs">
+                            Rating
+                        </div>
+                        <div class="col-sm-3 hidden-xs">
+                            Image
+                        </div>
+                    </div>
+                </li>
+                <li ng-repeat="result in model.results" class="list-group-item">
+                    <div class="row">
+                        <div class="col-sm-5 col-xs-10">
+                            <a href="#/recipe/{{result._id}}">
+                                {{result.name}}
+                            </a>
+                        </div>
+                        <div class="col-sm-3 hidden-xs">
+                            {{result.description}}
+                        </div>
+                        <div class="col-sm-2 hidden-xs">
+                            {{result._user}}
+                        </div>
+                        <div class="col-sm-2 hidden-xs">
+                            {{result.rating}}
+                        </div>
+                        <div class="col-sm-2 hidden-xs">
+                            {{result.image_id}}
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<nav class="visible-md visible-lg navbar navbar-default navbar-fixed-bottom">
+    <div class="container-fluid pull-right">
+        <p class="navbar-text">Source code available on <a href="https://github.com/aolgin/my-digital-cookbook/tree/master/public">Github</a></p>
+    </div>
+</nav>

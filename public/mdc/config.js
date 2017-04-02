@@ -34,23 +34,23 @@
             })
             .when("/login",{
                 templateUrl: 'views/user/templates/login.view.client.html',
-                controller: 'loginController',
+                controller: 'LoginController',
                 controllerAs: 'model'
             })
             .when("/register",{
                 templateUrl: 'views/user/templates/register.view.client.html',
-                controller: 'registerController',
+                controller: 'RegisterController',
                 controllerAs: 'model'
             })
-            .when("/profile",{
+            .when("/profile/:uid",{
                 templateUrl: 'views/user/templates/profile.view.client.html',
-                controller: 'profileController',
+                controller: 'ProfileController',
                 controllerAs: 'model'
                 // resolve: { loggedin: checkLoggedin }
             })
-            .when("/profile/changePassword",{
+            .when("/profile/:uid/changePassword",{
                 templateUrl: 'views/user/templates/password.view.client.html',
-                controller: 'passwordController',
+                controller: 'PasswordController',
                 controllerAs: 'model'
                 // resolve: { loggedin: checkLoggedin }
             })
@@ -90,10 +90,28 @@
                 controllerAs: 'model'
                 // resolve: { loggedin: checkLoggedin }
             })
+            .when("/book/:bid", {
+                templateUrl: 'views/book/templates/book-public.view.client.html',
+                controller: 'BookController',
+                controllerAs: 'model'
+            })
+            .when("/recipe/:rid", {
+                templateUrl: 'views/recipe/templates/recipe-public.view.client.html',
+                controller: 'RecipeController',
+                controllerAs: 'model'
+            })
+            .when("/chef/:uid", {
+                templateUrl: 'views/user/templates/profile-public.view.client.html',
+                controller: 'ProfileController',
+                controllerAs: 'model'
+            })
+            .when("/search/results", {
+                templateUrl: 'views/search/templates/search.view.client.html',
+                controller: 'SearchController',
+                controllerAs: 'model'
+            })
             .otherwise({
                 resolve: {errorPage: redirectTo404}
             });
-
-        // $locationProvider.html5Mode(true);
     }
 })();

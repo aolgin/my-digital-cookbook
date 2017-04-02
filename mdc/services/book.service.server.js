@@ -6,8 +6,21 @@ module.exports = function(app, model) {
     app.get("/api/book/:bid", findBookById);
     app.delete("/api/book/:bid", deleteBook);
     app.put("/api/book/:bid", updateBook);
+    app.get("/api/book/search", searchBooks);
 
     // Service Functions
+
+    function searchBooks(req, res) {
+        var term = req.query['term'];
+        console.log("Searching for books matching: " + term);
+        // bookModel.searchBooks(term)
+        //     .then(function(response) {
+        //         res.json(response);
+        //     }, function (err) {
+        //         console.log(err);
+        //         res.sendStatus(404);
+        //     });
+    }
 
     function findBooksByUser(req, res) {
         var uid = req.params['uid'];
