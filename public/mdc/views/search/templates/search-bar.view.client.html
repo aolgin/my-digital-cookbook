@@ -1,0 +1,27 @@
+<div class="mdc-search-bar">
+    <div class="input-group">
+        <input type="text"
+               class="form-control"
+               ng-model="searchText"
+               placeholder="Search for..."/>
+        <div class="input-group-btn">
+            <button type="button"
+                    class="btn btn-default dropdown-toggle"
+                    data-toggle="dropdown"
+                    aria-haspopup="true"
+                    aria-expanded="false">
+                By...<span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu">
+                <li><a ng-click="model.changeSearchType('user')">Chef</a></li>
+                <li><a ng-click="model.changeSearchType('book')">Cookbook</a></li>
+                <li><a ng-click="model.changeSearchType('recipe')">Recipe</a></li>
+                <li><a ng-click="model.changeSearchType('category')">Category</a></li>
+            </ul>
+        </div>
+        <a class="input-group-addon btn btn-default"
+           ng-click="model.search(searchText)">
+            <span class="glyphicon glyphicon-search"></span>
+        </a>
+    </div>
+</div>

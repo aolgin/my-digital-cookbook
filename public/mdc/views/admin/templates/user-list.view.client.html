@@ -1,0 +1,81 @@
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container-fluid">
+        <div class="navbar-header mdc-logo pull-left">
+            <a class="navbar-brand" href="#/admin">
+                <img src="../../../../img/logo-100x70.png"/>
+            </a>
+        </div>
+        <div class="navbar-header">
+            <a class="navbar-brand">
+                My Digital Cookbook
+            </a>
+        </div>
+        <div class="pull-right">
+            <a class="navbar-brand" href="/">
+                <span class="fa fa-sign-out" aria-hidden="true"></span>
+            </a>
+        </div>
+    </div>
+</nav>
+
+<div ng-init="model.renderUsers()">
+    <section>
+        <div class="alert alert-danger" ng-show="model.error">
+            {{model.error}}
+        </div>
+        <div class="alert alert-success" ng-show="model.message">
+            {{model.message}}
+        </div>
+    </section>
+
+    <div>
+        <ul class="list-group">
+            <li class="list-group-item">
+                <div class="row">
+                    <div class="col-sm-4 col-xs-9">
+                        <u>Username</u>
+                    </div>
+                    <div class="col-sm-3 hidden-xs">
+                        <u>ID</u>
+                    </div>
+                    <div class="col-sm-3 hidden-xs">
+                        <u>Created</u>
+                    </div>
+                    <div class="col-xs-3">
+                        <u>Role</u>
+                    </div>
+                </div>
+            </li>
+            <li class="list-group-item" ng-repeat="user in model.users">
+                <div class="row">
+                    <div class="col-sm-4 col-xs-5">
+                        {{user.username}}
+                    </div>
+                    <div class="col-sm-3 col-xs-5">
+                        {{user._id}}
+                    </div>
+                    <div class="col-sm-3 hidden-xs">
+                        {{user.dateCreated | date}}
+                    </div>
+                    <div class="col-xs-3">
+                        {{user.role}}
+                    </div>
+                    <div class="col-xs-2 col-sm-3">
+                        <a href="#/user/{{model.userId}}/website/{{website._id}}">
+                            <span class="glyphicon glyphicon-edit pull-right"></span>
+                        </a>
+                        <a ng-click="model.deleteUser(user)">
+                            <span class="glyphicon glyphicon-remove pull-right"></span>
+                        </a>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<nav class="visible-md navbar navbar-default navbar-fixed-bottom">
+    <div class="container-fluid pull-right">
+        <p class="navbar-text">Source code available on <a href="https://github.com/aolgin/my-digital-cookbook/tree/master/public">Github</a></p>
+    </div>
+</nav>

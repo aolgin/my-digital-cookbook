@@ -10,18 +10,23 @@ module.exports = function() {
         findUserById: findUserById,
         findUserByCredentials: findUserByCredentials,
         findBooksForUser: findBooksForUser,
-        findRecipessForUser: findRecipesForUser,
+        findRecipesForUser: findRecipesForUser,
         findUserByUsername: findUserByUsername,
         updateUser: updateUser,
         removeUser: removeUser,
         removeBookFromUser: removeBookFromUser,
         updatePassword: updatePassword,
+        findAllusers: findAllUsers,
         setModel: setModel
     };
     return api;
 
     function setModel(_model) {
         model = _model;
+    }
+
+    function findAllUsers() {
+        return UserModel.find();
     }
 
     function removeBookFromUser(book) {
@@ -61,17 +66,17 @@ module.exports = function() {
     }
 
 
-    function findUserByUsername(username) {
-        return UserModel.findOne({ username: username });
+    function findUserByUsername(uname) {
+        return UserModel.findOne({ username: uname });
     }
 
     function updateUser(userId, user) {
         return UserModel.update({ _id: userId },
             {
-                username: user.username,
                 firstName: user.firstName,
                 lastName: user.lastName,
-                email: user.email
+                username: user.username,
+                about: user.about
             }
         );
     }

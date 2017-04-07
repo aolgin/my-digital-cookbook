@@ -6,7 +6,6 @@
     function bookService($http) {
 
         var api = {
-            "findBooksByUserId": findBooksByUserId,
             "createBook": createBook,
             "deleteBook": deleteBook,
             "updateBook": updateBook,
@@ -16,10 +15,6 @@
 
         function findBookById(bid) {
             return $http.get("/api/book/" + bid);
-        }
-
-        function findBooksByUserId(uid) {
-            return $http.get("/api/user/" + uid + "/book");
         }
 
         function createBook(book, uid) {

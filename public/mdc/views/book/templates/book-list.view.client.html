@@ -1,0 +1,39 @@
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container-fluid">
+        <div class="navbar-header mdc-logo pull-left">
+            <a class="navbar-brand" href="/">
+                <img src="../../../../img/logo-100x70.png"/>
+            </a>
+        </div>
+        <ng-include src="views/search/templates/search-bar.view.client.html"></ng-include>
+        <div class="pull-right">
+            <a class="navbar-brand" href="/">
+                <span class="fa fa-sign-out" aria-hidden="true"></span>
+            </a>
+        </div>
+    </div>
+</nav>
+
+<!-- NOTE: This is the logged-in user viewing their books -->
+
+<div>
+    <ul class="list-group">
+        <li class="list-group-item" ng-repeat="book in model.books">
+            <img ng-src="{{book.image_url}}"/>
+            <span><a href="#/user/{{model.userId}}/book/{{book._id}}/recipe">{{book.name}}</a></span>
+            <span>{{book.description}}</span>
+            <div class="pull-right">
+                <a href="#/user/{{model.userId}}/book/{{book._id}}">
+                    <span class="glyphicon glyphicon-edit"></span>
+                </a>
+            </div>
+        </li>
+    </ul>
+</div>
+
+
+<nav class="visible-md visible-lg navbar navbar-default navbar-fixed-bottom">
+    <div class="container-fluid pull-right">
+        <p class="navbar-text">Source code available on <a href="https://github.com/aolgin/my-digital-cookbook/tree/master/public">Github</a></p>
+    </div>
+</nav>

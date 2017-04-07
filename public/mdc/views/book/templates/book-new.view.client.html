@@ -1,0 +1,56 @@
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container-fluid">
+        <div class="navbar-header mdc-logo pull-left">
+            <a class="navbar-brand" href="/">
+                <img src="../../../../img/logo-100x70.png"/>
+            </a>
+        </div>
+        <ng-include src="views/search/templates/search-bar.view.client.html"></ng-include>
+        <div class="pull-right">
+            <a class="navbar-brand" href="/">
+                <span class="fa fa-sign-out" aria-hidden="true"></span>
+            </a>
+        </div>
+    </div>
+</nav>
+
+<div>
+    <form>
+        <label for="name">Name: </label>
+        <input type="text"
+               id="name"
+               placeholder="Name your book"
+               ng-model="book.name"
+               class="form-control"/>
+
+        <label for="description">Description: </label>
+        <textarea id="description"
+                  placeholder="Describe your book here"
+                  ng-model="book.description"
+                  class="form-control"></textarea>
+
+        <label for="image">Image (Optional): </label>
+        <input type="file"
+               id="image"
+               name="myFile"
+               ng-model="book.file"
+               class="form-control"/>
+
+        <label for="preview">Image Preview: </label>
+        <img ng-src="{{book.image_url}}" id="preview" width="100%"/>
+
+    </form>
+
+    <button class="btn btn-block btn-primary"
+            ng-click="model.createBook(book)">Create Book!</button>
+    <a href="#/dashboard/books" class="btn btn-block btn-danger">
+        Cancel
+    </a>
+
+</div>
+
+<nav class="visible-md visible-lg navbar navbar-default navbar-fixed-bottom">
+    <div class="container-fluid pull-right">
+        <p class="navbar-text">Source code available on <a href="https://github.com/aolgin/my-digital-cookbook/tree/master/public">Github</a></p>
+    </div>
+</nav>

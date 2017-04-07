@@ -27,38 +27,36 @@
 
     <div class="list-group mdc-nobullets">
         <div>
+            <h4>Sign up with your Google Account</h4>
             <a href="/auth/google" class="btn btn-block btn-danger"><span class="fa fa-google-plus"></span> Google</a>
         </div>
         <p class="mdc-or-divider">OR</p>
         <form>
-            <h2>Sign up with email</h2>
-            <input class="form-control "
-                   type="text"
-                   autocorrect="off"
-                   autocapitalize="off"
-                   placeholder="Display Name"/>
+            <h4>Sign Up as a New Chef!</h4>
             <input class="form-control"
                    type="text"
                    autocorrect="off"
                    autocapitalize="off"
-                   placeholder="Email"/>
+                   placeholder="Username"
+                   ng-model="user.username"/>
             <input class="form-control"
-                   type="text"
+                   type="password"
                    autocorrect="off"
                    autocapitalize="off"
-                   placeholder="Password"/>
+                   placeholder="Password"
+                   ng-model="user.password"/>
             <input class="form-control"
-                   type="text"
+                   type="password"
                    autocorrect="off"
                    autocapitalize="off"
-                   placeholder="Confirm Password"/>
-            <a href="#/profile">
-                <button class="btn btn-block btn-primary">Sign Up</button>
-            </a>
+                   placeholder="Confirm Password"
+                   ng-model="user.confirmPass"/>
+            <button class="btn btn-block btn-primary"
+                    ng-click="model.register(user)">Sign Up</button>
         </form>
 
         <div>
-            <span class="btn btn-block btn-default">Already cookin'? <a href="#/login">Sign in</a></span>
+            <span class="btn btn-block mdc-btn-default">Already cookin'? <a href="#/login">Sign in</a></span>
         </div>
     </div>
 </div>

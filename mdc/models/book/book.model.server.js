@@ -12,12 +12,17 @@ module.exports = function() {
         updateBook: updateBook,
         removeBook: removeBook,
         removeRecipeFromBook: removeRecipeFromBook,
+        findAllBooks: findAllBooks,
         setModel: setModel
     };
     return api;
 
     function setModel(_model) {
         model = _model;
+    }
+
+    function findAllBooks() {
+        return BookModel.find();
     }
 
     function removeRecipeFromBook(recipe) {

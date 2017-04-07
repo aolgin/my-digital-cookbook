@@ -6,7 +6,7 @@
     function recipeService($http) {
 
         var api = {
-            "findRecipesByUserId": findRecipesByUserId,
+            "findRecipesByBookId": findRecipesByBookId,
             "createRecipe": createRecipe,
             "deleteRecipe": deleteRecipe,
             "updateRecipe": updateRecipe,
@@ -18,7 +18,7 @@
             return $http.get("/api/recipe/" + rid);
         }
 
-        function findRecipesByUserId(bid) {
+        function findRecipesByBookId(bid) {
             return $http.get("/api/book/" + bid + "/recipe");
         }
 

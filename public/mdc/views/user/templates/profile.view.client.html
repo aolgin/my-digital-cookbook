@@ -1,4 +1,4 @@
-<nav class="navbar navbar-default navbar-fixed-top">
+<nav class="mdc-navbar-header navbar navbar-default navbar-fixed-top">
     <div class="container-fluid">
         <div class="navbar-header mdc-logo pull-left">
             <a class="navbar-brand" href="/">
@@ -31,6 +31,7 @@
     <form>
         <div class="form-group">
             <label for="profile-pic">Profile Picture</label>
+            <img ng-src="model.user.profile_pic"/>
             <input ng-model="model.user.profile_pic"
                    name="myFile"
                    type="file"
@@ -38,24 +39,14 @@
                    id="profile-pic">
         </div>
         <div class="form-group">
-            <label for="display-name">Username</label>
-            <input ng-model="model.user.displayName"
+            <label for="username">Username</label>
+            <input ng-model="model.user.username"
                    type="text"
                    autocorrect="off"
                    autocapitalize="off"
                    class="form-control"
-                   id="display-name"
-                   placeholder="Display Name">
-        </div>
-        <div class="form-group">
-            <label for="email">Email Address</label>
-            <input ng-model="model.user.email"
-                   type="email"
-                   autocorrect="off"
-                   autocapitalize="off"
-                   class="form-control"
-                   id="email"
-                   placeholder="j.smith@aol.com">
+                   id="username"
+                   placeholder="jsmith">
         </div>
         <div class="form-group">
             <label for="first-name">First Name</label>
@@ -91,7 +82,7 @@
         Save
     </a>
     <a class="btn btn-danger btn-block"
-       href="/">
+       href="#/dashboard">
         Cancel
     </a>
 
@@ -102,12 +93,12 @@
 
 
     <a class="btn btn-severe btn-block"
-       ng-click="model.unregister()">
+       ng-click="model.deleteUser()">
         Delete Account
     </a>
 </div>
 
-<nav class="visible-md navbar navbar-default navbar-fixed-bottom">
+<nav class="visible-md visible-lg navbar navbar-default navbar-fixed-bottom">
     <div class="container-fluid pull-right">
         <p class="navbar-text">Source code available on <a href="https://github.com/aolgin/my-digital-cookbook/tree/master/public">Github</a></p>
     </div>

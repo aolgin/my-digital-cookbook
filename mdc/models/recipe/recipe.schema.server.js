@@ -8,7 +8,7 @@ module.exports = function () {
         ingredients: String,
         directions: String,
         prep_time: [Number, String],
-        image_id: String,
+        image_url: String,
         ready_in: [Number, String],
         yield: [Number, String],
         num_servings: String, // UNSURE

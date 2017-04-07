@@ -29,23 +29,24 @@
     </section>
     <p class="mdc-or-divider">OR</p>
     <section>
-        <h2>Sign in with your email</h2>
+        <h2>Sign in with your Username</h2>
         <input type="text"
-               placeholder="Email Address"
+               placeholder="Username"
                autocorrect="off"
                autocapitalize="off"
-               class="form-control"/>
+               class="form-control"
+               ng-model="user.username"/>
         <input type="password"
                placeholder="Password"
                autocorrect="off"
                autocapitalize="off"
-               class="form-control"/>
-        <a href="#/profile">
-            <button class="btn btn-block btn-primary">Sign In</button>
-        </a>
+               class="form-control"
+               ng-model="user.password"/>
+        <button class="btn btn-block btn-primary"
+                ng-click="model.login(user)">Sign In</button>
     </section>
     <div>
-        <span class="btn btn-block btn-default">New to MDC? <a href="#/register">Join for free!</a></span>
+        <span class="btn btn-block mdc-btn-default">New to MDC? <a href="#/register">Join for free!</a></span>
     </div>
 </div>
 

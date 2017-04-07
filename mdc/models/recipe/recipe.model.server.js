@@ -11,12 +11,17 @@ module.exports = function() {
         findBooksWithRecipe: findBooksWithRecipe,
         updateRecipe: updateRecipe,
         removeRecipe: removeRecipe,
+        findAllRecipes: findAllRecipes,
         setModel: setModel
     };
     return api;
 
     function setModel(_model) {
         model = _model;
+    }
+
+    function findAllRecipes() {
+        return RecipeModel.find();
     }
 
     function findBooksWithRecipe(rid) {

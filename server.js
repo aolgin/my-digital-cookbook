@@ -30,3 +30,7 @@ require ("./mdc/app.js")(app);
 var port = process.env.PORT || 3000;
 
 app.listen(port);
+
+app.get("/*", function(req, res) {
+    res.sendfile('./public/mdc/templates/home/templates/index.html');
+});

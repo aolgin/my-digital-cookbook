@@ -2,17 +2,17 @@ module.exports = function() {
     var mongoose = require("mongoose");
 
     var UserSchema = mongoose.Schema({
-        displayName: String,
         password: String,
         firstName: String,
         lastName: String,
-        email: {type: String, unique: true, dropDups: true },
+        username: {type: String, unique: true, dropDups: true },
         books: [{type: mongoose.Schema.Types.ObjectId, ref:'BookModel'}],
         recipes: [{type: mongoose.Schema.Types.ObjectId, ref:'RecipeModel'}],
         about: String,
         favorites: [{type: mongoose.Schema.Types.ObjectId, ref:'RecipeModel'}],
-        profile_pic: String, // id of photo
+        image_url: String, // url of photo
         photos: [String],
+        role: {type: String, enum: ['ADMIN', 'USER'], default: 'USER'},
         friends: [{type: mongoose.Schema.Types.ObjectId, ref:'UserModel'}] // hopefully this doesn't cause an infinite loop
     }, {collection: "user",
         timestamps: {

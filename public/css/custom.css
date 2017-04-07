@@ -18,6 +18,17 @@ body {
     list-style: none;
 }
 
+.mdc-navbar-header:before,
+.mdc-navbar-header:after {
+    display: table-row;
+    content: "";
+}
+
+.mdc-btn-default {
+    color: #333;
+    background-color: #fff;
+}
+
 .btn-orange {
     color: #fff;
     background-color: #FFA500;
