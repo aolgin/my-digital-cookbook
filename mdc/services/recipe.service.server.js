@@ -10,6 +10,7 @@ module.exports = function(app, model) {
     app.put("/api/recipe/:rid", updateRecipe);
     app.get("/api/recipe/search", searchRecipes);
     app.get("/api/admin/recipes", findAllRecipes);
+    app.post("/api/recipe/:rid", rateRecipe);
 
     var recipes = [
         {"_id": "1", "name": "My First Recipe", "description": "Lorem Ipsum", "_user": "789", "rating": 3, "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6d/Good_Food_Display_-_NCI_Visuals_Online.jpg/220px-Good_Food_Display_-_NCI_Visuals_Online.jpg"},
@@ -23,6 +24,18 @@ module.exports = function(app, model) {
     ];
 
     // Service Functions
+
+    function rateRecipe(req, res) {
+        var rid = req.params['rid'];
+        var rating = req.query['rating'];
+        recipeModel.rateRecipe(rid, rating)
+            .then(function (response) {
+                res.sendStatus(200);
+            }, function (err) {
+                console.log(err);
+                res.sendStatus(500);
+            })
+    }
 
     function findAllRecipes(req, res) {
         recipeModel.findAllRecipes()
@@ -41,26 +54,26 @@ module.exports = function(app, model) {
         } else {
             var term = req.query['term'];
             console.log("Searching for recipe matching: " + term);
-            // recipeModel.searchRecipes(term)
-            //     .then(function(response) {
-            //         res.json(response);
-            //     }, function (err) {
-            //         console.log(err);
-            //         res.sendStatus(404);
-            //     });
+            recipeModel.searchRecipes(term)
+                .then(function(response) {
+                    res.json(response);
+                }, function (err) {
+                    console.log(err);
+                    res.sendStatus(404);
+                });
         }
     }
 
     function searchRecipesByCategory(req, res) {
         var term = req.query['category'];
         console.log("Searching for recipe matching the category: " + term);
-        // recipeModel.searchRecipesByCategory(term)
-        //     .then(function(response) {
-        //         res.json(response);
-        //     }, function (err) {
-        //         console.log(err);
-        //         res.sendStatus(404);
-        //     });
+        recipeModel.searchRecipesByCategory(term)
+            .then(function(response) {
+                res.json(response);
+            }, function (err) {
+                console.log(err);
+                res.sendStatus(404);
+            });
     }
 
     function findRecipesByBook(req, res) {
@@ -78,23 +91,24 @@ module.exports = function(app, model) {
     function findRecipesByUser(req, res) {
         var uid = req.params['uid'];
 
-        var userRecipes = recipes.filter(function(r) {
-            return r._user = uid;
-        });
+        // var userRecipes = recipes.filter(function(r) {
+        //     return r._user = uid;
+        // });
+        //
+        //
+        //
+        // res.json(userRecipes);
 
-        for (var i = 0; i < userRecipes.length; i++) {
-            userRecipes[i].description = userRecipes[i].description.substring(0, 5);
-        }
-
-        res.json(userRecipes);
-
-        // model.userModel.findRecipesForUser(uid)
-        //     .then(function (response) {
-        //         res.json(response.books);
-        //     }, function (err) {
-        //         console.log(err);
-        //         res.sendStatus(500);
-        //     });
+        model.userModel.findRecipesForUser(uid)
+            .then(function (recipes) {
+                for (var i = 0; i < recipes.length; i++) {
+                    recipes[i].description = recipes[i].description.substring(0, 5);
+                }
+                res.json(recipes);
+            }, function (err) {
+                console.log(err);
+                res.sendStatus(500);
+            });
     }
 
     function createRecipe(req, res) {

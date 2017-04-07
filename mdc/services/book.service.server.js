@@ -35,35 +35,34 @@ module.exports = function(app, model) {
     function searchBooks(req, res) {
         var term = req.query['term'];
         console.log("Searching for books matching: " + term);
-        // bookModel.searchBooks(term)
-        //     .then(function(response) {
-        //         res.json(response);
-        //     }, function (err) {
-        //         console.log(err);
-        //         res.sendStatus(404);
-        //     });
+        bookModel.searchBooks(term)
+            .then(function(response) {
+                res.json(response);
+            }, function (err) {
+                console.log(err);
+                res.sendStatus(404);
+            });
     }
 
     function findBooksByUser(req, res) {
         var uid = req.params['uid'];
 
-        var userBooks = books.filter(function(r) {
-            return r._user = uid;
-        });
+        // var userBooks = books.filter(function(r) {
+        //     return r._user = uid;
+        // });
+        //
+        // res.json(userBooks);
 
-        res.json(userBooks);
-
-        // model.userModel.findBooksForUser(uid)
-        //     .then(function (response) {
-        //         var books = response.books;
-        //         for (var i = 0; i < books.length; i++) {
-        //             books[i].description = books[i].description.substring(0, 50);
-        //         }
-        //         res.json(response.books);
-        //     }, function (err) {
-        //         console.log(err);
-        //         res.sendStatus(500);
-        //     });
+        model.userModel.findBooksForUser(uid)
+            .then(function (books) {
+                for (var i = 0; i < books.length; i++) {
+                    books[i].description = books[i].description.substring(0, 50);
+                }
+                res.json(books);
+            }, function (err) {
+                console.log(err);
+                res.sendStatus(500);
+            });
     }
 
     function createBook(req, res) {

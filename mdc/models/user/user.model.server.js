@@ -16,13 +16,37 @@ module.exports = function() {
         removeUser: removeUser,
         removeBookFromUser: removeBookFromUser,
         updatePassword: updatePassword,
-        findAllusers: findAllUsers,
+        findAllUsers: findAllUsers,
+        favoriteRecipe: favoriteRecipe,
+        unfavoriteRecipe: unfavoriteRecipe,
         setModel: setModel
     };
     return api;
 
     function setModel(_model) {
         model = _model;
+    }
+
+    function favoriteRecipe(uid, rid) {
+        return UserModel.findById(uid)
+            .then(function (userObj) {
+                model.recipeModel.findRecipeById(rid)
+                    .then(function(recipeObj) {
+                        userObj.favorites.push(recipeObj);
+                        return userObj.save();
+                    })
+            })
+    }
+
+    function unfavoriteRecipe(uid, rid) {
+        return UserModel.findById(uid)
+            .then(function (userObj) {
+                model.recipeModel.findRecipeById(rid)
+                    .then(function(recipeObj) {
+                        userObj.favorites.pull(recipeObj);
+                        return userObj.save();
+                    })
+            })
     }
 
     function findAllUsers() {
@@ -41,6 +65,9 @@ module.exports = function() {
     }
 
     function removeUser(uid) {
+        // Design choice: Deleting the user will not delete their content.
+        // This way, any favorited recipes are not removed.
+        // Individual books or recipes may be removed from their respective pages.
         return UserModel.remove({_id: uid});
     }
 

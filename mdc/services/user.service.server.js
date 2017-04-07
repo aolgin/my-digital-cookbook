@@ -22,6 +22,7 @@ module.exports = function(app, model) {
     // app.put("/api/user/:uid", updateUser);
     app.get("/api/user/search", searchUsers);
     app.get("api/admin/users", findAllUsers);
+    //TODO: add in favoriting and friend requests
 
     var users = [
         {_id: "123", email: "alice@wonderland.com", password: "alice", firstName: "Alice", lastName: "Wonder", displayName: 'Alyss'},

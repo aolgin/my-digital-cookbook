@@ -18,6 +18,23 @@
         return deferred.promise;
     };
 
+    // Intended for cases where you may want to use user information if it exists.
+    // For example, looking at a public page while logged on,
+    // and then being able to navigate to your profile if you are logged in
+    var checkLoggedinNoRedirect = function($q, $timeout, $http, $location, $rootScope) {
+        var deferred = $q.defer();
+        $http.get('/api/loggedin').success(function(user) {
+            $rootScope.errorMessage = null;
+            if (user !== '0') {
+                $rootScope.currentUser = user;
+                deferred.resolve(user);
+            } else {
+                deferred.reject();
+            }
+        });
+        return deferred.promise;
+    };
+
     function isAdmin($q, userService, $location) {
         var deferred = $q.defer();
         userService
@@ -171,7 +188,7 @@
                 resolve: { currentUser: checkLoggedin }
             })
             .when("/dashboard/recipes/:rid",{
-                templateUrl: 'views/Recipe/templates/recipe-edit.view.client.html',
+                templateUrl: 'views/recipe/templates/recipe-edit.view.client.html',
                 controller: 'RecipeEditController',
                 controllerAs: 'model',
                 resolve: { currentUser: checkLoggedin }
@@ -188,61 +205,29 @@
                 controllerAs: 'model',
                 resolve: { currentUser: checkLoggedin }
             })
-            .when("/user/:uid/book",{
-                templateUrl: 'views/book/templates/book-list.view.client.html',
-                controller: 'BookListController',
-                controllerAs: 'model'
-                // resolve: { currentUser: checkLoggedin }
-            })
-            .when("/user/:uid/book/new",{
-                templateUrl: 'views/book/templates/book-new.view.client.html',
-                controller: 'BookNewController',
-                controllerAs: 'model'
-                // resolve: { currentUser: checkLoggedin }
-            })
-            .when("/user/:uid/book/:bid",{
-                templateUrl: 'views/book/templates/book-edit.view.client.html',
-                controller: 'BookEditController',
-                controllerAs: 'model'
-                // resolve: { currentUser: checkLoggedin }
-            })
-            .when("/user/:uid/book/:bid/recipe",{
-                templateUrl: 'views/recipe/templates/recipe-list.view.client.html',
-                controller: 'RecipeListController',
-                controllerAs: 'model'
-                // resolve: { currentUser: checkLoggedin }
-            })
-            .when("/user/:uid/book/:bid/recipe/new",{
-                templateUrl: 'views/recipe/templates/recipe-new.view.client.html',
-                controller: 'RecipeNewController',
-                controllerAs: 'model'
-                // resolve: { currentUser: checkLoggedin }
-            })
-            .when("/user/:uid/book/:bid/recipe/:rid",{
-                templateUrl: 'views/recipe/templates/recipe-edit.view.client.html',
-                controller: 'RecipeEditController',
-                controllerAs: 'model'
-                // resolve: { currentUser: checkLoggedin }
-            })
-            .when("/book/:bid", {
+            .when("/cookbook/:bid", {
                 templateUrl: 'views/book/templates/book-public.view.client.html',
-                controller: 'BookController',
-                controllerAs: 'model'
+                controller: 'PublicBookController',
+                controllerAs: 'model',
+                resolve: { currentUser: checkLoggedinNoRedirect }
             })
             .when("/recipe/:rid", {
                 templateUrl: 'views/recipe/templates/recipe-public.view.client.html',
-                controller: 'RecipeController',
-                controllerAs: 'model'
+                controller: 'PublicRecipeController',
+                controllerAs: 'model',
+                resolve: { currentUser: checkLoggedinNoRedirect }
             })
             .when("/chef/:uid", {
                 templateUrl: 'views/user/templates/profile-public.view.client.html',
-                controller: 'ProfileController',
-                controllerAs: 'model'
+                controller: 'PublicProfileController',
+                controllerAs: 'model',
+                resolve: { currentUser: checkLoggedinNoRedirect }
             })
             .when("/search/results", {
                 templateUrl: 'views/search/templates/search-results.view.client.html',
                 controller: 'SearchController',
-                controllerAs: 'model'
+                controllerAs: 'model',
+                resolve: { currentUser: checkLoggedinNoRedirect }
             })
             .otherwise({
                 resolve: {errorPage: redirectTo404}

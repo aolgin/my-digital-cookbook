@@ -7,12 +7,17 @@ module.exports = function () {
         description: String,
         ingredients: String,
         directions: String,
-        prep_time: [Number, String],
+        prep_time: String,
         image_url: String,
-        ready_in: [Number, String],
-        yield: [Number, String],
+        ready_in: String,
+        yield: String,
         num_servings: String, // UNSURE
-        cook_time: [Number, String]
+        cook_time: String,
+        rating: {
+            count: Number,
+            total: Number,
+            actual: Number
+        }
     }, {collection: "recipe",
         timestamps: {
             createdAt: "dateCreated",

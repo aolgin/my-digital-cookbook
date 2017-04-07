@@ -26,11 +26,28 @@ module.exports = function() {
     }
 
     function removeRecipeFromBook(recipe) {
-
+        // Is just temporary for now
+        var bid = recipe._book; //TODO: due to the many to many relationship here, this will not work like this.
+        return BookModel.findById(bid)
+            .then(function (bookObj) {
+                bookObj.recipes.pull(recipe);
+                return bookObj.save();
+            }, function (err) {
+                console.log(err);
+            });
     }
 
-    function removeBook(uid) {
-        return BookModel.remove({_id: uid});
+    function removeBook(bid) {
+        return BookModel.findById(bid)
+            .then(function (bookObj) {
+                model.userModel.removeBookFromUser(bookObj)
+                    .then(function (response) {
+                        return BookModel.remove({_id: bid});
+                    }, function(err) {
+                        console.log(err);
+                    })
+            })
+        // return BookModel.remove({_id: bid});
     }
 
     function findRecipesForBook(userId) {
@@ -53,7 +70,20 @@ module.exports = function() {
         return BookModel.findById(bid);
     }
 
-    function createBook(book) {
-        return BookModel.create(book);
+    function createBook(userId, book) {
+        return BookModel
+            .create(book)
+            .then(function(bookObj){
+                model.userModel
+                    .findUserById(userId)
+                    .then(function(userObj){
+                        bookObj._user = userObj._id;
+                        bookObj.save();
+                        userObj.books.push(bookObj);
+                        return userObj.save();
+                    }, function(error){
+                        console.log(error);
+                    });
+            });
     }
 };

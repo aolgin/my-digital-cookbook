@@ -15,12 +15,27 @@
             "findRecipesByUserId": findRecipesByUserId,
             "findBooksByUserId": findBooksByUserId,
             "findUserFavorites": findUserFavorites,
+            "sendFriendRequest": sendFriendRequest,
+            "acceptFriendRequest": acceptFriendRequest,
+            "rejectFriendRequest": rejectFriendRequest,
             "login": login,
             "logout": logout,
             "register": register,
             "loggedin": loggedin
         };
         return api;
+
+        function sendFriendRequest(from, to) {
+
+        }
+
+        function acceptFriendRequest() {
+
+        }
+
+        function rejectFriendRequest() {
+
+        }
 
         function logout(user) {
             return $http.post("/api/logout");
