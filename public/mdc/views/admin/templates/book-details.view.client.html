@@ -1,0 +1,128 @@
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container-fluid">
+        <div class="navbar-header mdc-logo pull-left">
+            <a class="navbar-brand" href="#/admin">
+                <img src="../../../../img/logo-100x70.png"/>
+            </a>
+        </div>
+        <div class="navbar-header">
+            <a class="navbar-brand">
+                My Digital Cookbook
+            </a>
+        </div>
+        <div class="pull-right">
+            <a class="navbar-brand" href="/">
+                <span class="fa fa-sign-out" aria-hidden="true"></span>
+            </a>
+        </div>
+    </div>
+</nav>
+
+<div>
+    <h3>Details for {{model.book.name}}</h3>
+    <section>
+        <div class="alert alert-danger" ng-show="model.error">
+            {{model.error}}
+        </div>
+        <div class="alert alert-success" ng-show="model.message">
+            {{model.message}}
+        </div>
+    </section>
+
+    <div>
+        <div class="input-group">
+            <span class="input-group-addon" id="bid"><b>ObjectId: </b></span>
+            <input type="text"
+                   class="form-control"
+                   aria-describedby="bid"
+                   value="{{model.book._id}}"
+                   disabled />
+        </div>
+        <div class="input-group">
+            <span class="input-group-addon" id="name"><b>Name: </b></span>
+            <input type="text"
+                   class="form-control"
+                   value="{{model.book.name}}"
+                   aria-describedby="name"/>
+        </div>
+        <div class="input-group">
+            <span class="input-group-addon" id="desc"><b>Description: </b></span>
+            <input type="text"
+                   class="form-control"
+                   value="{{model.book.description}}"
+                   aria-describedby="desc"/>
+        </div>
+        <div class="input-group">
+            <span class="input-group-addon" id="owner"><b>Owner: </b></span>
+            <input type="text"
+                   class="form-control"
+                   value="{{model.book._user}}"
+                   aria-describedby="owner"
+                   disabled />
+        </div>
+        <div class="input-group">
+            <span class="input-group-addon" id="public"><b>Public Url: </b></span>
+            <input type="text"
+                   class="form-control"
+                   value="/cookbook/{{model.book._id}}"
+                   aria-describedby="public"
+                   disabled />
+        </div>
+        <div class="input-group">
+            <span class="input-group-addon" id="image"><b>Image Url: </b></span>
+            <input type="text"
+                   class="form-control"
+                   value="{{model.book.image_url}}"
+                   aria-describedby="image"/>
+        </div>
+        <div class="input-group">
+            <span class="input-group-addon" id="recipes"><b>Recipes: </b></span>
+            <input type="text"
+                   class="form-control"
+                   value="{{model.book.recipes}}"
+                   aria-describedby="recipes"
+                   disabled />
+        </div>
+        <div class="input-group">
+            <span class="input-group-addon" id="created"><b>DateCreated: </b></span>
+            <input type="text"
+                   class="form-control"
+                   value="{{model.book.dateCreated | date}}"
+                   aria-describedby="created"
+                   disabled />
+        </div>
+        <div class="input-group">
+            <span class="input-group-addon" id="modified"><b>DateModified: </b></span>
+            <input type="text"
+                   class="form-control"
+                   value="{{model.book.dateModified | date}}"
+                   aria-describedby="modified"
+                   disabled />
+        </div>
+
+
+        <!--<p><b>Description:</b> {{model.book.description}}</p>-->
+        <!--<p><b>Owner:</b> {{model.book._user.username}}</p>-->
+        <!--<p><b>Public Url:</b> /cookbook/{{model.book._id}}</p>-->
+        <!--<p><b>Cover Image Url:</b> {{model.book.image_url}}</p>-->
+        <!--<p><b>Recipes:</b> {{model.book.recipes}}</p>-->
+        <!--<p><b>DateCreated:</b> {{model.book.dateCreated}}</p>-->
+        <!--<p><b>DateModified:</b> {{model.book.dateModified}}</p>-->
+    </div>
+
+    <a class="btn btn-block btn-success" href="#/admin/book/{{model.book._id}}">
+        Modify
+    </a>
+    <a class="btn btn-block btn-severe" ng-click="model.deleteBook(model.book._id)">
+        Delete
+    </a>
+    <a class="btn btn-block btn-danger" href="#/admin/book">
+        Back to Overview
+    </a>
+</div>
+
+<nav class="visible-md navbar navbar-default navbar-fixed-bottom">
+    <div class="container-fluid pull-right">
+        <p class="navbar-text">Source code available on <a href="https://github.com/aolgin/my-digital-cookbook/tree/master/public">Github</a></p>
+    </div>
+</nav>

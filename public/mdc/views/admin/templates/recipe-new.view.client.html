@@ -19,6 +19,7 @@
 </nav>
 
 <div>
+    <h3>New Recipe</h3>
     <section>
         <div class="alert alert-danger" ng-show="model.error">
             {{model.error}}
@@ -27,6 +28,109 @@
             {{model.message}}
         </div>
     </section>
+
+    <form>
+        <!--TODO: Need a way to grab the users and add using that-->
+        <div class="form-group">
+            <label for="recipe-name">Name</label>
+            <input ng-model="recipe.name"
+                   type="text"
+                   placeholder="Chocolate Chip Cookies"
+                   class="form-control"
+                   id="recipe-name">
+        </div>
+
+        <div class="form-group">
+            <label for="description">Description</label>
+            <input ng-model="recipe.description"
+                   type="text"
+                   placeholder="A favorite snack for all my kids!"
+                   class="form-control"
+                   id="description">
+        </div>
+
+        <div class="form-group">
+            <label for="prep">Prep Time</label>
+            <input ng-model="recipe.prep_time"
+                   type="text"
+                   placeholder="10 minutes"
+                   class="form-control"
+                   id="prep">
+        </div>
+
+        <div class="form-group">
+            <label for="cook-time">Cook Time</label>
+            <input ng-model="recipe.cook_time"
+                   type="text"
+                   placeholder="10-15 minutes"
+                   class="form-control"
+                   id="cook-time">
+        </div>
+
+        <div class="form-group">
+            <label for="ready">Ready In...</label>
+            <input ng-model="recipe.ready_in"
+                   type="text"
+                   placeholder="20-30 minutes"
+                   class="form-control"
+                   id="ready">
+        </div>
+
+        <div class="form-group">
+            <label for="servings">Num. Servings</label>
+            <input ng-model="recipe.num_servings"
+                   type="text"
+                   placeholder="6"
+                   class="form-control"
+                   id="servings">
+        </div>
+
+        <div class="form-group">
+            <label for="yield">Yield</label>
+            <input ng-model="recipe.yield"
+                   type="text"
+                   placeholder="24 cookies"
+                   class="form-control"
+                   id="yield">
+        </div>
+
+        <label for="ingredients">Ingredients</label>
+        <div ng-model="recipe.ingredients"
+             id="ingredients"
+             class="mdc-textangular"
+             text-angular
+             ta-toolbar="[['h1','h2','h3'],['bold','italics','underline','strikeThrough'],['ul','ol'],['html']]">
+        </div>
+
+
+        <label for="directions">Directions</label>
+        <div ng-model="recipe.directions"
+             class="mdc-textangular"
+             id="directions"
+             text-angular
+             ta-toolbar="[['h1','h2','h3'],['bold','italics','underline','strikeThrough'],['ul','ol'],['html']]">
+        </div>
+
+        <label for="image">Picture</label>
+        <div ng-model="model.recipe.image_url"
+             id="image"
+             class="form-control">
+            Future Image Here
+        </div>
+
+        <label for="preview">Image Preview: </label>
+        <img ng-src="{{model.recipe.image_url}}" id="preview" width="100%"/>
+    </form>
+
+    <a class="btn btn-success btn-block"
+       ng-click="model.createRecipe(recipe)">
+        Save
+    </a>
+    <a class="btn btn-danger btn-block"
+       href="#/admin/recipe">
+        Cancel
+    </a>
+
 </div>
 
 <nav class="visible-md navbar navbar-default navbar-fixed-bottom">

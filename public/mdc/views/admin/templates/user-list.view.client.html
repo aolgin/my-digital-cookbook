@@ -19,6 +19,7 @@
 </nav>
 
 <div ng-init="model.renderUsers()">
+    <h3>Manage Users</h3>
     <section>
         <div class="alert alert-danger" ng-show="model.error">
             {{model.error}}
@@ -49,7 +50,7 @@
             <li class="list-group-item" ng-repeat="user in model.users">
                 <div class="row">
                     <div class="col-sm-4 col-xs-5">
-                        {{user.username}}
+                        <a href="#/admin/user/{{user._id}}/details">{{user.username}}</a>
                     </div>
                     <div class="col-sm-3 col-xs-5">
                         {{user._id}}
@@ -61,7 +62,7 @@
                         {{user.role}}
                     </div>
                     <div class="col-xs-2 col-sm-3">
-                        <a href="#/user/{{model.userId}}/website/{{website._id}}">
+                        <a href="#/admin/user/{{user._id}}">
                             <span class="glyphicon glyphicon-edit pull-right"></span>
                         </a>
                         <a ng-click="model.deleteUser(user)">

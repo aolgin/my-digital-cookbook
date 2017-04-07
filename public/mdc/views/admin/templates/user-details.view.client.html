@@ -1,0 +1,174 @@
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container-fluid">
+        <div class="navbar-header mdc-logo pull-left">
+            <a class="navbar-brand" href="#/admin">
+                <img src="../../../../img/logo-100x70.png"/>
+            </a>
+        </div>
+        <div class="navbar-header">
+            <a class="navbar-brand">
+                My Digital Cookbook
+            </a>
+        </div>
+        <div class="pull-right">
+            <a class="navbar-brand" href="/">
+                <span class="fa fa-sign-out" aria-hidden="true"></span>
+            </a>
+        </div>
+    </div>
+</nav>
+
+<div>
+    <h3>Details for {{model.user.name}}</h3>
+    <section>
+        <div class="alert alert-danger" ng-show="model.error">
+            {{model.error}}
+        </div>
+        <div class="alert alert-success" ng-show="model.message">
+            {{model.message}}
+        </div>
+    </section>
+
+    <div>
+        <div class="input-group">
+            <span class="input-group-addon" id="uid"><b>ObjectId: </b></span>
+            <input type="text"
+                   class="form-control"
+                   aria-describedby="uid"
+                   value="{{model.user._id}}"
+                   disabled />
+        </div>
+        <div class="input-group">
+            <span class="input-group-addon" id="name"><b>Username: </b></span>
+            <input type="text"
+                   class="form-control"
+                   value="{{model.user.username}}"
+                   aria-describedby="name"/>
+        </div>
+        <div class="input-group">
+            <span class="input-group-addon" id="first"><b>First Name: </b></span>
+            <input type="text"
+                   class="form-control"
+                   value="{{model.user.firstName}}"
+                   aria-describedby="first"/>
+        </div>
+        <div class="input-group">
+            <span class="input-group-addon" id="last"><b>Last Name: </b></span>
+            <input type="text"
+                   class="form-control"
+                   value="{{model.user.lastName}}"
+                   aria-describedby="last"/>
+        </div>
+        <div class="input-group">
+            <span class="input-group-addon" id="desc"><b>About: </b></span>
+            <input type="text"
+                   class="form-control"
+                   value="{{model.user.about}}"
+                   aria-describedby="desc"/>
+        </div>
+        <div class="input-group">
+            <span class="input-group-addon" id="role"><b>Role: </b></span>
+            <input type="text"
+                   class="form-control"
+                   value="{{model.user.role}}"
+                   aria-describedby="role" />
+        </div>
+        <div class="input-group">
+            <span class="input-group-addon" id="public"><b>Public Url: </b></span>
+            <input type="text"
+                   class="form-control"
+                   value="/chef/{{model.user._id}}"
+                   aria-describedby="public"
+                   disabled />
+        </div>
+        <div class="input-group">
+            <span class="input-group-addon" id="image"><b>Profile Img: </b></span>
+            <input type="text"
+                   class="form-control"
+                   value="{{model.user.image_url}}"
+                   aria-describedby="image"/>
+        </div>
+        <div class="input-group">
+            <span class="input-group-addon" id="books"><b>Cookbooks: </b></span>
+            <input type="text"
+                   class="form-control"
+                   value="{{model.user.books}}"
+                   aria-describedby="books"
+                   disabled />
+        </div>
+        <div class="input-group">
+            <span class="input-group-addon" id="recipes"><b>Recipes: </b></span>
+            <input type="text"
+                   class="form-control"
+                   value="{{model.user.recipes}}"
+                   aria-describedby="recipes"
+                   disabled />
+        </div>
+
+        <div class="input-group">
+            <span class="input-group-addon" id="faves"><b>Favorites: </b></span>
+            <input type="text"
+                   class="form-control"
+                   value="{{model.user.favorites}}"
+                   aria-describedby="faves"
+                   disabled />
+        </div>
+
+        <div class="input-group">
+            <span class="input-group-addon" id="friends"><b>Friends: </b></span>
+            <input type="text"
+                   class="form-control"
+                   value="{{model.user.friends}}"
+                   aria-describedby="friends"
+                   disabled />
+        </div>
+        <div class="input-group">
+            <span class="input-group-addon" id="created"><b>DateCreated: </b></span>
+            <input type="text"
+                   class="form-control"
+                   value="{{model.book.dateCreated | date}}"
+                   aria-describedby="created"
+                   disabled />
+        </div>
+        <div class="input-group">
+            <span class="input-group-addon" id="modified"><b>DateModified: </b></span>
+            <input type="text"
+                   class="form-control"
+                   value="{{model.book.dateModified | date}}"
+                   aria-describedby="modified"
+                   disabled />
+        </div>
+
+        <!--<p><b>ObjectId:</b> {{model.user._id}}</p>-->
+        <!--<p><b>Username:</b> {{model.user.username}}</p>-->
+        <!--<p><b>First Name:</b> {{model.user.firstName}}</p>-->
+        <!--<p><b>Last Name:</b> {{model.user.lastName}}</p>-->
+        <!--<p><b>Role:</b> {{model.user.role}}</p>-->
+        <!--<p><b>Profile Picture:</b> {{model.user.image_url}}</p>-->
+        <!--&lt;!&ndash;<p><b>About:</b> {{model.user.about}}</p>&ndash;&gt;-->
+        <!--<p><b>Public Url:</b> /chef/{{model.user._id}}</p>-->
+        <!--<p><b>Cookbooks:</b> {{model.user.books}}</p>-->
+        <!--<p><b>Recipes:</b> {{model.user.recipes}}</p>-->
+        <!--<p><b>Favorites:</b> {{model.user.favorites}}</p>-->
+        <!--<p><b>Friends:</b> {{model.user.friends}}</p>-->
+        <!--<p><b>DateCreated:</b> {{model.user.dateCreated}}</p>-->
+        <!--<p><b>DateModified:</b> {{model.user.dateModified}}</p>-->
+    </div>
+
+    <a class="btn btn-block btn-success" href="#/admin/user/{{model.user._id}}">
+        Modify
+    </a>
+    <!--TODO: Way to update password via admin console-->
+    <a class="btn btn-block btn-severe" ng-click="model.deleteUser(model.user._id)">
+        Delete
+    </a>
+    <a class="btn btn-block btn-danger" href="#/admin/user">
+        Back to Overview
+    </a>
+</div>
+
+<nav class="visible-md navbar navbar-default navbar-fixed-bottom">
+    <div class="container-fluid pull-right">
+        <p class="navbar-text">Source code available on <a href="https://github.com/aolgin/my-digital-cookbook/tree/master/public">Github</a></p>
+    </div>
+</nav>

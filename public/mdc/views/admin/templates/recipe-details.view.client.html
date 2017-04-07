@@ -1,0 +1,184 @@
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container-fluid">
+        <div class="navbar-header mdc-logo pull-left">
+            <a class="navbar-brand" href="#/admin">
+                <img src="../../../../img/logo-100x70.png"/>
+            </a>
+        </div>
+        <div class="navbar-header">
+            <a class="navbar-brand">
+                My Digital Cookbook
+            </a>
+        </div>
+        <div class="pull-right">
+            <a class="navbar-brand" href="/">
+                <span class="fa fa-sign-out" aria-hidden="true"></span>
+            </a>
+        </div>
+    </div>
+</nav>
+
+<div>
+    <h3>Details for {{model.recipe.name}}</h3>
+    <section>
+        <div class="alert alert-danger" ng-show="model.error">
+            {{model.error}}
+        </div>
+        <div class="alert alert-success" ng-show="model.message">
+            {{model.message}}
+        </div>
+    </section>
+
+    <div>
+        <div class="input-group">
+            <span class="input-group-addon" id="rid"><b>ObjectId: </b></span>
+            <input type="text"
+                   class="form-control"
+                   aria-describedby="rid"
+                   value="{{model.recipe._id}}"
+                   disabled />
+        </div>
+        <div class="input-group">
+            <span class="input-group-addon" id="name"><b>Name: </b></span>
+            <input type="text"
+                   class="form-control"
+                   value="{{model.recipe.name}}"
+                   aria-describedby="name"/>
+        </div>
+        <div class="input-group">
+            <span class="input-group-addon" id="desc"><b>Description: </b></span>
+            <input type="text"
+                   class="form-control"
+                   value="{{model.recipe.description}}"
+                   aria-describedby="desc"/>
+        </div>
+        <div class="input-group">
+            <span class="input-group-addon" id="owner"><b>Owner: </b></span>
+            <input type="text"
+                   class="form-control"
+                   value="{{model.recipe._user}}"
+                   aria-describedby="owner"
+                   disabled />
+        </div>
+        <div class="input-group">
+            <span class="input-group-addon" id="public"><b>Public Url: </b></span>
+            <input type="text"
+                   class="form-control"
+                   value="/recipe/{{model.recipe._id}}"
+                   aria-describedby="public"
+                   disabled />
+        </div>
+        <div class="input-group">
+            <span class="input-group-addon" id="image"><b>Photo: </b></span>
+            <input type="text"
+                   class="form-control"
+                   value="{{model.recipe.image_url}}"
+                   aria-describedby="image"/>
+        </div>
+        <div class="input-group">
+            <span class="input-group-addon" id="yield"><b>Yield: </b></span>
+            <input type="text"
+                   class="form-control"
+                   value="{{model.recipe.yield}}"
+                   aria-describedby="yield"/>
+        </div>
+        <div class="input-group">
+            <span class="input-group-addon" id="servings"><b>Num. Servings: </b></span>
+            <input type="text"
+                   class="form-control"
+                   value="{{model.recipe.num_servings}}"
+                   aria-describedby="servings"/>
+        </div>
+        <div class="input-group">
+            <span class="input-group-addon" id="ctime"><b>Cook time: </b></span>
+            <input type="text"
+                   class="form-control"
+                   value="{{model.recipe.cook_time}}"
+                   aria-describedby="ctime"/>
+        </div>
+        <div class="input-group">
+            <span class="input-group-addon" id="ptime"><b>Prep Time: </b></span>
+            <input type="text"
+                   class="form-control"
+                   value="{{model.recipe.prep_time}}"
+                   aria-describedby="ptime"/>
+        </div>
+        <div class="input-group">
+            <span class="input-group-addon" id="ready"><b>Ready In: </b></span>
+            <input type="text"
+                   class="form-control"
+                   value="{{model.recipe.ready_in}}"
+                   aria-describedby="ready"/>
+        </div>
+        <div class="input-group">
+            <span class="input-group-addon" id="rating"><b>Rating: </b></span>
+            <input type="text"
+                   class="form-control"
+                   value="{{model.recipe.rating.actual}}"
+                   aria-describedby="rating"/>
+        </div>
+        <div class="input-group">
+            <span class="input-group-addon" id="books"><b>Member of: </b></span>
+            <input type="text"
+                   class="form-control"
+                   value="{{model.recipe.books}}"
+                   aria-describedby="books"
+                   disabled />
+        </div>
+        <div class="input-group">
+            <span class="input-group-addon" id="created"><b>DateCreated: </b></span>
+            <input type="text"
+                   class="form-control"
+                   value="{{model.book.dateCreated | date}}"
+                   aria-describedby="created"
+                   disabled />
+        </div>
+        <div class="input-group">
+            <span class="input-group-addon" id="modified"><b>DateModified: </b></span>
+            <input type="text"
+                   class="form-control"
+                   value="{{model.book.dateModified | date}}"
+                   aria-describedby="modified"
+                   disabled />
+        </div>
+
+        <!--<label for="rid">ObjectId:</label>-->
+        <!--<input type="text"-->
+               <!--id="rid"-->
+               <!--placeholder="{{model.recipe._id}}"-->
+               <!--disabled />-->
+        <!--<p><b>ObjectId:</b> {{model.recipe._id}}</p>-->
+        <!--<p><b>Name:</b> {{model.recipe.name}}</p>-->
+        <!--<p><b>Description:</b> {{model.recipe.description}}</p>-->
+        <!--<p><b>Owner:</b> {{model.recipe._user.username}}</p>-->
+        <!--<p><b>Public Url:</b> /recipe/{{model.recipe._id}}</p>-->
+        <!--<p><b>Image Url:</b> {{model.recipe.image_url}}</p>-->
+        <!--<p><b>Yield:</b> {{model.recipe.yield}}</p>-->
+        <!--<p><b>Num. Servings:</b> {{model.recipe.num_servings}}</p>-->
+        <!--<p><b>Cook Time:</b> {{model.recipe.cook_time}}</p>-->
+        <!--<p><b>Prep Time:</b> {{model.recipe.prep_time}}</p>-->
+        <!--<p><b>Ready In:</b> {{model.recipe.ready_in}}</p>-->
+        <!--<p><b>Ingredients:</b> {{model.recipe.ingredients}}</p>-->
+        <!--<p><b>Directions:</b> {{model.recipe.directions}}</p>-->
+        <!--<p><b>Rating:</b> {{model.recipe.rating.actual}}</p>-->
+        <!--<p><b>Member of the following books:</b> {{model.recipe.books}}</p>-->
+        <!--<p><b>DateCreated:</b> {{model.recipe.dateCreated}}</p>-->
+        <!--<p><b>DateModified:</b> {{model.recipe.dateModified}}</p>-->
+    </div>
+
+    <a class="btn btn-block btn-success" href="#/admin/recipe/{{model.recipe._id}}">
+        Modify
+    </a>
+    <a class="btn btn-block btn-severe" ng-click="model.deleteRecipe(model.recipe._id)">
+        Delete
+    </a>
+    <a class="btn btn-block btn-danger" href="#/admin/recipe">
+        Back to Overview
+    </a>
+</div>
+
+<nav class="visible-md navbar navbar-default navbar-fixed-bottom">
+    <div class="container-fluid pull-right">
+        <p class="navbar-text">Source code available on <a href="https://github.com/aolgin/my-digital-cookbook/tree/master/public">Github</a></p>
+    </div>
+</nav>

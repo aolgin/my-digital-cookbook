@@ -86,54 +86,54 @@
                 controllerAs: 'model'
                 // resolve: { adminUser: isAdmin }
             })
-            // .when("/admin/user/new", {
-            //     templateUrl: 'views/admin/templates/user-new.view.client.html',
-            //     controller: 'RegisterController',
-            //     controllerAs: 'model',
-            //     resolve: { adminUser: isAdmin }
-            // })
-            // .when("/admin/user/:uid", {
-            //     templateUrl: 'views/admin/templates/user-edit.view.client.html',
-            //     controller: 'ProfileController',
-            //     controllerAs: 'model',
-            //     resolve: { adminUser: isAdmin }
-            // })
+            .when("/admin/user/new", {
+                templateUrl: 'views/admin/templates/user-new.view.client.html',
+                controller: 'RegisterController',
+                controllerAs: 'model'
+                // resolve: { adminUser: isAdmin }
+            })
+            .when("/admin/user/:uid/details", {
+                templateUrl: 'views/admin/templates/user-details.view.client.html',
+                controller: 'ProfileController',
+                controllerAs: 'model'
+                // resolve: { adminUser: isAdmin }
+            })
             .when("/admin/book", {
                 templateUrl: 'views/admin/templates/book-list.view.client.html',
                 controller: 'AdminController',
                 controllerAs: 'model'
                 // resolve: { adminUser: isAdmin }
             })
-            // .when("/admin/book/new", {
-            //     templateUrl: 'views/admin/templates/book-new.view.client.html',
-            //     controller: 'BookNewController',
-            //     controllerAs: 'model',
-            //     resolve: { adminUser: isAdmin }
-            // })
-            // .when("/admin/book/:bid", {
-            //     templateUrl: 'views/admin/templates/book-edit.view.client.html',
-            //     controller: 'BookEditController',
-            //     controllerAs: 'model',
-            //     resolve: { adminUser: isAdmin }
-            // })
+            .when("/admin/book/new", {
+                templateUrl: 'views/admin/templates/book-new.view.client.html',
+                controller: 'BookNewController',
+                controllerAs: 'model'
+                // resolve: { adminUser: isAdmin }
+            })
+            .when("/admin/book/:bid/details", {
+                templateUrl: 'views/admin/templates/book-details.view.client.html',
+                controller: 'BookEditController',
+                controllerAs: 'model'
+                // resolve: { adminUser: isAdmin }
+            })
             .when("/admin/recipe", {
                 templateUrl: 'views/admin/templates/recipe-list.view.client.html',
                 controller: 'AdminController',
                 controllerAs: 'model'
                 // resolve: { adminUser: isAdmin }
             })
-            // .when("/admin/recipe/new", {
-            //     templateUrl: 'views/admin/templates/recipe-new.view.client.html',
-            //     controller: 'RecipeNewController',
-            //     controllerAs: 'model',
-            //     resolve: { adminUser: isAdmin }
-            // })
-            // .when("/admin/recipe/:rid", {
-            //     templateUrl: 'views/admin/templates/recipe-edit.view.client.html',
-            //     controller: 'RecipeEditController',
-            //     controllerAs: 'model',
-            //     resolve: { adminUser: isAdmin }
-            // })
+            .when("/admin/recipe/new", {
+                templateUrl: 'views/admin/templates/recipe-new.view.client.html',
+                controller: 'RecipeNewController',
+                controllerAs: 'model'
+                // resolve: { adminUser: isAdmin }
+            })
+            .when("/admin/recipe/:rid/details", {
+                templateUrl: 'views/admin/templates/recipe-details.view.client.html',
+                controller: 'RecipeEditController',
+                controllerAs: 'model'
+                // resolve: { adminUser: isAdmin }
+            })
             .when("/register",{
                 templateUrl: 'views/user/templates/register.view.client.html',
                 controller: 'RegisterController',

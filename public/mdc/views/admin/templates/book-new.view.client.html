@@ -19,6 +19,7 @@
 </nav>
 
 <div>
+    <h3>New Cookbook</h3>
     <section>
         <div class="alert alert-danger" ng-show="model.error">
             {{model.error}}
@@ -27,6 +28,42 @@
             {{model.message}}
         </div>
     </section>
+
+    <form>
+
+        <!--TODO: Need a way to grab the users and add using that-->
+
+        <label for="name">Name: </label>
+        <input type="text"
+               id="name"
+               placeholder="Name your book"
+               ng-model="book.name"
+               class="form-control"/>
+
+        <label for="description">Description: </label>
+        <textarea id="description"
+                  placeholder="Describe your book here"
+                  ng-model="book.description"
+                  class="form-control"></textarea>
+
+        <label for="image">Image (Optional): </label>
+        <input type="file"
+               id="image"
+               name="myFile"
+               ng-model="book.file"
+               class="form-control"/>
+
+        <label for="preview">Image Preview: </label>
+        <img ng-src="{{book.image_url}}" id="preview" width="100%"/>
+
+    </form>
+
+    <button class="btn btn-block btn-primary"
+            ng-click="model.createBook(book)">Create Book!</button>
+    <a href="#/admin/book" class="btn btn-block btn-danger">
+        Cancel
+    </a>
+
 </div>
 
 <nav class="visible-md navbar navbar-default navbar-fixed-bottom">

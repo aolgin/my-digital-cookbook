@@ -1,0 +1,79 @@
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container-fluid">
+        <div class="navbar-header mdc-logo pull-left">
+            <a class="navbar-brand" href="#/admin">
+                <img src="../../../../img/logo-100x70.png"/>
+            </a>
+        </div>
+        <div class="navbar-header">
+            <a class="navbar-brand">
+                My Digital Cookbook
+            </a>
+        </div>
+        <div class="pull-right">
+            <a class="navbar-brand" href="/">
+                <span class="fa fa-sign-out" aria-hidden="true"></span>
+            </a>
+        </div>
+    </div>
+</nav>
+
+<div>
+    <h3>Register New User</h3>
+    <section>
+        <div class="alert alert-danger" ng-show="model.error">
+            {{model.error}}
+        </div>
+        <div class="alert alert-success" ng-show="model.message">
+            {{model.message}}
+        </div>
+    </section>
+
+    <form>
+        <h4>Sign Up as a New Chef!</h4>
+        <input class="form-control"
+               type="text"
+               autocorrect="off"
+               autocapitalize="off"
+               placeholder="Username"
+               ng-model="user.username"/>
+        <input class="form-control"
+               type="password"
+               autocorrect="off"
+               autocapitalize="off"
+               placeholder="Password"
+               ng-model="user.password"/>
+        <input class="form-control"
+               type="password"
+               autocorrect="off"
+               autocapitalize="off"
+               placeholder="Confirm Password"
+               ng-model="user.confirmPass"/>
+        <input class="form-control"
+               type="text"
+               placeholder="John"
+               ng-model="user.firstName"/>
+        <input class="form-control"
+               type="text"
+               placeholder="Smith"
+               ng-model="user.lastName"/>
+        <input class="form-control"
+               type="text"
+               placeholder="Something about yourself..."
+               ng-model="user.about"/>
+
+        <input class="form-control"
+               type="text"
+               placeholder="need to properly do this..."
+               ng-model="user.image_url"/>
+    </form>
+
+    <button class="btn btn-block btn-primary"
+            ng-click="model.register(user)">Sign Up</button>
+</div>
+
+<nav class="visible-md navbar navbar-default navbar-fixed-bottom">
+    <div class="container-fluid pull-right">
+        <p class="navbar-text">Source code available on <a href="https://github.com/aolgin/my-digital-cookbook/tree/master/public">Github</a></p>
+    </div>
+</nav>
