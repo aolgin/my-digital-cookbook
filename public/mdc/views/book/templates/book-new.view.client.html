@@ -15,6 +15,16 @@
 </nav>
 
 <div>
+    <h3>New Cookbook</h3>
+    <section>
+        <div class="alert alert-danger" ng-show="model.error">
+            {{model.error}}
+        </div>
+        <div class="alert alert-success" ng-show="model.message">
+            {{model.message}}
+        </div>
+    </section>
+
     <form>
         <label for="name">Name: </label>
         <input type="text"

@@ -7,6 +7,10 @@ body {
     margin-top: -15px;
 }
 
+.mdc-textangular {
+    padding-bottom: 15px;
+}
+
 .mdc-or-divider {
     text-align: center;
     width: 75%;

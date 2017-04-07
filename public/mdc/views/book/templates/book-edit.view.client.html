@@ -14,37 +14,50 @@
     </div>
 </nav>
 
-<form>
-    <label for="name">Name: </label>
-    <input type="text"
-           id="name"
-           placeholder="Name your book"
-           ng-model="book.name"
-           class="form-control"/>
+<div>
+    <h3>Edit Cookbook</h3>
+    <section>
+        <div class="alert alert-danger" ng-show="model.error">
+            {{model.error}}
+        </div>
+        <div class="alert alert-success" ng-show="model.message">
+            {{model.message}}
+        </div>
+    </section>
 
-    <label for="description">Description: </label>
-    <textarea id="description"
-              placeholder="Describe your book here"
-              ng-model="book.description"
-              class="form-control"></textarea>
+    <form>
+        <label for="name">Name: </label>
+        <input type="text"
+               id="name"
+               placeholder="Name your book"
+               ng-model="book.name"
+               class="form-control"/>
 
-    <label for="image">Image (Optional): </label>
-    <input type="file"
-           id="image"
-           name="myFile"
-           ng-model="book.file"
-           class="form-control"/>
-    <label for="preview">Image Preview: </label>
-    <img ng-src="{{model.book.image_url}}" id="preview" width="100%"/>
-</form>
+        <label for="description">Description: </label>
+        <textarea id="description"
+                  placeholder="Describe your book here"
+                  ng-model="book.description"
+                  class="form-control"></textarea>
 
-<button class="btn btn-block btn-primary"
-        ng-click="model.updateBook(model.book)">Update</button>
-<button class="btn btn-block btn-severe"
-        ng-click="model.deleteBook(model.book)">Delete</button>
-<a href="#/dashboard/books" class="btn btn-block btn-danger">
-    Cancel
-</a>
+        <label for="image">Image (Optional): </label>
+        <input type="file"
+               id="image"
+               name="myFile"
+               ng-model="book.file"
+               class="form-control"/>
+        <label for="preview">Image Preview: </label>
+        <img ng-src="{{model.book.image_url}}" id="preview" width="100%"/>
+    </form>
+
+    <button class="btn btn-block btn-primary"
+            ng-click="model.updateBook(model.book)">Update</button>
+    <button class="btn btn-block btn-severe"
+            ng-click="model.deleteBook(model.book)">Delete</button>
+    <a href="#/dashboard/books" class="btn btn-block btn-danger">
+        Cancel
+    </a>
+</div>
+
 
 <nav class="visible-md visible-lg navbar navbar-default navbar-fixed-bottom">
     <div class="container-fluid pull-right">
