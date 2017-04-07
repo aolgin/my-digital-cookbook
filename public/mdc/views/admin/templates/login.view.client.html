@@ -1,7 +1,7 @@
 <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container-fluid">
         <div class="navbar-header mdc-logo pull-left">
-            <a class="navbar-brand" href="#/admin">
+            <a class="navbar-brand" href="/">
                 <img src="../../../../img/logo-100x70.png"/>
             </a>
         </div>
@@ -10,15 +10,12 @@
                 My Digital Cookbook
             </a>
         </div>
-        <div class="pull-right">
-            <a class="navbar-brand" href="/">
-                <span class="fa fa-sign-out" aria-hidden="true"></span>
-            </a>
-        </div>
     </div>
 </nav>
 
 <div>
+    <h2>Admin Management Portal</h2>
+    <hr>
     <section>
         <div class="alert alert-danger" ng-show="model.error">
             {{model.error}}
@@ -27,6 +24,28 @@
             {{model.message}}
         </div>
     </section>
+
+    <section>
+        <h3>Sign in with your Username</h3>
+        <input type="text"
+               placeholder="Username"
+               autocorrect="off"
+               autocapitalize="off"
+               class="form-control"
+               ng-model="user.username"/>
+        <input type="password"
+               placeholder="Password"
+               autocorrect="off"
+               autocapitalize="off"
+               class="form-control"
+               ng-model="user.password"/>
+        <button class="btn btn-block btn-primary"
+                ng-click="model.login(user)">Sign In</button>
+    </section>
+    <div>
+        <span class="btn btn-block mdc-btn-default"><a href="#/login">At the wrong login page?</a></span>
+        <span class="btn btn-block mdc-btn-default"><a href="/">Take me back home</a></span>
+    </div>
 </div>
 
 <nav class="visible-md navbar navbar-default navbar-fixed-bottom">
