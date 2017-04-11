@@ -33,10 +33,13 @@
         </div>
     </section>
 
-    <div class="row">
+    <div class="row container-fluid">
         <div class="col-lg-12">
             <h4>My Favorite Recipes</h4>
             <hr>
+        </div>
+        <div ng-show="model.favorite_msg" class="alert alert-success">
+            {{model.favorite_msg}}
         </div>
         <div ng-repeat="recipe in model.favorites">
             <div class="col-md-3">
@@ -51,7 +54,6 @@
                 </div>
             </div>
         </div>
-        See all...
     </div>
 </div>
 

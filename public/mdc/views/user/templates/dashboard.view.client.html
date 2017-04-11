@@ -33,10 +33,13 @@
         </div>
     </section>
 
-    <div class="row">
+    <div class="row container-fluid">
         <div class="col-lg-12">
             <h4>My Cookbooks</h4>
             <hr>
+        </div>
+        <div ng-show="model.book_msg" class="alert alert-success">
+            {{model.book_msg}}
         </div>
         <div ng-repeat="book in model.books">
             <div class="col-md-3">
@@ -51,19 +54,21 @@
                 </div>
             </div>
         </div>
-        See all...
     </div>
 
-    <div class="row">
+    <div class="row container-fluid">
         <div class="col-lg-12">
             <h4>My Recipes</h4>
             <hr>
+        </div>
+        <div ng-show="model.recipe_msg" class="alert alert-success">
+            {{model.recipe_msg}}
         </div>
         <div ng-repeat="recipe in model.recipes">
             <div class="col-md-3">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <h4>{{recipe.name}}s</h4>
+                        <h4>{{recipe.name}}</h4>
                     </div>
                     <div class="panel-body">
                         <img class="mdc-panel-image" ng-src="{{recipe.image}}"/>
@@ -72,13 +77,15 @@
                 </div>
             </div>
         </div>
-    See all...
     </div>
 
-    <div class="row">
+    <div class="row container-fluid">
         <div class="col-lg-12">
             <h4>Favorites</h4>
             <hr>
+        </div>
+        <div ng-show="model.favorite_msg" class="alert alert-success">
+            {{model.favorite_msg}}
         </div>
         <div ng-repeat="recipe in model.favorites">
             <div class="col-md-3">
@@ -93,7 +100,6 @@
                 </div>
             </div>
         </div>
-        See all...
     </div>
 
     <div class="col-lg-12">

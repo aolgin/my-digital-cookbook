@@ -33,7 +33,7 @@
         </div>
     </section>
 
-    <div class="row">
+    <div class="row container-fluid">
         <div class="col-lg-12">
             <h4>My Cookbooks</h4>
             <a href="#/dashboard/books/new" class="badge pull-right">
@@ -41,7 +41,9 @@
             </a>
             <hr>
         </div>
-
+        <div ng-show="model.book_msg" class="alert alert-success">
+            {{model.book_msg}}
+        </div>
         <div ng-repeat="book in model.books">
             <div class="col-md-3">
                 <div class="panel panel-default">
@@ -55,7 +57,6 @@
                 </div>
             </div>
         </div>
-        See all...
     </div>
 </div>
 

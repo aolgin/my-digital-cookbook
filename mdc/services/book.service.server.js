@@ -46,6 +46,7 @@ module.exports = function(app, model) {
 
     function findBooksByUser(req, res) {
         var uid = req.params['uid'];
+        var limit = req.query['limit'];
 
         // var userBooks = books.filter(function(r) {
         //     return r._user = uid;
@@ -53,12 +54,13 @@ module.exports = function(app, model) {
         //
         // res.json(userBooks);
 
-        model.userModel.findBooksForUser(uid)
-            .then(function (books) {
+        model.userModel.findBooksForUser(uid, limit)
+            .then(function (user) {
+                var books = user.books;
                 for (var i = 0; i < books.length; i++) {
                     books[i].description = books[i].description.substring(0, 50);
                 }
-                res.json(books);
+                res.json(user.books);
             }, function (err) {
                 console.log(err);
                 res.sendStatus(500);

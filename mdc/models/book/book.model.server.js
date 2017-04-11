@@ -50,10 +50,14 @@ module.exports = function() {
         // return BookModel.remove({_id: bid});
     }
 
-    function findRecipesForBook(userId) {
+    function findRecipesForBook(userId, limit) {
         return BookModel
             .findById(userId)
-            .populate("recipes")
+            .populate({
+                path: "recipes",
+                options: {limit: limit, sort: { 'dateCreated': -1 } },
+                populate: { path: "rating" }
+            })
             .exec();
     }
 

@@ -33,13 +33,16 @@
         </div>
     </section>
 
-    <div class="row">
+    <div class="row container-fluid">
         <div class="col-lg-12">
             <h4>My Recipes</h4>
             <a href="#/dashboard/recipes/new" class="badge pull-right">
                 <span class="glyphicon glyphicon-plus"></span>
             </a>
             <hr>
+        </div>
+        <div ng-show="model.recipe_msg" class="alert alert-success">
+            {{model.recipe_msg}}
         </div>
         <div ng-repeat="recipe in model.recipes">
             <div class="col-md-3">
@@ -54,7 +57,6 @@
                 </div>
             </div>
         </div>
-    See all...
     </div>
 </div>
 

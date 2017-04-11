@@ -19,12 +19,24 @@ module.exports = function() {
         findAllUsers: findAllUsers,
         favoriteRecipe: favoriteRecipe,
         unfavoriteRecipe: unfavoriteRecipe,
+        findFriendsByUser: findFriendsByUser,
         setModel: setModel
     };
     return api;
 
     function setModel(_model) {
         model = _model;
+    }
+
+    function findFriendsByUser(uid) {
+        return UserModel
+            .findById(uid)
+            .populate({
+                path: "friends",
+                select: "username about",
+                options: { sort: { 'username': -1 } }
+            })
+            .exec();
     }
 
     function favoriteRecipe(uid, rid) {
@@ -71,18 +83,60 @@ module.exports = function() {
         return UserModel.remove({_id: uid});
     }
 
-    function findRecipesForUser(userId) {
-        return UserModel
-            .findById(userId)
-            .populate("recipes")
-            .exec();
+    function findRecipesForUser(userId, limit) {
+        if (limit) {
+            return UserModel
+                .findById(userId)
+                .populate({
+                    path: "recipes",
+                    select: "-_user -books",
+                    options: {limit: limit, sort: { 'dateCreated': -1 } }
+                })
+                .exec();
+        } else {
+            return UserModel
+                .findById(userId)
+                .populate({
+                    path: "recipes",
+                    select: "-_user -books",
+                    options: { sort: { 'dateCreated': -1 } }
+                })
+                .exec();
+        }
+        //
+        // return UserModel
+        //     .findById(userId)
+        //     // .populate("recipes", "-books -_user")
+        //     .populate({
+        //         path: "recipes",
+        //         select: "-_user -books",
+        //         options: {limit: limit, sort: { 'dateCreated': -1 } }
+        //     })
+        //     .exec();
     }
 
-    function findBooksForUser(userId) {
-        return UserModel
-            .findById(userId)
-            .populate("books")
-            .exec();
+    function findBooksForUser(userId, limit) {
+        if (limit) {
+            return UserModel
+                .findById(userId)
+                // .populate("books", "-_user -recipes")
+                .populate({
+                    path: "books",
+                    select: "-_user -recipes",
+                    options: {limit: limit, sort: { 'dateCreated': -1 } }
+                })
+                .exec();
+        } else {
+            return UserModel
+                .findById(userId)
+                .populate({
+                    path: "books",
+                    select: "-_user -recipes",
+                    options: { sort: { 'dateCreated': -1 } }
+                })
+                .exec();
+        }
+
     }
 
     function findUserByCredentials(username, password) {

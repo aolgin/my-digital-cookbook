@@ -15,6 +15,7 @@
             "findRecipesByUserId": findRecipesByUserId,
             "findBooksByUserId": findBooksByUserId,
             "findUserFavorites": findUserFavorites,
+            "findFriendsByUser": findFriendsByUser,
             "sendFriendRequest": sendFriendRequest,
             "acceptFriendRequest": acceptFriendRequest,
             "rejectFriendRequest": rejectFriendRequest,
@@ -53,16 +54,20 @@
             return $http.get('/api/user?username=' + user.username);
         }
 
-        function findRecipesByUserId(uid) {
-            return $http.get("/api/user/" + uid + "/recipe");
+        function findRecipesByUserId(uid, limit) {
+            return $http.get("/api/user/" + uid + "/recipe?limit=" + limit);
         }
 
-        function findUserFavorites(uid) {
-            return $http.get("/api/user/" + uid + "/favorites");
+        function findUserFavorites(uid, limit) {
+            return $http.get("/api/user/" + uid + "/favorites?limit=" + limit);
         }
 
-        function findBooksByUserId(uid) {
-            return $http.get("/api/user/" + uid + "/book");
+        function findBooksByUserId(uid, limit) {
+            return $http.get("/api/user/" + uid + "/book?limit=" + limit);
+        }
+
+        function findFriendsByUser(uid) {
+            return $http.get("/api/user/" + uid + "/friend");
         }
 
         function findUserById(uid) {

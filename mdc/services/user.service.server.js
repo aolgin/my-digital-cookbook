@@ -23,6 +23,7 @@ module.exports = function(app, model) {
     app.get("/api/user/search", searchUsers);
     app.get("api/admin/users", findAllUsers);
     //TODO: add in favoriting and friend requests
+    app.get("/api/user/:uid/friend", findFriendsByUser);
 
     var users = [
         {_id: "123", email: "alice@wonderland.com", password: "alice", firstName: "Alice", lastName: "Wonder", displayName: 'Alyss'},
@@ -107,6 +108,19 @@ module.exports = function(app, model) {
     }
 
     // Service Functions
+
+    function findFriendsByUser(req, res) {
+        var uid = req.params['uid'];
+
+        model.userModel.findFriendsByUser(uid)
+            .then(function (user) {
+                res.json(user.friends);
+            }, function (err) {
+                console.log(err);
+                res.sendStatus(500);
+            });
+    }
+
 
     function findAllUsers(req, res) {
         userModel.findAllUsers()

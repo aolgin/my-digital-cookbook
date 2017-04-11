@@ -90,6 +90,7 @@ module.exports = function(app, model) {
 
     function findRecipesByUser(req, res) {
         var uid = req.params['uid'];
+        var limit = req.query['limit'];
 
         // var userRecipes = recipes.filter(function(r) {
         //     return r._user = uid;
@@ -99,9 +100,10 @@ module.exports = function(app, model) {
         //
         // res.json(userRecipes);
 
-        model.userModel.findRecipesForUser(uid)
-            .then(function (recipes) {
-                for (var i = 0; i < recipes.length; i++) {
+        model.userModel.findRecipesForUser(uid, limit)
+            .then(function (user) {
+                var recipes = user.recipes;
+                for (var i = 0; i < user.recipes.length; i++) {
                     recipes[i].description = recipes[i].description.substring(0, 5);
                 }
                 res.json(recipes);
