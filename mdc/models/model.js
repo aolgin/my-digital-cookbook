@@ -19,17 +19,20 @@ module.exports = function() {
     var userModel = require("./user/user.model.server")();
     var bookModel = require("./book/book.model.server")();
     var recipeModel = require("./recipe/recipe.model.server")();
+    var fileModel = require("./file/file.model.server")();
     
     var model = {
         userModel: userModel,
         bookModel: bookModel,
         recipeModel: recipeModel,
+        fileModel: fileModel,
         mongojs: mongojs
     };
 
     model.userModel.setModel(model);
     model.bookModel.setModel(model);
     model.recipeModel.setModel(model);
+    model.fileModel.setModel(model);
 
     return model;
 };

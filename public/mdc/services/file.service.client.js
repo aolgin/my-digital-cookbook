@@ -8,9 +8,14 @@
         var api = {
             "findFileById": findFileById,
             "uploadFile": uploadFile,
-            "deleteFile": deleteFile
+            "deleteFile": deleteFile,
+            "listAllFiles": listAllFiles
         };
         return api;
+
+        function listAllFiles() {
+            return $http.get("/api/admin/files");
+        }
 
         function findFileById(fid) {
             return $http.get("/api/file/" + fid);
