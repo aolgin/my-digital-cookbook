@@ -20,12 +20,14 @@ module.exports = function() {
     var bookModel = require("./book/book.model.server")();
     var recipeModel = require("./recipe/recipe.model.server")();
     var fileModel = require("./file/file.model.server")();
+    var notificationModel = require("./notification/notification.model.server")();
     
     var model = {
         userModel: userModel,
         bookModel: bookModel,
         recipeModel: recipeModel,
         fileModel: fileModel,
+        notificationModel: notificationModel,
         mongojs: mongojs
     };
 
@@ -33,6 +35,7 @@ module.exports = function() {
     model.bookModel.setModel(model);
     model.recipeModel.setModel(model);
     model.fileModel.setModel(model);
+    model.notificationModel.setModel(model);
 
     return model;
 };
