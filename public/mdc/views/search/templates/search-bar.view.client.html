@@ -1,27 +1,88 @@
+<!--ng-controller="SearchController"-->
 <div class="mdc-search-bar">
-    <div class="input-group">
-        <input type="text"
-               class="form-control"
-               ng-model="searchText"
-               placeholder="Search for..."/>
-        <div class="input-group-btn">
-            <button type="button"
-                    class="btn btn-default dropdown-toggle"
-                    data-toggle="dropdown"
-                    aria-haspopup="true"
-                    aria-expanded="false">
-                By...<span class="caret"></span>
-            </button>
-            <ul class="dropdown-menu">
-                <li><a ng-click="model.changeSearchType('user')">Chef</a></li>
-                <li><a ng-click="model.changeSearchType('book')">Cookbook</a></li>
-                <li><a ng-click="model.changeSearchType('recipe')">Recipe</a></li>
-                <li><a ng-click="model.changeSearchType('category')">Category</a></li>
-            </ul>
-        </div>
-        <a class="input-group-addon btn btn-default"
-           ng-click="model.search(searchText)">
-            <span class="glyphicon glyphicon-search"></span>
-        </a>
+    <!-- https://angular-ui.github.io/bootstrap/ -->
+    <div class="container-fluid">
+        <form>
+            <div class="input-group">
+                <input type="text"
+                       ng-model="searchText"
+                       class="form-control"
+                       placeholder="Search {{searchType || 'for ...'}}"/>
+                <!--<button type="button" class="input-group-addon btn btn-default" uib-dropdown-toggle>-->
+                    <!--<span class="caret"></span>-->
+                    <!--<span class="sr-only"></span>-->
+                <!--</button>-->
+                <div class="input-group-btn">
+                    <select ng-model="searchType" class="btn btn-default">
+                        <option value="All">All</option>
+                        <option value="Chefs">Chef</option>
+                        <option value="Cookbooks">Cookbook</option>
+                        <option value="Recipes">Recipe</option>
+                        <option value="Categories">Category</option>
+                    </select>
+                </div>
+            </div>
+        </form>
     </div>
+            <!--<div class="input-group">-->
+                <!--<input type="text"-->
+                       <!--ng-model="searchText"-->
+                       <!--class="form-control"-->
+                       <!--placeholder="Search for..."/>-->
+            <!--</div>-->
+                <!--<div uib-dropdown class="btn-group">-->
+                    <!--&lt;!&ndash;<button id="single-button" type="button" class="btn btn-default"></button>&ndash;&gt;-->
+                    <!--<div class="btn-group input-group-addon">-->
+                        <!--<button type="button"-->
+                                <!--id="single-button"-->
+                                <!--class="btn btn-default"-->
+                                <!--uib-dropdown-toggle>-->
+                            <!--{{model.searchType || "By"}} <span class="caret"></span>-->
+                        <!--</button>-->
+                        <!--<ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="single-button">-->
+                            <!--<li role="menuitem"><a ng-click="model.changeSearchType('Chef')">Chef</a></li>-->
+                            <!--<li role="menuitem"><a ng-click="model.changeSearchType('Book')">Cookbook</a></li>-->
+                            <!--<li role="menuitem"><a ng-click="model.changeSearchType('Recipe')">Recipe</a></li>-->
+                            <!--<li role="menutiem"><a ng-click="model.changeSearchType('Category')">Category</a></li>-->
+                        <!--</ul>-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</div>-->
+            <!--<div class="btn-group" uib-dropdown>-->
+                <!--<button id="split-button"-->
+                        <!--type="button"-->
+                        <!--class="btn btn-default"-->
+                        <!--ng-click="model.search(searchText, searchType)">Search by {{searchType || "..."}}</button>-->
+                <!--<button type="button" class="btn btn-default" uib-dropdown-toggle>-->
+                    <!--<span class="caret"></span>-->
+                    <!--<span class="sr-only"></span>-->
+                <!--</button>-->
+                <!--<select class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="split-button" ng-model="searchType">-->
+                    <!--<option value="">-&#45;&#45;Please Select-&#45;&#45;</option>-->
+                    <!--<option value="Chef">Chef</option>-->
+                    <!--<option value="Book">Cookbook</option>-->
+                    <!--<option value="Recipe">Recipe</option>-->
+                    <!--<option value="Category">Category</option>-->
+                <!--</select>-->
+                <!--<ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="split-button" ng-model="searchType">-->
+                    <!--<li role="menuitem">Chef</li>-->
+                    <!--<li role="menuitem">Cookbook</li>-->
+                    <!--<li role="menuitem">Recipe</li>-->
+                    <!--<li role="menutiem">Category</li>-->
+
+                    <!--<li role="menuitem"><a ng-click="model.changeSearchType('Chef')">Chef</a></li>-->
+                    <!--<li role="menuitem"><a ng-click="model.changeSearchType('Book')">Cookbook</a></li>-->
+                    <!--<li role="menuitem"><a ng-click="model.changeSearchType('Recipe')">Recipe</a></li>-->
+                    <!--<li role="menutiem"><a ng-click="model.changeSearchType('Category')">Category</a></li>-->
+                <!--</ul>-->
+            </div>
+            <div>
+                <div class="btn-group">
+                    <a class="btn btn-default" role="group"
+                       ng-click="model.search(searchText)">
+                        Search <span class="glyphicon glyphicon-search"></span>
+                    </a>
+                </div>
+            </div>
+        </div>
 </div>

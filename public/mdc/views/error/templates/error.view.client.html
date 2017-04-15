@@ -1,23 +1,10 @@
-<nav class="navbar navbar-default navbar-fixed-top">
-    <div class="container-fluid">
-        <div class="navbar-header mdc-logo pull-left">
-            <a class="navbar-brand" href="/">
-                <img src="../../../../img/logo-100x70.png"/>
-            </a>
-        </div>
-        <div class="navbar-header">
-            <a class="navbar-brand">
-                My Digital Cookbook
-            </a>
-        </div>
-    </div>
-</nav>
+<ng-include src="'views/misc/templates/header.view.client.html'"></ng-include>
 
-<div class="container-fluid">
+<div id="page-content-wrapper" class="container-fluid">
     <div class="alert alert-danger">
         <p> {{model.error}} </p>
         <p> Click <a href="/mdc/index.html#/login">here</a> to go back to the login page. </p>
     </div>
-</div>
 
-<nav class="navbar navbar-default navbar-fixed-bottom"></nav>
+    <ng-include src="'views/misc/templates/footer.view.client.html'"></ng-include>
+</div>

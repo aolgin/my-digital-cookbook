@@ -1,22 +1,8 @@
-<nav class="navbar navbar-default navbar-fixed-top">
-    <div class="container-fluid">
-        <div class="navbar-header mdc-logo pull-left">
-            <a class="navbar-brand" href="/">
-                <img src="../../../../img/logo-100x70.png"/>
-            </a>
-        </div>
-        <ng-include src="views/search/templates/search-bar.view.client.html"></ng-include>
-        <div class="pull-right">
-            <a class="navbar-brand" href="/">
-                <span class="fa fa-sign-out" aria-hidden="true"></span>
-            </a>
-        </div>
-    </div>
-</nav>
+<ng-include src="'views/misc/templates/header.view.client.html'"></ng-include>
 
 <!-- NOTE: This is the logged-in user viewing their recipes -->
 
-<div>
+<div id="page-content-wrapper">
     <ul class="list-group" ng-repeat="recipe in model.recipes">
         <li class="list-group-item">
             <img ng-src="{{recipe.image_url}}"/>
@@ -29,11 +15,6 @@
             </div>
         </li>
     </ul>
+
+    <ng-include src="'views/misc/templates/footer.view.client.html'"></ng-include>
 </div>
-
-
-<nav class="visible-md visible-lg navbar navbar-default navbar-fixed-bottom">
-    <div class="container-fluid pull-right">
-        <p class="navbar-text">Source code available on <a href="https://github.com/aolgin/my-digital-cookrecipe/tree/master/public">Github</a></p>
-    </div>
-</nav>

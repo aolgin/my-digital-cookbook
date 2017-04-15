@@ -3,9 +3,9 @@
         .module("MyDigitalCookbook")
         .controller("BookNewController", BookNewController);
 
-    function BookNewController(BookService, $location, $routeParams) {
+    function BookNewController(BookService, $location, $routeParams, currentUser) {
         var vm = this;
-        vm.userId = $routeParams['uid'];
+        vm.userId = currentUser._id;
 
         function init() {
 

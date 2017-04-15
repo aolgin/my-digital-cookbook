@@ -1,24 +1,6 @@
-<nav class="mdc-navbar-header navbar navbar-default navbar-fixed-top">
-    <div class="container-fluid">
-        <div class="navbar-header mdc-logo pull-left">
-            <a class="navbar-brand" href="/">
-                <img src="../../../../img/logo-100x70.png"/>
-            </a>
-        </div>
-        <div class="navbar-header">
-            <a class="navbar-brand">
-                My Digital Cookbook
-            </a>
-        </div>
-        <div class="pull-right">
-            <a class="navbar-brand" href="/">
-                <span class="fa fa-sign-out" aria-hidden="true"></span>
-            </a>
-        </div>
-    </div>
-</nav>
+<ng-include src="'views/misc/templates/header.view.client.html'"></ng-include>
 
-<div>
+<div id="page-content-wrapper">
     <section>
         <div class="alert alert-danger" ng-show="model.error">
             {{model.error}}
@@ -96,10 +78,6 @@
        ng-click="model.deleteUser()">
         Delete Account
     </a>
-</div>
 
-<nav class="visible-md visible-lg navbar navbar-default navbar-fixed-bottom">
-    <div class="container-fluid pull-right">
-        <p class="navbar-text">Source code available on <a href="https://github.com/aolgin/my-digital-cookbook/tree/master/public">Github</a></p>
-    </div>
-</nav>
+    <ng-include src="'views/misc/templates/footer.view.client.html'"></ng-include>
+</div>

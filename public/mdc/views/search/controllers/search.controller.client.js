@@ -3,8 +3,11 @@
         .module("MyDigitalCookbook")
         .controller("SearchController", SearchController);
 
-    function SearchController(SearchService) {
+    function SearchController(SearchService, currentUser) {
         var vm = this;
+        if (currentUser) {
+            vm.user = currentUser;
+        }
 
         function init() {
 
@@ -18,25 +21,45 @@
         vm.changeSearchType = changeSearchType;
         vm.search = search;
 
-        function search(term) {
-            switch (vm.searchType) {
-                case 'user':
+        function search(term, searchType) {
+            switch (searchType) {
+                case 'Chefs':
                     searchUsers(term);
                     break;
-                case 'book':
+                case 'Cookbooks':
                     searchBooks(term);
                     break;
-                case 'recipe':
+                case 'Recipes':
                     searchRecipes(term);
                     break;
-                case 'category':
+                case 'Categories':
                     searchRecipesByCategory(term);
+                    break;
+                default:
+                    searchAll(term);
                     break;
             }
         }
 
         function changeSearchType(type) {
+            console.log(type);
             vm.searchType = type;
+        }
+
+        function searchAll(term) {
+            vm.error = null;
+            var promise = SearchService.searchAll(term);
+            promise.then(function(response) {
+                vm.results = response.data;
+            }).catch(function (err) {
+                console.log(err);
+                var status = err.status;
+                if (status == 404) {
+                    vm.error = 'Nothing matching your search term found!';
+                } else {
+                    vm.error = 'An uncaught error occurred when searching:\n' + err.data;
+                }
+            });
         }
 
         function searchUsers(term) {

@@ -3,10 +3,10 @@
         .module("MyDigitalCookbook")
         .controller("BookEditController", BookEditController);
 
-    function BookEditController(BookService, $location, $routeParams) {
+    function BookEditController(BookService, $location, $routeParams, currentUser) {
         var vm = this;
         vm.bookId = $routeParams['bid'];
-        vm.userId = $routeParams['uid'];
+        vm.userId = currentUser._id;
 
         function init() {
             var bookPromise = BookService.findBookById(vm.bookId);

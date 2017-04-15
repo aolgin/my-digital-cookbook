@@ -13,6 +13,20 @@
         init();
 
         vm.createRecipe = createRecipe;
+        vm.createRecipeInBook = createRecipeInBook;
+
+        function createRecipeInBook(recipe, bid) {
+            //TODO: form validation
+
+            var promise = RecipeService.createRecipeInBook(recipe, vm.uid, bid);
+            promise.then(function (response) {
+                if (response.status == 200) {
+                    $location.url("/dashboard/recipes");
+                }
+            }).catch(function (err) {
+                vm.error = "An uncaught error occurred creating your recipe: \n" + err.data;
+            });
+        }
 
         function createRecipe(recipe) {
             //TODO: form validation

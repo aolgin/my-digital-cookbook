@@ -5,9 +5,9 @@
     <ul class="nav nav-tabs nav-justified dashboard-tabs">
         <li><a href="#/dashboard">Dashboard</a></li>
         <li><a href="#/dashboard/books">Cookbooks</a></li>
-        <li class="active"><a>Recipes</a></li>
+        <li><a href="#/dashboard/recipes">Recipes</a></li>
         <li><a href="#/dashboard/favorites">Favorites</a></li>
-        <li><a href="#/dashboard/following">Following</a></li>
+        <li class="active"><a>Following</a></li>
     </ul>
 
     <section>
@@ -21,24 +21,20 @@
 
     <div class="row container-fluid">
         <div class="col-lg-12">
-            <h4>My Recipes</h4>
-            <a href="#/dashboard/recipes/new" class="badge pull-right">
-                <span class="glyphicon glyphicon-plus"></span>
-            </a>
+            <h4>My Following</h4>
             <hr>
         </div>
-        <div ng-show="model.recipe_msg" class="alert alert-success">
-            {{model.recipe_msg}}
+        <div ng-show="model.following_msg" class="alert alert-success">
+            {{model.following_msg}}
         </div>
-        <div ng-repeat="recipe in model.recipes">
+        <div ng-repeat="follower in model.following">
             <div class="col-md-3">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <h4>{{recipe.name}}</h4>
+                        <h4>{{follower.username}}</h4>
                     </div>
                     <div class="panel-body">
-                        <img class="mdc-panel-image" ng-src="{{recipe.image_url}}"/>
-                        <p>{{recipe.description}}</p>
+                        <img class="mdc-panel-image" ng-src="{{follower.img_record.url}}"/>
                     </div>
                 </div>
             </div>

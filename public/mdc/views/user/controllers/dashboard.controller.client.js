@@ -3,7 +3,7 @@
         .module("MyDigitalCookbook")
         .controller("DashboardController", DashboardController);
 
-    function DashboardController(UserService, currentUser, $location) {
+    function DashboardController(UserService, currentUser, $location, NotificationService) {
         var vm = this;
         vm.uid = currentUser._id;
 
@@ -26,8 +26,8 @@
                     case 'favorites':
                         // renderFavorites(500);
                         break;
-                    case 'friends':
-                        renderFriends();
+                    case 'following':
+                        renderFollowing();
                         break;
                 }
             }
@@ -38,14 +38,14 @@
             renderBooks(3);
             renderRecipes(3);
             // renderFavorites(3);
-            // renderFeed();
+            renderFeed();
         }
 
         function renderBooks(limit) {
             var promise = UserService.findBooksByUserId(vm.uid, limit);
             promise.then(function (response) {
                 vm.books = response.data;
-                if (vm.books.length == 0) {
+                if (vm.books.length === 0) {
                     vm.book_msg = "No cookbooks created yet! Go to the cookbooks tab to make one";
                 }
             }).catch(function (err) {
@@ -60,11 +60,11 @@
             var promise = UserService.findUserFavorites(vm.uid, limit);
             promise.then(function (response) {
                 vm.favorites = response.data;
-                if (vm.favorites.length == 0) {
+                if (vm.favorites.length === 0) {
                     vm.favorite_msg = "No favorites yet!";
                 }
             }).catch(function (err) {
-                console.log("Error acquiring books: " + err);
+                console.log("Error acquiring books:\n" + err);
                 vm.error = err;
             });
         }
@@ -73,31 +73,42 @@
             var promise = UserService.findRecipesByUserId(vm.uid, limit);
             promise.then(function (response) {
                 vm.recipes = response.data;
-                if (vm.recipes.length == 0) {
+                if (vm.recipes.length === 0) {
                     vm.recipe_msg = "No recipes created yet! Go to the recipes tab to make one";
                 }
             }).catch(function (err) {
-                console.log("Error acquiring recipes: " + err);
+                console.log("Error acquiring recipes:\n" + err);
                 vm.error = err;
             });
         }
 
 
-        function renderFriends() {
-            var promise = UserService.findFriendsByUser(vm.uid);
+        function renderFollowing() {
+            var promise = UserService.findFollowingByUserId(vm.uid);
             promise.then(function (response) {
-                vm.friends = response.data;
-                if (vm.friends.length == 0) {
-                    vm.friend_msg = "No friends added yet!";
+                vm.following = response.data;
+                if (vm.following.length === 0) {
+                    vm.following_msg = "Not following anyone yet!";
                 }
             }).catch(function (err) {
-                console.log("Error finding friends: " + err);
+                console.log("Error finding following:\n" + err);
                 vm.error = err;
             });
         }
 
         function renderFeed() {
-            console.log("Rendering feed...");
+            // console.log("Rendering feed...");
+            if (!vm.following || vm.following.length === 0) {
+                vm.feed_msg = "You aren\'t following anyone yet! Follow someone to start acquiring a feed.";
+            } else {
+                var promise = NotificationService.findNotificationsForUsers(vm.following);
+                promise.then(function (response) {
+                        vm.feed = response.data;
+                    }).catch(function (err) {
+                        console.log("Error populating feed:\n" + err);
+                        vm.error = err;
+                    });
+            }
         }
     }
 })();

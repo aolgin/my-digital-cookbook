@@ -1,0 +1,22 @@
+<ng-include src="'views/misc/templates/header.view.client.html'"></ng-include>
+
+<div id="page-content-wrapper">
+    <h3>{{model.recipe.name}}</h3>
+    <h5>{{model.recipe.description}}</h5>
+    <img ng-src="{{model.recipe.image_url}}" width="100%"/>
+
+    <div class="recipe-results">
+        <p>Prep Time: {{model.recipe.prep_time}}</p>
+        <p>Cook Time: {{model.recipe.cook_time}}</p>
+        <p>Ready In: {{model.recipe.ready_in}}</p>
+        <p>Num. Servings: {{model.recipe.num_servings}}</p>
+        <p>Yield: {{model.recipe.yield}}</p>
+    </div>
+
+    <div class="mdc-html">
+        <div ng-bind-html="model.getTrustedHtml(model.recipe.ingredients)"></div>
+        <div ng-bind-html="model.getTrustedHtml(model.recipe.directions)"></div>
+    </div>
+
+    <ng-include src="'views/misc/templates/footer.view.client.html'"></ng-include>
+</div>
