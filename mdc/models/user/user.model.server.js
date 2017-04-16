@@ -19,7 +19,11 @@ module.exports = function() {
         findAllUsers: findAllUsers,
         favoriteRecipe: favoriteRecipe,
         unfavoriteRecipe: unfavoriteRecipe,
-        findFriendsByUser: findFriendsByUser,
+        findFollowingByUserId: findFollowingByUserId,
+        followUser: followUser,
+        unfollowUser: unfollowUser,
+        isFollowingChef: isFollowingChef,
+        searchUsers: searchUsers,
         setModel: setModel
     };
     return api;
@@ -28,12 +32,57 @@ module.exports = function() {
         model = _model;
     }
 
-    function findFriendsByUser(uid) {
+    function searchUsers(term) {
+        var re = new RegExp(term, 'i');
+        return UserModel
+            .find()
+            .or([{ 'firstName': { $regex: re }}, { 'lastName': { $regex: re }}, { 'about': { $regex: re }}, { 'username': { $regex: re }}])
+            .select("img_record username firstName lastName about -_id")
+            .populate("img_record", "url")
+            .sort({'username': 1})
+            .exec();
+    }
+
+    function followUser(followerId, userIdToFollow) {
+        return UserModel.findById(followerId)
+            .then(function(follower) {
+                UserModel.findById(userIdToFollow)
+                    .then(function(followingUser) {
+                        follower.following.push(followingUser);
+                        follower.save();
+                        followingUser.follower_count += 1;
+                        return followingUser.save();
+                    })
+            })
+    }
+
+    function unfollowUser(followerId, userIdToUnfollow) {
+        return UserModel.findById(followerId)
+            .then(function(follower) {
+                UserModel.findById(userIdToUnfollow)
+                    .then(function(followingUser) {
+                        follower.following.pull(followingUser);
+                        follower.save();
+                        followingUser.follower_count -= 1;
+                        return followingUser.save();
+                    })
+            })
+    }
+
+    function isFollowingChef(followerId, chefId) {
+        // TODO: Not as this should be. Need to find out how to make this work.
+        return UserModel
+            .findById(followerId)
+            .populate("following", "_id")
+            .exec();
+    }
+
+    function findFollowingByUserId(uid) {
         return UserModel
             .findById(uid)
             .populate({
-                path: "friends",
-                select: "username about",
+                path: "following",
+                select: "username _id",
                 options: { sort: { 'username': -1 } }
             })
             .exec();

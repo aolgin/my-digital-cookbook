@@ -13,12 +13,28 @@ module.exports = function() {
         removeBook: removeBook,
         removeRecipeFromBook: removeRecipeFromBook,
         findAllBooks: findAllBooks,
+        searchBooks: searchBooks,
         setModel: setModel
     };
     return api;
 
     function setModel(_model) {
         model = _model;
+    }
+
+    function searchBooks(term) {
+        var re = new RegExp(term, 'i');
+        return BookModel
+            .find()
+            .or([
+                { 'name': { $regex: re }},
+                { 'description': { $regex: re }}
+            ])
+            .select("-_id name description img_record _user")
+            .populate("_user", "username")
+            .populate("img_record", "url")
+            .sort({'dateModified': 1})
+            .exec();
     }
 
     function findAllBooks() {

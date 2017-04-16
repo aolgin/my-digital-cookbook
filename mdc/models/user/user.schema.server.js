@@ -10,10 +10,11 @@ module.exports = function() {
         recipes: [{type: mongoose.Schema.Types.ObjectId, ref:'RecipeModel'}],
         about: String,
         favorites: [{type: mongoose.Schema.Types.ObjectId, ref:'RecipeModel'}],
-        image_url: String, // url of photo
+        img_record: {type: mongoose.Schema.Types.ObjectId, ref: 'FileModel'},
         photos: [String],
         role: {type: String, enum: ['ADMIN', 'USER'], default: 'USER'},
-        friends: [{type: mongoose.Schema.Types.ObjectId, ref:'UserModel'}] // hopefully this doesn't cause an infinite loop
+        following: [{type: mongoose.Schema.Types.ObjectId, ref:'UserModel'}],
+        follower_count: Number
     }, {collection: "user",
         timestamps: {
             createdAt: "dateCreated",

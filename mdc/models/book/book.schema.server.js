@@ -4,7 +4,7 @@ module.exports = function () {
         _user: {type: mongoose.Schema.Types.ObjectId, ref: "UserModel"},
         name: String,
         description: String,
-        image_url: String,
+        img_record: {type: mongoose.Schema.Types.ObjectId, ref: "FileModel"},
         recipes: [{type: mongoose.Schema.Types.ObjectId, ref: 'RecipeModel'}]
     }, {collection: "book",
         timestamps: {

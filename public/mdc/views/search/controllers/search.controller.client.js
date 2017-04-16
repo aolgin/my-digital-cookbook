@@ -5,6 +5,7 @@
 
     function SearchController(SearchService, currentUser) {
         var vm = this;
+
         if (currentUser) {
             vm.user = currentUser;
         }
@@ -70,9 +71,10 @@
                 vm.results = response.data;
             }).catch(function (err) {
                 console.log(err);
+                vm.results = null;
                 var status = err.status;
                 if (status == 404) {
-                    vm.error = 'Nothing users matching your search term found!';
+                    vm.error = 'No users matching your search term found!';
                 } else {
                     vm.error = 'An uncaught error occurred when searching:\n' + err.data;
                 }
@@ -87,9 +89,10 @@
                 vm.results = response.data;
             }).catch(function (err) {
                 console.log(err);
+                vm.results = null;
                 var status = err.status;
                 if (status == 404) {
-                    vm.error = 'Nothing recipes matching your search term found!';
+                    vm.error = 'No recipes matching your search term found!';
                 } else {
                     vm.error = 'An uncaught error occurred when searching:\n' + err.data;
                 }
@@ -104,9 +107,10 @@
                 vm.results = response.data;
             }).catch(function (err) {
                 console.log(err);
+                vm.results = null;
                 var status = err.status;
                 if (status == 404) {
-                    vm.error = 'Nothing recipes matching your search term found!';
+                    vm.error = 'No recipes matching your search term found!';
                 } else {
                     vm.error = 'An uncaught error occurred when searching:\n' + err.data;
                 }
@@ -121,9 +125,10 @@
                 vm.results = response.data;
             }).catch(function (err) {
                 console.log(err);
+                vm.results = null;
                 var status = err.status;
                 if (status == 404) {
-                    vm.error = 'Nothing cookbooks matching your search term found!';
+                    vm.error = 'No cookbooks matching your search term found!';
                 } else {
                     vm.error = 'An uncaught error occurred when searching:\n' + err.data;
                 }

@@ -8,14 +8,14 @@ module.exports = function () {
         ingredients: String,
         directions: String,
         prep_time: String,
-        image_url: String,
+        img_record: {type: mongoose.Schema.Types.ObjectId, ref: "FileModel"},
         ready_in: String,
         yield: String,
         num_servings: String, // UNSURE
         cook_time: String,
         rating: {
-            count: Number,
-            total: Number,
+            count: {type: Number, default: 0},
+            total: {type: Number, default: 0},
             actual: Number
         }
     }, {collection: "recipe",
