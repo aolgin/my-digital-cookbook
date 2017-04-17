@@ -3,15 +3,20 @@
         .module("MyDigitalCookbook")
         .controller("SearchController", SearchController);
 
-    function SearchController(SearchService, currentUser) {
+    function SearchController(SearchService, currentUser, $routeParams, UserService, $rootScope) {
         var vm = this;
+        var term = $routeParams['term'];
+        var type = $routeParams['type'];
+
 
         if (currentUser) {
-            vm.user = currentUser;
+            vm.uid = currentUser._id;
         }
 
         function init() {
-
+            if (term && type) {
+                search(term, type);
+            }
         }
         init();
         
@@ -19,8 +24,8 @@
         vm.searchRecipes = searchRecipes;
         vm.searchBooks = searchBooks;
         vm.searchRecipesByCategory = searchRecipesByCategory;
-        vm.changeSearchType = changeSearchType;
         vm.search = search;
+        vm.logout = logout;
 
         function search(term, searchType) {
             switch (searchType) {
@@ -37,7 +42,7 @@
                     searchRecipesByCategory(term);
                     break;
                 default:
-                    searchAll(term);
+                    vm.error = "Please select a search parameter";
                     break;
             }
         }
@@ -47,20 +52,13 @@
             vm.searchType = type;
         }
 
-        function searchAll(term) {
-            vm.error = null;
-            var promise = SearchService.searchAll(term);
-            promise.then(function(response) {
-                vm.results = response.data;
-            }).catch(function (err) {
-                console.log(err);
-                var status = err.status;
-                if (status == 404) {
-                    vm.error = 'Nothing matching your search term found!';
-                } else {
-                    vm.error = 'An uncaught error occurred when searching:\n' + err.data;
-                }
-            });
+        function logout() {
+            UserService
+                .logout()
+                .then(function (response) {
+                    $rootScope.currentUser = null;
+                    $location.url("/");
+                });
         }
 
         function searchUsers(term) {

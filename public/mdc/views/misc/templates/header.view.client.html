@@ -1,25 +1,4 @@
-<!--<nav class="navbar navbar-default navbar-fixed-top">-->
-    <!--<div class="container-fluid">-->
-        <!--<div class="navbar-header mdc-logo pull-left">-->
-            <!--<a class="navbar-brand" href="/">-->
-                <!--<img src="../../../../img/logo-100x70.png"/>-->
-            <!--</a>-->
-        <!--</div>-->
-        <!--<div class="navbar-header">-->
-            <!--<a class="navbar-brand">-->
-                <!--My Digital Cookbook-->
-            <!--</a>-->
-        <!--</div>-->
-        <!--<div class="pull-right">-->
-            <!--<a class="navbar-brand" href="/">-->
-                <!--<span class="fa fa-sign-out" aria-hidden="true"></span>-->
-            <!--</a>-->
-        <!--</div>-->
-    <!--</div>-->
-<!--</nav>-->
-
 <!-- https://github.com/BlackrockDigital/startbootstrap-simple-sidebar/blob/master/index.html -->
-<!--ng-controller="SearchController as vm"-->
 <nav class="navbar navbar-default navbar-fixed-top" id="wrapper">
     <div class="container-fluid">
         <div class="navbar-header mdc-logo pull-left">
@@ -48,22 +27,21 @@
                 <li>
                     <ng-include src="'views/search/templates/search-bar.view.client.html'"></ng-include>
                 </li>
-                <li ng-if="model.user">
+                <li ng-if="model.uid">
                     <a href="#/dashboard">Dashboard</a>
                 </li>
-                <li ng-if="model.user">
+                <li ng-if="model.uid">
                     <a href="#/profile">Profile</a>
                 </li>
-                <!-- TODO: Apply an ng-click here for logging out -->
-                <li ng-if="model.user">
-                    <a href="/">
+                <li ng-if="model.uid">
+                    <a ng-click="model.logout()">
                         Logout
                     </a>
                 </li>
-                <li ng-if="!model.user">
+                <li ng-if="!model.uid">
                     <a href="#/login">Login</a>
                 </li>
-                <li ng-if="!model.user">
+                <li ng-if="!model.uid">
                     <a href="#/register">Register</a>
                 </li>
             </ul>

@@ -1,21 +1,31 @@
 <ng-include src="'views/misc/templates/header.view.client.html'"></ng-include>
 
 <div id="page-content-wrapper">
-    <h3>{{model.recipe.name}}</h3>
-    <h5>{{model.recipe.description}}</h5>
-    <img ng-src="{{model.recipe.image_url}}" width="100%"/>
-
-    <div class="recipe-results">
-        <p>Prep Time: {{model.recipe.prep_time}}</p>
-        <p>Cook Time: {{model.recipe.cook_time}}</p>
-        <p>Ready In: {{model.recipe.ready_in}}</p>
-        <p>Num. Servings: {{model.recipe.num_servings}}</p>
-        <p>Yield: {{model.recipe.yield}}</p>
+    <div ng-if="model.recipe.img_record.url"
+         class="col-md-3 hidden-sm">
+        <img ng-src="{{model.recipe.img_record.url}}" width="100%"/>
     </div>
+    <div class="col-md-9 col-xs-12">
+        <div class="col-xs-12 col-md-6">
+            <h3>{{model.recipe.name}}</h3>
+            <h5>Created by {{model.recipe._user.username}} on {{model.recipe.dateCreated | date}}</h5>
+            <h4>{{model.recipe.description}}</h4>
+        </div>
+        <div class="recipe-results pull-right col-xs-12 col-md-6">
+            <p>Prep Time: {{model.recipe.prep_time}}</p>
+            <p>Cook Time: {{model.recipe.cook_time}}</p>
+            <p>Ready In: {{model.recipe.ready_in}}</p>
+            <p>Num. Servings: {{model.recipe.num_servings}}</p>
+            <p>Yield: {{model.recipe.yield}}</p>
+        </div>
+        <hr>
 
-    <div class="mdc-html">
-        <div ng-bind-html="model.getTrustedHtml(model.recipe.ingredients)"></div>
-        <div ng-bind-html="model.getTrustedHtml(model.recipe.directions)"></div>
+        <div class="mdc-html">
+            <label for="ingredients">Ingredients: </label>
+            <div id="ingredients" ng-bind-html="model.getTrustedHtml(model.recipe.ingredients)"></div>
+            <label for="directions">Directions: </label>
+            <div id="directions" ng-bind-html="model.getTrustedHtml(model.recipe.directions)"></div>
+        </div>
     </div>
 
     <ng-include src="'views/misc/templates/footer.view.client.html'"></ng-include>

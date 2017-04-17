@@ -3,10 +3,10 @@ module.exports = function(app, model) {
 
     app.get("/api/user/:uid/book", findBooksByUser);
     app.post("/api/user/:uid/book", createBook);
+    app.get("/api/book/search", searchBooks);
     app.get("/api/book/:bid", findBookById);
     app.delete("/api/book/:bid", deleteBook);
     app.put("/api/book/:bid", updateBook);
-    app.get("/api/book/search", searchBooks);
     app.get("/api/admin/books", findAllBooks);
 
     // Service Functions
@@ -34,13 +34,16 @@ module.exports = function(app, model) {
 
     function searchBooks(req, res) {
         var term = req.query['term'];
-        console.log("Searching for books matching: " + term);
         bookModel.searchBooks(term)
             .then(function(response) {
-                res.json(response);
+                if (response.length > 0) {
+                    res.json(response);
+                } else {
+                    res.sendStatus(404);
+                }
             }, function (err) {
                 console.log(err);
-                res.sendStatus(404);
+                res.sendStatus(500);
             });
     }
 

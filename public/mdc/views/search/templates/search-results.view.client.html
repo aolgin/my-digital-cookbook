@@ -12,8 +12,11 @@
         </div>
     </div>
 
+    {{model.results}}
+
     <div class="mdc-search-results container-fluid" ng-switch="model.resType">
         <div ng-switch-when="user">
+            <h3>Chef Search</h3>
             <ul class="list-group">
                 <li class="list-group-item">
                     <div class="row">
@@ -48,6 +51,7 @@
         </div>
 
         <div ng-switch-when="book">
+            <h3>Cookbook Search</h3>
             <ul class="list-group">
                 <li class="list-group-item">
                     <div class="row">
@@ -87,6 +91,7 @@
         </div>
 
         <div ng-switch-when="recipe">
+            <h3>Recipe Search</h3>
             <ul class="list-group">
                 <li class="list-group-item">
                     <div class="row">

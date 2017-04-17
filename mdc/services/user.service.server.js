@@ -17,20 +17,16 @@ module.exports = function(app, model) {
     app.delete('/api/user/:uid', auth, deleteUser);
     app.get("/api/user", findUserByCredentials);
     // app.post("/api/user", createUser);
+    app.get("/api/user/search", searchUsers);
     app.get("/api/user/:uid", findUserById);
     // app.delete("/api/user/:uid", deleteUser);
     // app.put("/api/user/:uid", updateUser);
-    app.get("/api/user/search", searchUsers);
     app.get("api/admin/users", findAllUsers);
     //TODO: add in favoriting and friend requests
-    app.get("/api/user/:uid/friend", findFriendsByUser);
-
-    var users = [
-        {_id: "123", email: "alice@wonderland.com", password: "alice", firstName: "Alice", lastName: "Wonder", displayName: 'Alyss'},
-        {_id: "234", email: "bob@builder.org", password: "bob", firstName: "Bob", lastName: "Marley", displayName: 'Bob the Builder'},
-        {_id: "345", email: "charly@candymountain.net", password: "charly", firstName: "Charly", lastName: "Garcia", displayName: 'C-dog'},
-        {_id: "789", email: "adam@olgin.com", password: "adam", firstName: "Adam", lastName: "Olgin", displayName: 'adam'}
-    ];
+    app.put("/api/user/:uid/follow", followUser);
+    app.delete("/api/user/:uid/follow", unfollowUser);
+    app.get("/api/user/:uid/follow", findFollowingByUserId);
+    app.get("/api/user/:uid/follow/:chefId", isFollowingChef);
 
     // Helper Functions
 
@@ -46,10 +42,19 @@ module.exports = function(app, model) {
         userModel
             .findUserByCredentials(username, password)
             .then(
-                function(user) {
-                    if (!user) { return done(null, false); }
-                    return done(null, user);
+                function (user) {
+                    // if the user exists, compare passwords with bcrypt.compareSync
+                    // if(user && bcrypt.compareSync(password, user.password)) {
+                    if (user) {
+                        return done(null, user);
+                    } else {
+                        return done(null, false);
+                    }
                 },
+                // function(user) {
+                //     if (!user) { return done(null, false); }
+                //     return done(null, user);
+                // },
                 function(err) {
                     if (err) { return done(err); }
                 }
@@ -80,7 +85,7 @@ module.exports = function(app, model) {
 
     function logout(req, res) {
         req.logOut();
-        res.send(200);
+        res.sendStatus(200);
     }
 
     function loggedin(req, res) {
@@ -109,10 +114,50 @@ module.exports = function(app, model) {
 
     // Service Functions
 
-    function findFriendsByUser(req, res) {
+    function isFollowingChef(req, res) {
+        var uid = req.params['uid'];
+        var chefId = req.params['chefId'];
+
+        userModel.isFollowingChef(uid, chefId)
+            .then(function (response) {
+                //TODO: Not sure yet in what format this will return;
+                console.log(response);
+                res.send(response);
+            }, function (err) {
+                console.log(err);
+                res.sendStatus(500);
+            })
+    }
+
+    function followUser(req, res) {
+        var followerId = req.params['uid'];
+        var userIdToFollow = req.query['followingId'];
+        userModel.followUser(followerId, userIdToFollow)
+            .then(function (response) {
+                res.sendStatus(200);
+            }, function (err) {
+                console.log(err);
+                res.sendStatus(500);
+            })
+    }
+
+
+    function unfollowUser(req, res) {
+        var followerId = req.params['uid'];
+        var userIdToUnfollow = req.query['followingId'];
+        userModel.unfollowUser(followerId, userIdToUnfollow)
+            .then(function (response) {
+                res.sendStatus(200);
+            }, function (err) {
+                console.log(err);
+                res.sendStatus(500);
+            })
+    }
+
+    function findFollowingByUserId(req, res) {
         var uid = req.params['uid'];
 
-        model.userModel.findFriendsByUser(uid)
+        userModel.findFollowingByUserId(uid)
             .then(function (user) {
                 res.json(user.friends);
             }, function (err) {
@@ -120,7 +165,6 @@ module.exports = function(app, model) {
                 res.sendStatus(500);
             });
     }
-
 
     function findAllUsers(req, res) {
         userModel.findAllUsers()
@@ -136,10 +180,14 @@ module.exports = function(app, model) {
         var term = req.query['term'];
         userModel.searchUsers(term)
             .then(function(response) {
-                res.json(response);
+                if (response.length > 0) {
+                    res.json(response);
+                } else {
+                    res.sendStatus(404);
+                }
             }, function (err) {
                 console.log(err);
-                res.sendStatus(404);
+                res.sendStatus(500);
             });
     }
 

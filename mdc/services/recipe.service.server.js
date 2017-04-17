@@ -4,11 +4,12 @@ module.exports = function(app, model) {
 
     app.get("/api/user/:uid/recipe", findRecipesByUser);
     app.get("/api/book/:bid/recipe", findRecipesByBook);
-    app.post("/api/book/:bid/recipe", createRecipe);
+    app.post("/api/user/:uid/recipe", createRecipe);
+    app.post("/api/user/:uid/book/:bid/recipe", createRecipeInBook);
+    app.get("/api/recipe/search", searchRecipes);
     app.get("/api/recipe/:rid", findRecipeById);
     app.delete("/api/recipe/:rid", deleteRecipe);
     app.put("/api/recipe/:rid", updateRecipe);
-    app.get("/api/recipe/search", searchRecipes);
     app.get("/api/admin/recipes", findAllRecipes);
     app.post("/api/recipe/:rid", rateRecipe);
 
@@ -53,26 +54,32 @@ module.exports = function(app, model) {
             searchRecipesByCategory(req, res);
         } else {
             var term = req.query['term'];
-            console.log("Searching for recipe matching: " + term);
             recipeModel.searchRecipes(term)
                 .then(function(response) {
-                    res.json(response);
+                    if (response.length > 0) {
+                        res.json(response);
+                    } else {
+                        res.sendStatus(404);
+                    }
                 }, function (err) {
                     console.log(err);
-                    res.sendStatus(404);
+                    res.sendStatus(500);
                 });
         }
     }
 
     function searchRecipesByCategory(req, res) {
         var term = req.query['category'];
-        console.log("Searching for recipe matching the category: " + term);
         recipeModel.searchRecipesByCategory(term)
             .then(function(response) {
-                res.json(response);
+                if (response.length > 0) {
+                    res.json(response);
+                } else {
+                    res.sendStatus(404);
+                }
             }, function (err) {
                 console.log(err);
-                res.sendStatus(404);
+                res.sendStatus(500);
             });
     }
 
@@ -115,9 +122,23 @@ module.exports = function(app, model) {
 
     function createRecipe(req, res) {
         var newRecipe = req.body;
+        var uid = req.params['uid'];
+
+        recipeModel.createRecipe(uid, newRecipe)
+            .then(function (recipe) {
+                res.json(recipe);
+            }, function (err) {
+                console.log(err);
+                res.sendStatus(500);
+            });
+    }
+
+    function createRecipeInBook(req, res) {
+        var newRecipe = req.body;
+        var uid = req.params['uid'];
         var bid = req.params['bid'];
 
-        recipeModel.createRecipe(bid, newRecipe)
+        recipeModel.createRecipeInBook(uid, bid, newRecipe)
             .then(function (recipe) {
                 res.json(recipe);
             }, function (err) {

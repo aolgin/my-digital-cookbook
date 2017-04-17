@@ -15,10 +15,10 @@
             "findRecipesByUserId": findRecipesByUserId,
             "findBooksByUserId": findBooksByUserId,
             "findUserFavorites": findUserFavorites,
-            "findFriendsByUser": findFriendsByUser,
-            "sendFriendRequest": sendFriendRequest,
-            "acceptFriendRequest": acceptFriendRequest,
-            "rejectFriendRequest": rejectFriendRequest,
+            "findFollowingByUserId": findFollowingByUserId,
+            "followUser": followUser,
+            "unfollowUser": unfollowUser,
+            "isFollowingChef": isFollowingChef,
             "login": login,
             "logout": logout,
             "register": register,
@@ -26,16 +26,20 @@
         };
         return api;
 
-        function sendFriendRequest(from, to) {
-
+        function isFollowingChef(uid, chefId) {
+            return $http.put("/api/user/" + uid + "/follow/" + chefId);
         }
 
-        function acceptFriendRequest() {
-
+        function followUser(followerId, followingId) {
+            return $http.put("/api/user/" + followerId + "/follow/?followingId=" + followingId);
         }
 
-        function rejectFriendRequest() {
+        function unfollowUser(followerId, followingId) {
+            return $http.delete("/api/user/" + followerId + "/follow/?followingId=" + followingId);
+        }
 
+        function findFollowingByUserId(uid) {
+            return $http.get("/api/user/" + uid + "/follow");
         }
 
         function logout(user) {
@@ -64,10 +68,6 @@
 
         function findBooksByUserId(uid, limit) {
             return $http.get("/api/user/" + uid + "/book?limit=" + limit);
-        }
-
-        function findFriendsByUser(uid) {
-            return $http.get("/api/user/" + uid + "/friend");
         }
 
         function findUserById(uid) {

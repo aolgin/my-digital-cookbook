@@ -3,8 +3,11 @@
         .module("MyDigitalCookbook")
         .controller("ErrorController", ErrorController);
 
-    function ErrorController($routeParams) {
+    function ErrorController($routeParams, currentUser, UserService, $rootScope, $location) {
         var vm = this;
+        if (currentUser) {
+            vm.uid = currentUser._id;
+        }
         var code = $routeParams.code;
         switch (code) {
             case '401':
@@ -23,5 +26,21 @@
 
         function init() {}
         init();
+
+        vm.search = search;
+        vm.logout = logout;
+
+        function search(term, type) {
+            $location.url("/search/results?term=" + term + "&type=" + type);
+        }
+
+        function logout() {
+            UserService
+                .logout()
+                .then(function (response) {
+                    $rootScope.currentUser = null;
+                    $location.url("/");
+                });
+        }
     }
 })();

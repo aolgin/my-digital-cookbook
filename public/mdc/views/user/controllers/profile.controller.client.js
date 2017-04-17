@@ -6,6 +6,7 @@
     function ProfileController(UserService, $rootScope, currentUser) {
         var vm = this;
         vm.user = currentUser;
+        vm.uid = currentUser._id;
 
         function init() {
 
@@ -15,6 +16,11 @@
         vm.update = update;
         vm.deleteUser = deleteUser;
         vm.logout = logout;
+        vm.search = search;
+
+        function search(term, type) {
+            $location.url("/search/results?term=" + term + "&type=" + type);
+        }
 
         function update(user) {
             if (!user || !user.username) {
@@ -56,12 +62,10 @@
         function logout() {
             UserService
                 .logout()
-                .then(
-                    function (response) {
-                        $rootScope.currentUser = null;
-                        $location.url("/");
-                    }
-                );
+                .then(function (response) {
+                    $rootScope.currentUser = null;
+                    $location.url("/");
+                });
         }
     }
 })();

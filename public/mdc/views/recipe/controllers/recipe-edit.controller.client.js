@@ -3,8 +3,9 @@
         .module("MyDigitalCookbook")
         .controller("RecipeEditController", RecipeEditController);
 
-    function RecipeEditController(RecipeService, $routeParams, $location) {
+    function RecipeEditController(RecipeService, $routeParams, $location, currentUser, UserService, $rootScope) {
         var vm = this;
+        vm.uid = currentUser._id;
         vm.rid = $routeParams['rid'];
 
         function init() {
@@ -18,6 +19,21 @@
         vm.deleteRecipe = deleteRecipe;
         vm.updateRecipe = updateRecipe;
         vm.detachRecipe = detachRecipe;
+        vm.search = search;
+        vm.logout = logout;
+
+        function search(term, type) {
+            $location.url("/search/results?term=" + term + "&type=" + type);
+        }
+
+        function logout() {
+            UserService
+                .logout()
+                .then(function (response) {
+                    $rootScope.currentUser = null;
+                    $location.url("/");
+                });
+        }
 
         function deleteRecipe() {
             var answer = confirm("Delete this recipe?");

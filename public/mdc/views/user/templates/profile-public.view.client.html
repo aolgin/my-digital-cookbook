@@ -11,8 +11,43 @@
     </section>
 
     <div>
-        {{model.user}}
+        <div ng-if="model.user.img_record.url"
+             class="col-md-3 hidden-sm">
+            <img ng-src="{{model.user.img_record.url}}" width="100%"/>
+        </div>
+        <div class="col-md-9 col-xs-12">
+            <h3>Chef {{model.user.username}}</h3>
+            <h5>Started cooking {{model.user.dateCreated | date}}</h5>
+            <br>
+            <h4>About Me: </h4>
+            <p>{{model.user.about}}</p>
+
+            <div ng-if="!model.yourProfile && model.isFollowing">
+                <a ng-click="model.unfollowerUser()">
+                    <span class="btn btn-block btn-orange">Unfollow Chef</span>
+                </a>
+            </div>
+            <div ng-if="!model.yourProfile && !model.isFollowing">
+                <a ng-click="model.followerUser()">
+                    <span class="btn btn-block btn-orange">Follow Chef</span>
+                </a>
+            </div>
+            <hr>
+
+            <!-- TODO: Table for cookbooks -->
+            <!-- TODO: Table for recipes -->
+            <!-- TODO: Table for favorites -->
+
+
+
+            <h3>Statistics:</h3>
+            <p><b>Cookbooks Created: </b> {{model.numBooks}}</p>
+            <p><b>Recipes Created: </b> {{model.numRecipes}}</p>
+            <p><b>Follower Count: </b> {{model.numFollowers}}</p>
+
     </div>
+
+        {{model.user}}
 
     <ng-include src="'views/misc/templates/footer.view.client.html'"></ng-include>
 </div>

@@ -14,7 +14,7 @@
                 <!--</button>-->
                 <div class="input-group-btn">
                     <select ng-model="searchType" class="btn btn-default">
-                        <option value="All">All</option>
+                        <option value="">---</option>
                         <option value="Chefs">Chef</option>
                         <option value="Cookbooks">Cookbook</option>
                         <option value="Recipes">Recipe</option>
@@ -23,6 +23,16 @@
                 </div>
             </div>
         </form>
+    </div>
+    <div>
+        <div>
+            <div class="btn-group">
+                <a class="btn btn-default" role="group"
+                   ng-click="model.search(searchText, searchType)">
+                    Search <span class="glyphicon glyphicon-search"></span>
+                </a>
+            </div>
+        </div>
     </div>
             <!--<div class="input-group">-->
                 <!--<input type="text"-->
@@ -75,14 +85,5 @@
                     <!--<li role="menuitem"><a ng-click="model.changeSearchType('Recipe')">Recipe</a></li>-->
                     <!--<li role="menutiem"><a ng-click="model.changeSearchType('Category')">Category</a></li>-->
                 <!--</ul>-->
-            </div>
-            <div>
-                <div class="btn-group">
-                    <a class="btn btn-default" role="group"
-                       ng-click="model.search(searchText)">
-                        Search <span class="glyphicon glyphicon-search"></span>
-                    </a>
-                </div>
-            </div>
-        </div>
+
 </div>

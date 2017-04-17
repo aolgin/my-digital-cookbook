@@ -3,7 +3,7 @@
         .module("MyDigitalCookbook")
         .controller("RecipeNewController", RecipeNewController);
 
-    function RecipeNewController(RecipeService, $location, currentUser) {
+    function RecipeNewController(RecipeService, $location, currentUser, UserService, $rootScope) {
         var vm = this;
         vm.uid = currentUser._id;
 
@@ -14,6 +14,21 @@
 
         vm.createRecipe = createRecipe;
         vm.createRecipeInBook = createRecipeInBook;
+        vm.search = search;
+        vm.logout = logout;
+
+        function search(term, type) {
+            $location.url("/search/results?term=" + term + "&type=" + type);
+        }
+
+        function logout() {
+            UserService
+                .logout()
+                .then(function (response) {
+                    $rootScope.currentUser = null;
+                    $location.url("/");
+                });
+        }
 
         function createRecipeInBook(recipe, bid) {
             //TODO: form validation

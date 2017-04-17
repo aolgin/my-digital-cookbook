@@ -3,7 +3,7 @@
         .module("MyDigitalCookbook")
         .controller("PublicRecipeController", PublicRecipeController);
 
-    function PublicRecipeController(RecipeService, $routeParams, $sce, currentUser) {
+    function PublicRecipeController(RecipeService, $routeParams, $sce, currentUser, UserService, $rootScope) {
         var vm = this;
         vm.rid = $routeParams['rid'];
         if (currentUser) {
@@ -26,6 +26,21 @@
         vm.favoriteRecipe = favoriteRecipe;
         vm.unfavoriteRecipe = unfavoriteRecipe;
         vm.rateRecipe = rateRecipe;
+        vm.search = search;
+        vm.logout = logout;
+
+        function search(term, type) {
+            $location.url("/search/results?term=" + term + "&type=" + type);
+        }
+
+        function logout() {
+            UserService
+                .logout()
+                .then(function (response) {
+                    $rootScope.currentUser = null;
+                    $location.url("/");
+                });
+        }
 
         function checkLogin() {
             return vm.uid &&

@@ -1,7 +1,46 @@
 <ng-include src="'views/misc/templates/header.view.client.html'"></ng-include>
 
-<div id="page-content-wrapper">
+<div id="page-content-wrapper" class="container-fluid">
 
+    <!-- TODO: Add in option to edit for logged-in user who matches the owner id-->
+
+    <div ng-if="model.book.img_record.url"
+         class="col-md-3 hidden-sm">
+        <img ng-src="{{model.book.img_record.url}}" width="100%"/>
+    </div>
+    <div class="col-md-9 col-xs-12">
+        <h3>{{model.book.name}}</h3>
+        <h5>Created by {{model.book._user.username}} on {{model.book.dateCreated | date}}</h5>
+        <h4>{{model.book.description}}</h4>
+        <hr>
+
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th class="hidden-sm hidden-xs">Image</th>
+                        <th>Recipe</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="recipe in model.book.recipes">
+                        <th class="hidden-sm hidden-xs">
+                            <img ng-src="{{recipe.img_record.url}}"/>
+                        </th>
+                        <th>
+                            <a href="/recipes/{{recipe._id}}">
+                                <span>{{recipe.name}}</span>
+                            </a>
+                        </th>
+                        <th>
+                            <span>{{recipe.description}}</span>
+                        </th>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
 
     <ng-include src="'views/misc/templates/footer.view.client.html'"></ng-include>
 </div>

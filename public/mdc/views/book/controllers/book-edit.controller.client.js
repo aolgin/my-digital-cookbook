@@ -3,10 +3,10 @@
         .module("MyDigitalCookbook")
         .controller("BookEditController", BookEditController);
 
-    function BookEditController(BookService, $location, $routeParams, currentUser) {
+    function BookEditController(BookService, $location, $routeParams, currentUser, UserService, $rootScope) {
         var vm = this;
         vm.bookId = $routeParams['bid'];
-        vm.userId = currentUser._id;
+        vm.uid = currentUser._id;
 
         function init() {
             var bookPromise = BookService.findBookById(vm.bookId);
@@ -18,6 +18,21 @@
 
         vm.deleteBook = deleteBook;
         vm.updateBook = updateBook;
+        vm.search = search;
+        vm.logout = logout;
+
+        function search(term, type) {
+            $location.url("/search/results?term=" + term + "&type=" + type);
+        }
+
+        function logout() {
+            UserService
+                .logout()
+                .then(function (response) {
+                    $rootScope.currentUser = null;
+                    $location.url("/");
+                });
+        }
 
         function deleteBook() {
 

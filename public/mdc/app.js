@@ -1,4 +1,4 @@
 (function () {
     angular
-        .module("MyDigitalCookbook", ["ngRoute", "textAngular"]);
+        .module("MyDigitalCookbook", ["ngRoute", "textAngular", 'ui.bootstrap']);
 })();

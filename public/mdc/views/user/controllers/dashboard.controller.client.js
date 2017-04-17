@@ -3,8 +3,9 @@
         .module("MyDigitalCookbook")
         .controller("DashboardController", DashboardController);
 
-    function DashboardController(UserService, currentUser, $location, NotificationService) {
+    function DashboardController(UserService, currentUser, $location, NotificationService, $rootScope) {
         var vm = this;
+        vm.user = currentUser;
         vm.uid = currentUser._id;
 
         function init() {
@@ -33,6 +34,22 @@
             }
         }
         init();
+
+        vm.search = search;
+        vm.logout = logout;
+
+        function logout() {
+            UserService
+                .logout()
+                .then(function (response) {
+                    $rootScope.currentUser = null;
+                    $location.url("/home");
+                });
+        }
+
+        function search(term, type) {
+            $location.url("/search/results?term=" + term + "&type=" + type);
+        }
 
         function renderDashboard() {
             renderBooks(3);

@@ -29,8 +29,12 @@
                 $rootScope.currentUser = user;
                 deferred.resolve(user);
             } else {
-                deferred.reject();
+                deferred.resolve();
             }
+        }).error(function (response) {
+            console.log("Rejecting...");
+            console.log(response);
+            deferred.reject();
         });
         return deferred.promise;
     };
@@ -59,10 +63,17 @@
         $httpProvider.defaults.headers.put['Content-Type'] = 'application/json;charset=utf-8';
 
         $routeProvider
+            .when("/home", {
+                templateUrl: 'views/home/templates/index.html',
+                controller: 'HomeController',
+                controllerAs: 'model',
+                resolve: { currentUser: checkLoggedinNoRedirect }
+            })
             .when("/error", {
                 templateUrl: 'views/error/templates/error.view.client.html',
                 controller: 'ErrorController',
-                controllerAs: 'model'
+                controllerAs: 'model',
+                resolve: { currentUser: checkLoggedinNoRedirect }
             })
             .when("/login",{
                 templateUrl: 'views/user/templates/login.view.client.html',
@@ -139,32 +150,32 @@
                 controller: 'RegisterController',
                 controllerAs: 'model'
             })
-            .when("/dashboard", { // Will ultimately be removing the UID here
+            .when("/dashboard", { 
                 templateUrl: 'views/user/templates/dashboard.view.client.html',
                 controller: 'DashboardController',
                 controllerAs: 'model',
                 resolve: { currentUser: checkLoggedin }
             })
-            .when("/dashboard/books", { // Will ultimately be removing the UID here
+            .when("/dashboard/books", { 
                 templateUrl: 'views/user/templates/dashboard-books.view.client.html',
                 controller: 'DashboardController',
                 controllerAs: 'model',
                 resolve: { currentUser: checkLoggedin }
             })
-            .when("/dashboard/recipes", { // Will ultimately be removing the UID here
+            .when("/dashboard/recipes", { 
                 templateUrl: 'views/user/templates/dashboard-recipes.view.client.html',
                 controller: 'DashboardController',
                 controllerAs: 'model',
                 resolve: { currentUser: checkLoggedin }
             })
-            .when("/dashboard/favorites", { // Will ultimately be removing the UID here
+            .when("/dashboard/favorites", { 
                 templateUrl: 'views/user/templates/dashboard-favorites.view.client.html',
                 controller: 'DashboardController',
                 controllerAs: 'model',
                 resolve: { currentUser: checkLoggedin }
             })
-            .when("/dashboard/friends", { // Will ultimately be removing the UID here
-                templateUrl: 'views/user/templates/dashboard-friends.view.client.html',
+            .when("/dashboard/following", { 
+                templateUrl: 'views/user/templates/dashboard-following.view.client.html',
                 controller: 'DashboardController',
                 controllerAs: 'model',
                 resolve: { currentUser: checkLoggedin }
