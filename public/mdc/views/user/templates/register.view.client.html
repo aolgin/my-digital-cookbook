@@ -1,27 +1,14 @@
-<nav class="navbar navbar-default navbar-fixed-top">
-    <div class="container-fluid">
-        <div class="navbar-header mdc-logo pull-left">
-            <a class="navbar-brand" href="/">
-                <img src="../../../../img/logo-100x70.png"/>
-            </a>
-        </div>
-        <div class="navbar-header">
-            <a class="navbar-brand">
-                My Digital Cookbook
-            </a>
-        </div>
-    </div>
-</nav>
+<ng-include src="'views/misc/templates/header.view.client.html'"></ng-include>
 
-<div>
-    <section>
+<div id="page-content-wrapper">
+    <div class="mdc-msg-text">
         <div class="alert alert-danger" ng-show="model.error">
             {{model.error}}
         </div>
         <div class="alert alert-success" ng-show="model.message">
             {{model.message}}
         </div>
-    </section>
+    </div>
 
     <h2>Join for free today and start creating your own digital cookbooks!</h2>
 
@@ -61,8 +48,4 @@
     </div>
 </div>
 
-<nav class="visible-md navbar navbar-default navbar-fixed-bottom">
-    <div class="container-fluid pull-right">
-        <p class="navbar-text">Source code available on <a href="https://github.com/aolgin/my-digital-cookbook/tree/master/public">Github</a></p>
-    </div>
-</nav>
+<ng-include src="'views/misc/templates/footer.view.client.html'"></ng-include>

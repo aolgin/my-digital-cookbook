@@ -10,21 +10,21 @@
         <li class="active"><a>Following</a></li>
     </ul>
 
-    <section>
+    <div class="mdc-msg-text">
         <div class="alert alert-danger" ng-show="model.error">
             {{model.error}}
         </div>
         <div class="alert alert-success" ng-show="model.message">
             {{model.message}}
         </div>
-    </section>
+    </div>
 
     <div class="row container-fluid">
         <div class="col-lg-12">
             <h4>My Following</h4>
             <hr>
         </div>
-        <div ng-show="model.following_msg" class="alert alert-success">
+        <div ng-show="model.following_msg" class="alert alert-success mdc-msg-text">
             {{model.following_msg}}
         </div>
         <div ng-repeat="follower in model.following">

@@ -10,14 +10,14 @@
         <li><a href="#/dashboard/following">Following</a></li>
     </ul>
 
-    <section>
+    <div class="mdc-msg-text">
         <div class="alert alert-danger" ng-show="model.error">
             {{model.error}}
         </div>
         <div class="alert alert-success" ng-show="model.message">
             {{model.message}}
         </div>
-    </section>
+    </div>
 
     <div class="row container-fluid">
         <div class="col-lg-12">
@@ -27,7 +27,7 @@
             </a>
             <hr>
         </div>
-        <div ng-show="model.recipe_msg" class="alert alert-success">
+        <div ng-show="model.recipe_msg" class="alert alert-success mdc-msg-text">
             {{model.recipe_msg}}
         </div>
         <div ng-repeat="recipe in model.recipes">

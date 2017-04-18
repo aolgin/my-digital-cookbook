@@ -3,14 +3,14 @@
 <!-- NOTE: This is the logged-in user viewing their books -->
 
 <div id="page-content-wrapper">
-    <section>
+    <div class="mdc-msg-text">
         <div class="alert alert-danger" ng-show="model.error">
             {{model.error}}
         </div>
         <div class="alert alert-success" ng-show="model.message">
             {{model.message}}
         </div>
-    </section>
+    </div>
     <ul class="list-group">
         <li class="list-group-item" ng-repeat="book in model.books">
             <img ng-src="{{book.image_url}}"/>

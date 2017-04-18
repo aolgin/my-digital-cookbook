@@ -15,6 +15,9 @@
             RecipeService.findRecipeById(vm.rid)
                 .then(function (response) {
                     vm.recipe = response.data;
+                    if (vm.recipe.comments.length === 0) {
+                        vm.commentsMsg = "No comments yet! Please login to comment and rate this recipe.";
+                    }
                     isYourRecipe();
                 }).catch(function (err) {
                     console.log(err);
@@ -30,6 +33,26 @@
         vm.rateRecipe = rateRecipe;
         vm.search = search;
         vm.logout = logout;
+        vm.comment = comment;
+        vm.commentBoxToggle = commentBoxToggle;
+
+        function setComments() {
+            if (vm.uid) {
+
+            }
+        }
+
+        function commentBoxToggle() {
+            if (!vm.showCommentBox) {
+                vm.showCommentBox = true;
+            } else {
+                vm.showCommentBox = false;
+            }
+        }
+
+        function comment(text, rating) {
+
+        }
 
         function isYourRecipe() {
             if (currentUser && currentUser._id === vm.recipe._user._id) {
