@@ -16,29 +16,29 @@
         <input type="text"
                id="name"
                placeholder="Name your book"
-               ng-model="book.name"
+               ng-model="model.book.name"
                class="form-control"/>
 
         <label for="description">Description: </label>
         <textarea id="description"
                   placeholder="Describe your book here"
-                  ng-model="book.description"
+                  ng-model="model.book.description"
                   class="form-control"></textarea>
 
         <label for="image">Image (Optional): </label>
         <input type="file"
                id="image"
                name="myFile"
-               ng-model="book.file"
+               ng-model="model.book.file"
                class="form-control"/>
         <label for="preview">Image Preview: </label>
-        <img ng-src="{{model.book.image_url}}" id="preview" width="100%"/>
+        <img ng-src="{{model.book.img_record.url}}" id="preview" width="100%"/>
     </form>
 
     <button class="btn btn-block btn-primary"
             ng-click="model.updateBook(model.book)">Update</button>
     <button class="btn btn-block btn-severe"
-            ng-click="model.deleteBook(model.book)">Delete</button>
+            ng-click="model.deleteBook()">Delete</button>
     <a href="#/dashboard/books" class="btn btn-block btn-danger">
         Cancel
     </a>

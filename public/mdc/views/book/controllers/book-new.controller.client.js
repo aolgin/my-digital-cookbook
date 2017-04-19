@@ -42,7 +42,7 @@
             var promise = BookService.createBook(book, vm.uid);
             promise.then(function(response) {
                 if (response.status == 200) {
-                    $location.url("/user/" + vm.uid + "/book");
+                    $location.url("/dashboard/books");
                 }
             }).catch(function (err) {
                 var status = err.status;

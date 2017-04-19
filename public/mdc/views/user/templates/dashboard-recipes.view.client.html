@@ -20,12 +20,12 @@
 
     <div class="row container-fluid">
         <div>
-            <h4>My Recipes</h4>
-            <a href="#/dashboard/recipes/new" class="badge pull-right">
+            <a href="#/dashboard/recipes/new" class="pull-right">
                 <span class="glyphicon glyphicon-plus"></span>
             </a>
-            <hr>
+            <h4>My Recipes</h4>
         </div>
+        <hr>
         <div ng-show="model.recipe_msg" class="alert alert-success mdc-msg-text">
             {{model.recipe_msg}}
         </div>
@@ -33,10 +33,13 @@
             <div class="col-md-3">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <h4>{{recipe.name}}</h4>
+                        <a href="#/dashboard/recipes/{{recipe._id}}" class="pull-right btn">
+                            <span class="glyphicon glyphicon-pencil"></span>
+                        </a>
+                        <h4><a href="#/recipe/{{recipe._id}}">{{recipe.name}}</a></h4>
                     </div>
                     <div class="panel-body">
-                        <img class="mdc-panel-image" ng-src="{{recipe.image_url}}"/>
+                        <img class="mdc-panel-image" ng-src="{{recipe.img_record._url}}"/>
                         <p>{{recipe.description}}</p>
                     </div>
                 </div>

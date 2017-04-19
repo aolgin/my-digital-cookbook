@@ -43,13 +43,12 @@
         }
 
         function deleteBook() {
-
             var answer = confirm("Delete this book?");
             if (answer) {
                 var promise = BookService.deleteBook(vm.bookId);
                 promise.then(function (response) {
                     if (response.status == 200) {
-                        $location.url("/user/" + vm.userId + "/book");
+                        $location.url("/dashboard/books");
                     }
                 }).catch(function (err) {
                     vm.error = "An uncaught error occurred deleting your book: \n" + err.data;
@@ -57,15 +56,15 @@
             }
         }
 
-        function updateBook(newSite) {
-            if (!newSite || !newSite.name) {
+        function updateBook(newBook) {
+            if (!newBook || !newBook.name) {
                 vm.error = "The 'name' field is required for submission";
                 return;
             }
-            var promise = BookService.updateBook(vm.bookId, newSite);
+            var promise = BookService.updateBook(vm.bookId, newBook);
             promise.then(function(response) {
                 if (response.status == 200) {
-                    $location.url("/user/" + vm.userId + "/book");
+                    $location.url("/cookbook/" + vm.bookId);
                 }
             }).catch(function(err) {
                 var status = err.status;

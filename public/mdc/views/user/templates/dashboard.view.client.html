@@ -30,10 +30,13 @@
             <div class="col-md-3">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <h4><a href="#/dashboard/books/{{book._id}}/recipe">{{book.name}}</a></h4>
+                        <a href="#/dashboard/books/{{book._id}}" class="pull-right btn">
+                            <span class="glyphicon glyphicon-pencil"></span>
+                        </a>
+                        <h4><a href="#/cookbook/{{book._id}}">{{book.name}}</a></h4>
                     </div>
                     <div class="panel-body">
-                        <img class="mdc-panel-image" ng-src="{{book.image}}"/>
+                        <img class="mdc-panel-image" ng-src="{{book.img_record.url}}"/>
                         <p>{{book.description}}</p>
                     </div>
                 </div>
@@ -53,10 +56,13 @@
             <div class="col-md-3">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <h4>{{recipe.name}}</h4>
+                        <a href="#/dashboard/recipes/{{recipe._id}}" class="pull-right btn">
+                            <span class="glyphicon glyphicon-pencil"></span>
+                        </a>
+                        <h4><a href="#/recipe/{{recipe._id}}">{{recipe.name}}</a></h4>
                     </div>
                     <div class="panel-body">
-                        <img class="mdc-panel-image" ng-src="{{recipe.image}}"/>
+                        <img class="mdc-panel-image" ng-src="{{recipe.img_record._url}}"/>
                         <p>{{recipe.description}}</p>
                     </div>
                 </div>

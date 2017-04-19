@@ -24,7 +24,7 @@
                 vm.error = "All fields required!";
                 return;
             } else if (user.newPass !== user.confirmPass) {
-                vm.error = "Passwords do not match!";
+                vm.error = "New Passwords do not match!";
                 return
             }
 
