@@ -27,15 +27,27 @@
         init();
 
         vm.getTrustedHtml = getTrustedHtml;
-        vm.rateRecipe = rateRecipe;
         vm.search = search;
         vm.logout = logout;
-        vm.comment = comment;
+        vm.commentOnRecipe = commentOnRecipe;
         vm.commentBoxToggle = commentBoxToggle;
+        vm.deleteComment = deleteComment;
 
-        function setComments() {
-            if (vm.uid) {
-
+        function deleteComment(cid) {
+            var answer = confirm("Are you sure you would like to delete this comment?");
+            if (answer) {
+                RecipeService.deleteComment(cid, vm.rid)
+                    .then(function (response) {
+                        vm.commentMsg = "Comment successfully deleted";
+                        // Need to refresh the data once comments are added, otherwise, the comment won't show up until page refresh
+                        RecipeService.findRecipeById(vm.rid)
+                            .then(function (response) {
+                                vm.recipe = response.data;
+                            });
+                    }).catch(function (err) {
+                    console.log(err);
+                    vm.commentErr = "An unexpected error occured trying to delete your comment";
+                });
             }
         }
 
@@ -47,8 +59,27 @@
             }
         }
 
-        function comment(text, rating) {
-
+        function commentOnRecipe(comment) {
+            if (!comment.text) {
+                vm.commentErr = "Please type in a comment before submission!";
+            } else if (comment.rating && (comment.rating > 5 || comment.rating < 1)) {
+                vm.commentErr = "Please rate this recipe between 1 and 5";
+            } else {
+                vm.commentErr = null;
+                var promise = RecipeService.commentOnRecipe(comment, vm.rid, vm.uid);
+                promise.then(function (response) {
+                    vm.commentMsg = "Comment successfully posted! Thank you!";
+                    vm.showCommentBox = false;
+                    // Need to refresh the data once comments are added, otherwise, the comment won't show up until page refresh
+                    RecipeService.findRecipeById(vm.rid)
+                        .then(function (response) {
+                            vm.recipe = response.data;
+                        });
+                }).catch(function (err) {
+                    console.log(err);
+                    vm.commentErr = "An unexpected error occurred when trying to post your comment:\n" + err;
+                })
+            }
         }
 
         function isYourRecipe() {
@@ -79,16 +110,6 @@
 
         function getTrustedHtml(html) {
             return $sce.trustAsHtml(html);
-        }
-
-        function rateRecipe(rating) {
-            if (!checkLogin) {
-                vm.error = "Please sign to rate a recipe!";
-                return;
-            }
-            var promise = RecipeService.rateRecipe(recipe._id, rating);
-
-
         }
 
     }

@@ -1,7 +1,6 @@
 module.exports = function(app, model) {
     var recipeModel = model.recipeModel;
 
-
     app.get("/api/user/:uid/recipe", findRecipesByUser);
     app.get("/api/book/:bid/recipe", findRecipesByBook);
     app.post("/api/user/:uid/recipe", createRecipe);
@@ -11,21 +10,8 @@ module.exports = function(app, model) {
     app.delete("/api/recipe/:rid", deleteRecipe);
     app.put("/api/recipe/:rid", updateRecipe);
     app.get("/api/admin/recipes", findAllRecipes);
-    app.post("/api/recipe/:rid", rateRecipe);
 
     // Service Functions
-
-    function rateRecipe(req, res) {
-        var rid = req.params['rid'];
-        var rating = req.query['rating'];
-        recipeModel.rateRecipe(rid, rating)
-            .then(function (response) {
-                res.sendStatus(200);
-            }, function (err) {
-                console.log(err);
-                res.sendStatus(500);
-            })
-    }
 
     function findAllRecipes(req, res) {
         recipeModel.findAllRecipes()
@@ -87,14 +73,6 @@ module.exports = function(app, model) {
     function findRecipesByUser(req, res) {
         var uid = req.params['uid'];
         var limit = req.query['limit'];
-
-        // var userRecipes = recipes.filter(function(r) {
-        //     return r._user = uid;
-        // });
-        //
-        //
-        //
-        // res.json(userRecipes);
 
         model.userModel.findRecipesForUser(uid, limit)
             .then(function (user) {

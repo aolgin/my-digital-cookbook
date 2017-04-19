@@ -122,10 +122,15 @@ module.exports = function() {
         return RecipeModel
             .findById(bid)
             .populate("_user", "_id username")
-            .populate("rating", "total actual -_id")
-            // .populate("comments", "_user text -_id")
-            // .populate("categories", "name")
-            // .populate("comments._user", "username _id")
+            .populate({
+                path: "comments",
+                select: "_user text rating _id",
+                populate: {
+                    path: "_user",
+                    select: "username _id",
+                    model: "UserModel"
+                }
+            })
             .exec();
     }
 

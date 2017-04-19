@@ -20,6 +20,8 @@ module.exports = function() {
     var bookModel = require("./book/book.model.server")();
     var recipeModel = require("./recipe/recipe.model.server")();
     var fileModel = require("./file/file.model.server")();
+    var categoryModel = require("./category/category.model.server")();
+    var commentModel = require("./comment/comment.model.server")();
     var notificationModel = require("./notification/notification.model.server")();
     
     var model = {
@@ -28,6 +30,8 @@ module.exports = function() {
         recipeModel: recipeModel,
         fileModel: fileModel,
         notificationModel: notificationModel,
+        categoryModel: categoryModel,
+        commentModel: commentModel,
         mongojs: mongojs
     };
 
@@ -36,6 +40,8 @@ module.exports = function() {
     model.recipeModel.setModel(model);
     model.fileModel.setModel(model);
     model.notificationModel.setModel(model);
+    model.categoryModel.setModel(model);
+    model.commentModel.setModel(model);
 
     return model;
 };

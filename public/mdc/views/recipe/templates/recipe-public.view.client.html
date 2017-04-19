@@ -22,6 +22,8 @@
             <p>Ready In: {{model.recipe.ready_in}}</p>
             <p>Num. Servings: {{model.recipe.num_servings}}</p>
             <p>Yield: {{model.recipe.yield}}</p>
+            <p>Rating: {{model.recipe.rating.actual}}</p>
+            <p>Rating Count: {{model.recipe.rating.count}}</p>
         </div>
         <hr>
 
@@ -34,10 +36,18 @@
     </div>
 
     <div class="mdc-comments col-xs-12">
-        <button ng-if="!model.showCommentBox"
+        <h4>Comments</h4>
+        <hr>
+        <button ng-if="model.uid && !model.showCommentBox"
                 ng-click="model.commentBoxToggle()"
                 class="btn btn-success form-control">Comment</button>
+        <div ng-show="model.commentMsg" class="alert alert-info mdc-msg-text">
+            {{model.commentMsg}}
+        </div>
         <div ng-if="model.showCommentBox" class="mdc-comment-editor">
+            <div ng-show="model.commentErr" class="alert alert-danger mdc-msg-text">
+                {{model.commentErr}}
+            </div>
             <form>
                 <label for="comment-rating">Rating (1-5): </label>
                 <input id="comment-rating"
@@ -66,14 +76,19 @@
             <div class="col-xs-12">
                 <div class="panel panel-default">
                     <div class="panel-heading">
+                        <a class="pull-right"
+                           ng-if="model.uid === comment._user._id"
+                           ng-click="model.deleteComment(comment._id)">
+                            <span class="glyphicon glyphicon-remove"></span>
+                        </a>
                         <h4><a href="#/chef/{{comment._user._id}}">{{comment._user.username}}</a></h4>
-                        <p ng-if="comment.rating">
-                            <!-- TODO: how to represent this -->
-                            Rating: {{comment.rating}} out of 5
-                        </p>
                     </div>
                     <div class="panel-body">
                         <p>{{comment.text}}</p>
+                    </div>
+                    <div class="panel-footer" ng-if="comment.rating">
+                        <!-- TODO: how to represent this -->
+                        <b>Rating: {{comment.rating}} out of 5</b>
                     </div>
                 </div>
             </div>
