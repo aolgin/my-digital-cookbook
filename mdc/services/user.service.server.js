@@ -190,11 +190,12 @@ module.exports = function(app, model) {
         var uid = req.params['uid'];
         var chefId = req.params['chefId'];
 
-        userModel.isFollowingChef(uid, chefId)
+        userModel.isFollowingChef(uid)
             .then(function (response) {
-                //TODO: Not sure yet in what format this will return;
-                console.log(response);
-                res.send(response);
+                // Yes, this is just returning the unpopulated following.
+                // The controller will do a quick check to verify if the chefId is in there
+                var following = response.following;
+                res.json(following);
             }, function (err) {
                 console.log(err);
                 res.sendStatus(500);
@@ -230,7 +231,7 @@ module.exports = function(app, model) {
 
         userModel.findFollowingByUserId(uid)
             .then(function (user) {
-                res.json(user.friends);
+                res.json(user.following);
             }, function (err) {
                 console.log(err);
                 res.sendStatus(500);
@@ -310,10 +311,8 @@ module.exports = function(app, model) {
     function updatePassword(req, res) {
         var uid = req.params['uid'];
         var passwords = req.body;
-        console.log(passwords);
         userModel.findUserById(uid)
             .then(function (user) {
-                console.log(user);
                 if (user && bcrypt.compareSync(passwords.currentPass, user.password)) {
                     passwords.newPass = bcrypt.hashSync(passwords.newPass);
                     userModel.updatePassword(uid, passwords.newPass)

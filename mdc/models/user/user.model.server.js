@@ -53,7 +53,7 @@ module.exports = function() {
             .then(function(follower) {
                 UserModel.findById(userIdToFollow)
                     .then(function(followingUser) {
-                        follower.following.push(followingUser);
+                        follower.following.addToSet(followingUser);
                         follower.save();
                         followingUser.follower_count += 1;
                         return followingUser.save();
@@ -74,12 +74,11 @@ module.exports = function() {
             })
     }
 
-    function isFollowingChef(followerId, chefId) {
-        // TODO: Not as this should be. Need to find out how to make this work.
-        return UserModel
-            .findById(followerId)
-            .populate("following", "_id")
-            .exec();
+    function isFollowingChef(followerId) {
+        // Yes, this is just an alias function for findById,
+        // but unlike the findUserById, this one does not populate the
+        // 'following' field, making it easier to run a check on whether the chef is in the user's following
+        return UserModel.findById(followerId);
     }
 
     function findFollowingByUserId(uid) {

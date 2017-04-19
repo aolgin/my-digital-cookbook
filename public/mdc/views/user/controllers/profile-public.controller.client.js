@@ -23,7 +23,9 @@
             renderProfile(vm.chefId);
             if (currentUser) {
                 areYouTheChef();
-                isFollowingChef();
+                if (!vm.yourProfile) {
+                    isFollowingChef();
+                }
             }
         }
         init();
@@ -51,9 +53,11 @@
         function isFollowingChef() {
             UserService.isFollowingChef(vm.uid, vm.chefId)
                 .then(function (response) {
-                    //TODO: Unsure what this'll come back as right now
-                    console.log(response.data);
-                    vm.isFollowing = response.data;
+                    var following = response.data;
+                    vm.isFollowing = following.includes(vm.chefId);
+                }, function (err) {
+                    console.log(err);
+                    vm.error = "Unexpected error occurred when trying to determine if you are following this chef:\n" + err;
                 })
         }
 
@@ -61,21 +65,21 @@
             UserService.findUserById(uid)
                 .then(function (response) {
                     vm.user = response.data;
+                    vm.user.password = undefined;
                     vm.numRecipes = vm.user.recipes.length;
                     vm.numBooks = vm.user.books.length;
-                    vm.numFollowers= vm.user.follower_count || 0;
+                    vm.numFollowers= vm.user.follower_count;
                 }).catch(function (err) {
                     console.log(err);
                     vm.error = "Unable to find a user with the specified ID";
                 });
         }
 
-        // TODO: Need a way to check if the ChefId is already in the following of the CurrentUser
-
         function followUser() {
             UserService.followUser(vm.uid, vm.chefId)
                 .then(function (response) {
-                    vm.followed = true;
+                    vm.isFollowing = true;
+                    renderProfile(vm.chefId);
                 }).catch(function (err) {
                     console.log(err);
                     vm.error = "An error occurred trying to follow this chef:\n" + err;
@@ -85,7 +89,8 @@
         function unfollowUser() {
             UserService.unfollowUser(vm.uid, vm.chefId)
                 .then(function (response) {
-                    vm.followed = false;
+                    vm.isFollowing = false;
+                    renderProfile(vm.chefId);
                 }).catch(function (err) {
                     console.log(err);
                     vm.error = "An error occurred trying to unfollow this chef:\n" + err;

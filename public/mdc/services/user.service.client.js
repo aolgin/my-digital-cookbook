@@ -24,7 +24,7 @@
         return api;
 
         function isFollowingChef(uid, chefId) {
-            return $http.put("/api/user/" + uid + "/follow/" + chefId);
+            return $http.get("/api/user/" + uid + "/follow/" + chefId);
         }
 
         function followUser(followerId, followingId) {
