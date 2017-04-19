@@ -3,11 +3,15 @@
         .module("MyDigitalCookbook")
         .controller("AdminController", AdminController);
 
-    function AdminController(AdminService, $location, $rootScope, UserService) {
+    function AdminController(AdminService, $location, UserService, adminUser) {
         var vm = this;
 
         function init() {
-
+            if (!adminUser) {
+                $location.url("/error?code=401");
+            } else {
+                vm.uid = adminUser._id;
+            }
         }
         init();
 
@@ -15,38 +19,14 @@
         vm.renderUsers = renderUsers;
         vm.renderRecipes = renderRecipes;
         vm.deleteUser = deleteUser;
-        vm.login = login;
         vm.logout = logout;
 
         function logout() {
             UserService
                 .logout()
                 .then(function (response) {
-                    $rootScope.currentUser = null;
-                    $location.url("/login/admin");
+                    $location.url("/login");
                 });
-        }
-
-        function login(user) {
-            if (!user.username || !user.password) {
-                vm.error = 'Username and Password required';
-                return;
-            }
-
-            var promise = AdminService.login(user);
-            promise.then(function(response) {
-                var user = response.data;
-                $rootScope.currentUser = user;
-                $location.url("/admin");
-            }).catch(function (err) {
-                console.log(err);
-                var status = err.status;
-                if (status == 404 || status == 401) {
-                    vm.error = 'No admin user found matching those credentials';
-                } else {
-                    vm.error = 'An uncaught error occurred when logging in:\n' + err.data;
-                }
-            });
         }
 
         function renderBooks() {

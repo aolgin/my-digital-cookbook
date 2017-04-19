@@ -51,8 +51,8 @@
             return $http.post("/api/register", user);
         }
 
-        function loggedin(user) {
-            return $http.get('/api/user?username=' + user.username);
+        function loggedin() {
+            return $http.get('/api/loggedin');
         }
 
         function findRecipesByUserId(uid, limit) {

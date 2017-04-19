@@ -3,7 +3,7 @@
         .module("MyDigitalCookbook")
         .controller("SearchController", SearchController);
 
-    function SearchController(SearchService, currentUser, $routeParams, UserService, $rootScope) {
+    function SearchController(SearchService, currentUser, $routeParams, UserService, adminUser) {
         var vm = this;
         var term = $routeParams['term'];
         var type = $routeParams['type'];
@@ -11,6 +11,9 @@
 
         if (currentUser) {
             vm.uid = currentUser._id;
+        }
+        if (adminUser) {
+            vm.admin = true;
         }
 
         function init() {
@@ -56,7 +59,6 @@
             UserService
                 .logout()
                 .then(function (response) {
-                    $rootScope.currentUser = null;
                     $location.url("/");
                 });
         }

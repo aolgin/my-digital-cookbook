@@ -3,11 +3,14 @@
         .module("MyDigitalCookbook")
         .controller("PublicRecipeController", PublicRecipeController);
 
-    function PublicRecipeController(RecipeService, $routeParams, $sce, currentUser, UserService, $rootScope) {
+    function PublicRecipeController(RecipeService, $routeParams, $sce, currentUser, UserService, adminUser) {
         var vm = this;
         vm.rid = $routeParams['rid'];
         if (currentUser) {
             vm.uid = currentUser._id;
+        }
+        if (adminUser) {
+            vm.admin = true;
         }
 
         function init() {
@@ -98,14 +101,8 @@
             UserService
                 .logout()
                 .then(function (response) {
-                    $rootScope.currentUser = null;
                     $location.url("/");
                 });
-        }
-
-        function checkLogin() {
-            return vm.uid &&
-                    vm.uid !== recipe._user;
         }
 
         function getTrustedHtml(html) {

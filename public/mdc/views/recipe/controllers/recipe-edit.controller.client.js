@@ -3,9 +3,12 @@
         .module("MyDigitalCookbook")
         .controller("RecipeEditController", RecipeEditController);
 
-    function RecipeEditController(RecipeService, $routeParams, $location, currentUser, UserService, $rootScope) {
+    function RecipeEditController(RecipeService, $routeParams, $location, currentUser, UserService, adminUser) {
         var vm = this;
         vm.rid = $routeParams['rid'];
+        if (adminUser) {
+            vm.admin = true;
+        }
 
         function init() {
             RecipeService.findRecipeById(vm.rid)
@@ -38,7 +41,6 @@
             UserService
                 .logout()
                 .then(function (response) {
-                    $rootScope.currentUser = null;
                     $location.url("/");
                 });
         }

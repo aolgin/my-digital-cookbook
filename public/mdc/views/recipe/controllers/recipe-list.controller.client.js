@@ -3,9 +3,12 @@
         .module("MyDigitalCookbook")
         .controller("RecipeListController", RecipeListController);
 
-    function RecipeListController(RecipeService, currentUser, UserService, $rootScope) {
+    function RecipeListController(RecipeService, currentUser, UserService, adminUser) {
         var vm = this;
         vm.uid = currentUser._id;
+        if (adminUser) {
+            vm.admin = true;
+        }
 
         function init() {
 
@@ -23,7 +26,6 @@
             UserService
                 .logout()
                 .then(function (response) {
-                    $rootScope.currentUser = null;
                     $location.url("/");
                 });
         }

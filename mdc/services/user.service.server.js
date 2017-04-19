@@ -23,17 +23,20 @@ module.exports = function(app, model) {
     app.post  ('/api/login', passport.authenticate('local'), login);
     app.post  ('/api/logout',         logout);
     app.post  ('/api/register',       register);
-    app.post  ('/api/user',     auth, createUser);
     app.get   ('/api/loggedin',       loggedin);
-    app.put   ('/api/user/:uid', auth, updateUser);
-    app.delete('/api/user/:uid', auth, deleteUser);
     app.get("/api/user", findUserByCredentials);
     app.get("/api/user/search", searchUsers);
+    app.get('/api/user/isAdmin', isAdmin);
+    app.put('/api/user/:uid', checkSameUser, updateUser);
+    app.delete('/api/user/:uid', checkSameUser, unregisterUser);
+    app.post  ('/api/admin/user', checkAdmin, createUser);
+    app.put('/api/admin/user/:uid', checkAdmin, updateUser);
+    app.delete('/api/admin/user/:uid', checkAdmin, unregisterUser);
     app.get("/api/user/:uid", findUserById);
-    app.get("api/admin/users", findAllUsers);
+    app.get("/api/admin/users", findAllUsers);
     //TODO: add in favoriting and friend requests
-    app.put("/api/user/:uid/follow", followUser);
-    app.delete("/api/user/:uid/follow", unfollowUser);
+    app.put("/api/user/:uid/follow", auth, followUser);
+    app.delete("/api/user/:uid/follow", auth, unfollowUser);
     app.get("/api/user/:uid/follow", findFollowingByUserId);
     app.get("/api/user/:uid/follow/:chefId", isFollowingChef);
     app.get(callback, passport.authenticate('google', {
@@ -137,6 +140,10 @@ module.exports = function(app, model) {
         res.send(req.isAuthenticated() ? req.user : '0');
     }
 
+    function isAdmin(req, res) {
+        res.send(req.isAuthenticated() && req.user.role === 'ADMIN' ? req.user : '0');
+    }
+
     function register (req, res) {
         var user = req.body;
         user.password = bcrypt.hashSync(user.password);
@@ -159,6 +166,22 @@ module.exports = function(app, model) {
                     res.sendStatus(500);
                 }
             });
+    }
+
+    function checkSameUser(req, res, next) {
+        if (req.user && req.user._id === req.params['uid']) {
+            next();
+        } else {
+            res.send(401);
+        }
+    }
+
+    function checkAdmin(req, res, next) {
+        if(req.user && req.user.role === 'ADMIN') {
+            next();
+        } else {
+            res.send(401);
+        }
     }
 
     // Service Functions
@@ -217,13 +240,17 @@ module.exports = function(app, model) {
 
     // For use by admin
     function findAllUsers(req, res) {
-        userModel.findAllUsers()
-            .then(function (users) {
-                res.json(users);
-            }, function (err) {
-                console.log(err);
-                res.sendStatus(500);
-            })
+        if (req.user && req.user.role == 'ADMIN') {
+            userModel.findAllUsers()
+                .then(function (users) {
+                    res.json(users);
+                }, function (err) {
+                    console.log(err);
+                    res.sendStatus(500);
+                })
+        } else {
+            res.sendStatus(401);
+        }
     }
 
     function searchUsers(req, res) {
@@ -297,7 +324,8 @@ module.exports = function(app, model) {
             });
     }
 
-    function deleteUser(req, res) {
+
+    function unregisterUser(req, res) {
         var uid = req.params['uid'];
 
         userModel

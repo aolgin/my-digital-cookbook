@@ -186,12 +186,14 @@ module.exports = function() {
     }
 
     function updateUser(userId, user) {
+        if (!user.role) user.role = 'USER';
         return UserModel.update({ _id: userId },
             {
                 firstName: user.firstName,
                 lastName: user.lastName,
                 username: user.username,
-                about: user.about
+                about: user.about,
+                role: user.role
             }
         );
     }

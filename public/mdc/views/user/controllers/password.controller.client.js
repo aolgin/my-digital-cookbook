@@ -3,9 +3,12 @@
         .module("MyDigitalCookbook")
         .controller("PasswordController", PasswordController);
 
-    function PasswordController(UserService, currentUser, $rootScope) {
+    function PasswordController(UserService, currentUser, adminUser) {
         var vm = this;
         vm.uid = currentUser._id;
+        if (adminUser) {
+            vm.admin = true;
+        }
 
         function init() {
 
@@ -23,7 +26,6 @@
             UserService
                 .logout()
                 .then(function (response) {
-                    $rootScope.currentUser = null;
                     $location.url("/");
                 });
         }

@@ -3,7 +3,7 @@
         .module("MyDigitalCookbook")
         .controller("LoginController", LoginController);
 
-    function LoginController(UserService, $location, $rootScope) {
+    function LoginController(UserService, $location) {
         var vm = this;
         vm.login = login;
 
@@ -19,8 +19,9 @@
             var promise = UserService.login(user);
             promise.then(function(response) {
                 var user = response.data;
-                $rootScope.currentUser = user;
-                $location.url("/dashboard");
+                if (user) {
+                    $location.url("/dashboard");
+                }
             }).catch(function (err) {
                 console.log(err);
                 var status = err.status;

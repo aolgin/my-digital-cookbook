@@ -3,7 +3,7 @@
         .module("MyDigitalCookbook")
         .controller("RegisterController", RegisterController);
 
-    function RegisterController(UserService, $location, $rootScope) {
+    function RegisterController(UserService, $location) {
         var vm = this;
 
         function init() {
@@ -27,8 +27,9 @@
                 .then(
                     function(response) {
                         var user = response.data;
-                        $rootScope.currentUser = user;
-                        $location.url("/dashboard");
+                        if (user) {
+                            $location.url("/dashboard");
+                        }
                     }
                 ).catch(function (err) {
                     var status = err.status;

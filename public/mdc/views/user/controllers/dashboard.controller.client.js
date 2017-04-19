@@ -3,10 +3,13 @@
         .module("MyDigitalCookbook")
         .controller("DashboardController", DashboardController);
 
-    function DashboardController(UserService, currentUser, $location, NotificationService, $rootScope) {
+    function DashboardController(UserService, currentUser, $location, NotificationService, adminUser) {
         var vm = this;
         vm.user = currentUser;
         vm.uid = currentUser._id;
+        if (adminUser) {
+            vm.admin = true;
+        }
 
         function init() {
             var path = $location.path();
@@ -38,7 +41,6 @@
             UserService
                 .logout()
                 .then(function (response) {
-                    $rootScope.currentUser = null;
                     $location.url("/home");
                 });
         }

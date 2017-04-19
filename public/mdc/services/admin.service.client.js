@@ -9,22 +9,12 @@
             "findAllUsers": findAllUsers,
             "findAllBooks": findAllBooks,
             "findAllRecipes": findAllRecipes,
-            "login": login,
-            "logout": logout,
-            "loggedin": loggedin
+            "isAdmin": isAdmin
         };
         return api;
 
-        function logout(user) {
-            return $http.post("/api/logout");
-        }
-
-        function loggedin(user) {
-            return $http.get('/api/user?username=' + user.username + "&admin=true");
-        }
-
-        function login(user) {
-            return $http.post("/api/login?admin=true", user);
+        function isAdmin() {
+            return $http.get('/api/user/isAdmin');
         }
 
         function findAllUsers() {

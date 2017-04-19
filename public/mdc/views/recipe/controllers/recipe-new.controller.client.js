@@ -3,8 +3,11 @@
         .module("MyDigitalCookbook")
         .controller("RecipeNewController", RecipeNewController);
 
-    function RecipeNewController(RecipeService, $location, currentUser, UserService, $rootScope) {
+    function RecipeNewController(RecipeService, $location, currentUser, UserService, adminUser) {
         var vm = this;
+        if (adminUser) {
+            vm.admin = true;
+        }
 
         function init() {
             if (!currentUser) {
@@ -28,7 +31,6 @@
             UserService
                 .logout()
                 .then(function (response) {
-                    $rootScope.currentUser = null;
                     $location.url("/");
                 });
         }

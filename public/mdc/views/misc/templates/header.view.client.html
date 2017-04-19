@@ -27,6 +27,9 @@
                 <li>
                     <ng-include src="'views/search/templates/search-bar.view.client.html'"></ng-include>
                 </li>
+                <li ng-if="model.admin">
+                    <a href="#/admin">Admin Portal</a>
+                </li>
                 <li ng-if="model.uid">
                     <a href="#/dashboard">Dashboard</a>
                 </li>

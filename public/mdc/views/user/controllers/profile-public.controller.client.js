@@ -3,11 +3,14 @@
         .module("MyDigitalCookbook")
         .controller("PublicProfileController", PublicProfileController);
 
-    function PublicProfileController(UserService, $routeParams, currentUser, $rootScope) {
+    function PublicProfileController(UserService, $routeParams, currentUser, adminUser) {
         var vm = this;
         vm.chefId = $routeParams['uid'];
         if (currentUser) {
             vm.uid = currentUser._id;
+        }
+        if (adminUser) {
+            vm.admin = true;
         }
 
         vm.renderProfile = renderProfile;
@@ -33,7 +36,6 @@
             UserService
                 .logout()
                 .then(function (response) {
-                    $rootScope.currentUser = null;
                     $location.url("/");
                 });
         }

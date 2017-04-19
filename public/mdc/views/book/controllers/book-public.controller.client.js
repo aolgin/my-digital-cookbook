@@ -3,11 +3,14 @@
         .module("MyDigitalCookbook")
         .controller("PublicBookController", PublicBookController);
 
-    function PublicBookController(BookService, $routeParams, $location, currentUser, UserService, $rootScope) {
+    function PublicBookController(BookService, $routeParams, $location, currentUser, UserService, adminUser) {
         var vm = this;
         vm.bid = $routeParams['bid'];
         if (currentUser) {
             vm.uid = currentUser._id;
+        }
+        if (adminUser) {
+            vm.admin = true;
         }
 
         function init() {
@@ -45,7 +48,6 @@
             UserService
                 .logout()
                 .then(function (response) {
-                    $rootScope.currentUser = null;
                     $location.url("/");
                 });
         }
