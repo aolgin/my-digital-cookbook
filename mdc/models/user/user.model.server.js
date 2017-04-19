@@ -15,6 +15,7 @@ module.exports = function() {
         findUserByUsername: findUserByUsername,
         findUserByGoogleId: findUserByGoogleId,
         updateUser: updateUser,
+        updateProfile: updateProfile,
         removeUser: removeUser,
         removeBookFromUser: removeBookFromUser,
         updatePassword: updatePassword,
@@ -185,6 +186,17 @@ module.exports = function() {
         return UserModel.findOne({ username: uname });
     }
 
+    function updateProfile(userId, user) {
+        return UserModel.update({ _id: userId },
+            {
+                firstName: user.firstName,
+                lastName: user.lastName,
+                username: user.username,
+                about: user.about
+            }
+        );
+    }
+
     function updateUser(userId, user) {
         if (!user.role) user.role = 'USER';
         return UserModel.update({ _id: userId },
@@ -193,6 +205,7 @@ module.exports = function() {
                 lastName: user.lastName,
                 username: user.username,
                 about: user.about,
+                password: password,
                 role: user.role
             }
         );

@@ -3,7 +3,7 @@
         .module("MyDigitalCookbook")
         .controller("ProfileController", ProfileController);
 
-    function ProfileController(UserService, currentUser, adminUser) {
+    function ProfileController(UserService, currentUser, adminUser, $location) {
         var vm = this;
         vm.user = currentUser;
         vm.uid = currentUser._id;

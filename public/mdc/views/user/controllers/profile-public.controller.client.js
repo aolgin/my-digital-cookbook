@@ -3,7 +3,7 @@
         .module("MyDigitalCookbook")
         .controller("PublicProfileController", PublicProfileController);
 
-    function PublicProfileController(UserService, $routeParams, currentUser, adminUser) {
+    function PublicProfileController(UserService, $routeParams, currentUser, adminUser, $location) {
         var vm = this;
         vm.chefId = $routeParams['uid'];
         if (currentUser) {

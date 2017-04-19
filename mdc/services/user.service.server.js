@@ -27,13 +27,13 @@ module.exports = function(app, model) {
     app.get("/api/user", findUserByCredentials);
     app.get("/api/user/search", searchUsers);
     app.get('/api/user/isAdmin', isAdmin);
-    app.put('/api/user/:uid', checkSameUser, updateUser);
+    app.put('/api/user/:uid', checkSameUser, updateProfile);
     app.delete('/api/user/:uid', checkSameUser, unregisterUser);
     app.post  ('/api/admin/user', checkAdmin, createUser);
     app.put('/api/admin/user/:uid', checkAdmin, updateUser);
     app.delete('/api/admin/user/:uid', checkAdmin, unregisterUser);
     app.get("/api/user/:uid", findUserById);
-    app.get("/api/admin/users", findAllUsers);
+    app.get("/api/admin/users", checkAdmin, findAllUsers);
     //TODO: add in favoriting and friend requests
     app.put("/api/user/:uid/follow", auth, followUser);
     app.delete("/api/user/:uid/follow", auth, unfollowUser);
@@ -48,7 +48,7 @@ module.exports = function(app, model) {
 
     function authorized (req, res, next) {
         if (!req.isAuthenticated()) {
-            res.send(401);
+            res.sendStatus(401);
         } else {
             next();
         }
@@ -169,10 +169,10 @@ module.exports = function(app, model) {
     }
 
     function checkSameUser(req, res, next) {
-        if (req.user && req.user._id === req.params['uid']) {
+        if (req.user && req.user._id == req.params['uid']) {
             next();
         } else {
-            res.send(401);
+            res.sendStatus(401);
         }
     }
 
@@ -180,7 +180,7 @@ module.exports = function(app, model) {
         if(req.user && req.user.role === 'ADMIN') {
             next();
         } else {
-            res.send(401);
+            res.sendStatus(401);
         }
     }
 
@@ -213,7 +213,6 @@ module.exports = function(app, model) {
             })
     }
 
-
     function unfollowUser(req, res) {
         var followerId = req.params['uid'];
         var userIdToUnfollow = req.query['followingId'];
@@ -240,17 +239,13 @@ module.exports = function(app, model) {
 
     // For use by admin
     function findAllUsers(req, res) {
-        if (req.user && req.user.role == 'ADMIN') {
-            userModel.findAllUsers()
-                .then(function (users) {
-                    res.json(users);
-                }, function (err) {
-                    console.log(err);
-                    res.sendStatus(500);
-                })
-        } else {
-            res.sendStatus(401);
-        }
+        userModel.findAllUsers()
+            .then(function (users) {
+                res.json(users);
+            }, function (err) {
+                console.log(err);
+                res.sendStatus(500);
+            })
     }
 
     function searchUsers(req, res) {
@@ -271,6 +266,7 @@ module.exports = function(app, model) {
     // For use by admin
     function createUser(req, res) {
         var user = req.body;
+        user.password = bcrypt.hashSync(user.password);
 
         userModel.createUser(user)
             .then(function (user) {
@@ -311,9 +307,50 @@ module.exports = function(app, model) {
             });
     }
 
+    function updatePassword(req, res) {
+        var uid = req.params['uid'];
+        var passwords = req.body;
+        console.log(passwords);
+        userModel.findUserById(uid)
+            .then(function (user) {
+                console.log(user);
+                if (user && bcrypt.compareSync(passwords.currentPass, user.password)) {
+                    passwords.newPass = bcrypt.hashSync(passwords.newPass);
+                    userModel.updatePassword(uid, passwords.newPass)
+                        .then(function (response) {
+                            res.sendStatus(200);
+                        }, function (err) {
+                            console.log(err);
+                            res.sendStatus(500);
+                        })
+                } else if (user) {
+                    res.sendStatus(404);
+                } else {
+                    res.sendStatus(401);
+                }
+            });
+    }
+
+    function updateProfile(req, res) {
+        var uid = req.params['uid'];
+        var user = req.body;
+        if (user.currentPass) {
+            updatePassword(req, res);
+        } else {
+            userModel.updateProfile(uid, user)
+                .then(function (response) {
+                    res.sendStatus(200);
+                }, function (err) {
+                    console.log(err);
+                    res.sendStatus(500);
+                });
+        }
+    }
+
     function updateUser(req, res) {
         var uid = req.params['uid'];
         var user = req.body;
+        user.password = bcrypt.hashSync(user.password);
 
         userModel.updateUser(uid, user)
             .then(function (response) {
