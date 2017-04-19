@@ -10,7 +10,6 @@
             vm.uid = currentUser._id;
         }
 
-
         function init() {
             RecipeService.findRecipeById(vm.rid)
                 .then(function (response) {
@@ -28,8 +27,6 @@
         init();
 
         vm.getTrustedHtml = getTrustedHtml;
-        vm.favoriteRecipe = favoriteRecipe;
-        vm.unfavoriteRecipe = unfavoriteRecipe;
         vm.rateRecipe = rateRecipe;
         vm.search = search;
         vm.logout = logout;
@@ -82,23 +79,6 @@
 
         function getTrustedHtml(html) {
             return $sce.trustAsHtml(html);
-        }
-
-        function favoriteRecipe() {
-            if (!checkLogin) {
-                vm.error = "Please sign to favorite a recipe!";
-                return;
-            }
-            var promise = RecipeService.favorite(vm.uid, recipe._id);
-
-        }
-
-        function unfavoriteRecipe() {
-            if (!checkLogin) {
-                vm.error = "Please sign to unfavorite a recipe!";
-                return;
-            }
-            var promise = RecipeService.unfavorite(vm.uid, recipe._id);
         }
 
         function rateRecipe(rating) {

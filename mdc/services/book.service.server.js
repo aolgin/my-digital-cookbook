@@ -11,17 +11,6 @@ module.exports = function(app, model) {
 
     // Service Functions
 
-    var books = [
-        {"_id": "1", "name": "My First Cookbook", "description": "Lorem Ipsum", "_user": "789", "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6d/Good_Food_Display_-_NCI_Visuals_Online.jpg/220px-Good_Food_Display_-_NCI_Visuals_Online.jpg"},
-        {"_id": "2", "name": "My Second Cookbook", "description": "Lorem Ipsum", "_user": "789"},
-        {"_id": "3", "name": "My Third Cookbook", "description": "Lorem Ipsum", "_user": "789"},
-        {"_id": "4", "name": "My Fourth Cookbook", "description": "Lorem Ipsum", "_user": "789", "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6d/Good_Food_Display_-_NCI_Visuals_Online.jpg/220px-Good_Food_Display_-_NCI_Visuals_Online.jpg"},
-        {"_id": "5", "name": "My Fifth Cookbook", "description": "Lorem Ipsum", "_user": "789"},
-        {"_id": "6", "name": "My Sixth Cookbook", "description": "Lorem Ipsum", "_user": "789", "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6d/Good_Food_Display_-_NCI_Visuals_Online.jpg/220px-Good_Food_Display_-_NCI_Visuals_Online.jpg"},
-        {"_id": "7", "name": "My Seventh Cookbook", "description": "Lorem Ipsum", "_user": "789"},
-        {"_id": "8", "name": "My Eighth Cookbook", "description": "Lorem Ipsum", "_user": "789", "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6d/Good_Food_Display_-_NCI_Visuals_Online.jpg/220px-Good_Food_Display_-_NCI_Visuals_Online.jpg"}
-    ];
-
     function findAllBooks(req, res) {
         bookModel.findAllBooks()
             .then(function (books) {

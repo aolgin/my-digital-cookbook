@@ -3,6 +3,8 @@ module.exports = function () {
     var RecipeSchema = mongoose.Schema({
         _user: {type: mongoose.Schema.Types.ObjectId, ref: "UserModel"},
         books: [{type: mongoose.Schema.Types.ObjectId, ref: "BookModel"}],
+        comments: [{type: mongoose.Schema.Types.ObjectId, ref: "CommentModel"}],
+        categories: [{type: mongoose.Schema.Types.ObjectId, ref: "CategoryModel"}],
         name: String,
         description: String,
         ingredients: String,

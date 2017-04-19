@@ -13,17 +13,6 @@ module.exports = function(app, model) {
     app.get("/api/admin/recipes", findAllRecipes);
     app.post("/api/recipe/:rid", rateRecipe);
 
-    var recipes = [
-        {"_id": "1", "name": "My First Recipe", "description": "Lorem Ipsum", "_user": "789", "rating": 3, "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6d/Good_Food_Display_-_NCI_Visuals_Online.jpg/220px-Good_Food_Display_-_NCI_Visuals_Online.jpg"},
-        {"_id": "2", "name": "My Second Recipe", "description": "Lorem Ipsum", "_user": "789", "rating": 5, "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6d/Good_Food_Display_-_NCI_Visuals_Online.jpg/220px-Good_Food_Display_-_NCI_Visuals_Online.jpg"},
-        {"_id": "3", "name": "My Third Recipe", "description": "Lorem Ipsum", "_user": "789", "rating": 3, "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6d/Good_Food_Display_-_NCI_Visuals_Online.jpg/220px-Good_Food_Display_-_NCI_Visuals_Online.jpg"},
-        {"_id": "4", "name": "My Fourth Recipe", "description": "Lorem Ipsum", "_user": "789", "rating": 4, "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6d/Good_Food_Display_-_NCI_Visuals_Online.jpg/220px-Good_Food_Display_-_NCI_Visuals_Online.jpg"},
-        {"_id": "5", "name": "My Fifth Recipe", "description": "Lorem Ipsum", "_user": "789", "rating": 1},
-        {"_id": "6", "name": "My Sixth Recipe", "description": "Lorem Ipsum", "_user": "789", "rating": 2},
-        {"_id": "7", "name": "My Seventh Recipe", "description": "Lorem Ipsum", "_user": "789", "rating": 5},
-        {"_id": "8", "name": "My Eighth Recipe", "description": "Lorem Ipsum", "_user": "789", "rating": 5, "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6d/Good_Food_Display_-_NCI_Visuals_Online.jpg/220px-Good_Food_Display_-_NCI_Visuals_Online.jpg"}
-    ];
-
     // Service Functions
 
     function rateRecipe(req, res) {

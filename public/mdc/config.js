@@ -168,12 +168,6 @@
                 controllerAs: 'model',
                 resolve: { currentUser: checkLoggedin }
             })
-            .when("/dashboard/favorites", { 
-                templateUrl: 'views/user/templates/dashboard-favorites.view.client.html',
-                controller: 'DashboardController',
-                controllerAs: 'model',
-                resolve: { currentUser: checkLoggedin }
-            })
             .when("/dashboard/following", { 
                 templateUrl: 'views/user/templates/dashboard-following.view.client.html',
                 controller: 'DashboardController',

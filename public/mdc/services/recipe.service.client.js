@@ -13,21 +13,26 @@
             "updateRecipe": updateRecipe,
             "findRecipeById": findRecipeById,
             "rateRecipe": rateRecipe,
-            "favorite": favorite,
-            "unfavorite": unfavorite
+            "commentOnRecipe": commentOnRecipe,
+            "deleteComment": deleteComment,
+            "updateComment": updateComment
         };
         return api;
 
+        function commentOnRecipe(comment, rid, uid) {
+            return $http.post("/api/recipe/" + rid + "/comment?uid=" + uid, comment);
+        }
+
+        function deleteComment(cid) {
+            return $http.delete("/api/comment/" + cid);
+        }
+
+        function updateComment(cid, comment) {
+            return $http.put("/api/comment/" + cid, comment);
+        }
+
         function rateRecipe(rid, rating) {
             return $http.post("/api/recipe/" + rid + "?rating=" + rating);
-        }
-
-        function favorite(uid, rid) {
-            return $http.put("/api/user/" + uid + "/favorite?rid=" + rid);
-        }
-
-        function unfavorite(uid, rid) {
-            return $http.put("/api/user/" + uid + "/unfavorite?rid=" + rid);
         }
 
         function findRecipeById(rid) {

@@ -15,6 +15,7 @@ module.exports = function() {
         removeRecipe: removeRecipe,
         searchRecipes: searchRecipes,
         searchRecipesByCategory: searchRecipesByCategory,
+        detachRecipesFromBook: detachRecipesFromBook,
         findAllRecipes: findAllRecipes,
         rateRecipe: rateRecipe,
         setModel: setModel
@@ -23,6 +24,15 @@ module.exports = function() {
 
     function setModel(_model) {
         model = _model;
+    }
+
+    function detachRecipesFromBook(bookObj) {
+        return RecipeModel.update(
+            { books:
+                { $elemMatch: { _id: bookObj._id}}
+            },
+            { $pull: {books: bookObj}}
+        );
     }
 
     function searchRecipes(term) {
@@ -87,7 +97,15 @@ module.exports = function() {
 
     }
 
+    // TODO determine how best to handle this
     function removeRecipe(uid) {
+        /*
+        Need to delete:
+        - recipe itself
+        - its comments
+        - its place in books
+        - its place in the owning user
+         */
         return RecipeModel.remove({_id: uid});
     }
 
@@ -105,8 +123,9 @@ module.exports = function() {
             .findById(bid)
             .populate("_user", "_id username")
             .populate("rating", "total actual -_id")
-            // .populate("comments", "poster description -_id")
+            // .populate("comments", "_user text -_id")
             // .populate("categories", "name")
+            // .populate("comments._user", "username _id")
             .exec();
     }
 

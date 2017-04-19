@@ -3,6 +3,10 @@ body {
     padding-bottom: 55px;
 }
 
+.mdc-msg-text {
+    text-align: center;
+}
+
 .mdc-logo {
     margin-top: -15px;
 }

@@ -33,13 +33,13 @@
         </div>
     </div>
 
-    <div class="mdc-comments">
-        <button ng-if="model.uid"
+    <div class="mdc-comments col-xs-12">
+        <button ng-if="!model.showCommentBox"
                 ng-click="model.commentBoxToggle()"
                 class="btn btn-success form-control">Comment</button>
         <div ng-if="model.showCommentBox" class="mdc-comment-editor">
             <form>
-                <label for="comment-rating">Rating: </label>
+                <label for="comment-rating">Rating (1-5): </label>
                 <input id="comment-rating"
                        type="number"
                        min="0"

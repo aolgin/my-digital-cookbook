@@ -6,15 +6,12 @@
     function userService($http) {
 
         var api = {
-            // "registerUser": registerUser,
             "deleteUser": deleteUser,
             "updateUser": updateUser,
             "updatePassword": updatePassword,
             "findUserById": findUserById,
-            // "findUserByCredentials": findUserByCredentials,
             "findRecipesByUserId": findRecipesByUserId,
             "findBooksByUserId": findBooksByUserId,
-            "findUserFavorites": findUserFavorites,
             "findFollowingByUserId": findFollowingByUserId,
             "followUser": followUser,
             "unfollowUser": unfollowUser,
@@ -62,10 +59,6 @@
             return $http.get("/api/user/" + uid + "/recipe?limit=" + limit);
         }
 
-        function findUserFavorites(uid, limit) {
-            return $http.get("/api/user/" + uid + "/favorites?limit=" + limit);
-        }
-
         function findBooksByUserId(uid, limit) {
             return $http.get("/api/user/" + uid + "/book?limit=" + limit);
         }
@@ -73,14 +66,6 @@
         function findUserById(uid) {
             return $http.get("/api/user/" + uid);
         }
-
-        // function findUserByCredentials(email, pass) {
-        //     return $http.get("/api/user?email=" + email + "&password=" + pass);
-        // }
-        //
-        // function registerUser(user) {
-        //     return $http.post("/api/user/", user);
-        // }
 
         function deleteUser(uid) {
             return $http.delete("/api/user/" + uid);

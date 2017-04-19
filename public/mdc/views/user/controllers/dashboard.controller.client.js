@@ -16,16 +16,12 @@
                 renderDashboard();
             } else {
                 var page = pathParts[2];
-                // console.log(page);
                 switch (page) {
                     case 'books':
                         renderBooks(500);
                         break;
                     case 'recipes':
                         renderRecipes(500);
-                        break;
-                    case 'favorites':
-                        // renderFavorites(500);
                         break;
                     case 'following':
                         renderFollowing();
@@ -54,7 +50,6 @@
         function renderDashboard() {
             renderBooks(3);
             renderRecipes(3);
-            // renderFavorites(3);
             renderFeed();
         }
 
@@ -71,21 +66,6 @@
             });
         }
 
-
-        // TODO: Incorporate later once proper logic and infrastructure is in place for this.
-        function renderFavorites(limit) {
-            var promise = UserService.findUserFavorites(vm.uid, limit);
-            promise.then(function (response) {
-                vm.favorites = response.data;
-                if (vm.favorites.length === 0) {
-                    vm.favorite_msg = "No favorites yet!";
-                }
-            }).catch(function (err) {
-                console.log("Error acquiring books:\n" + err);
-                vm.error = err;
-            });
-        }
-
         function renderRecipes(limit) {
             var promise = UserService.findRecipesByUserId(vm.uid, limit);
             promise.then(function (response) {
@@ -98,7 +78,6 @@
                 vm.error = err;
             });
         }
-
 
         function renderFollowing() {
             var promise = UserService.findFollowingByUserId(vm.uid);

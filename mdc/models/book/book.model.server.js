@@ -57,12 +57,22 @@ module.exports = function() {
             });
     }
 
+    // TODO: how to best handle this
     function removeBook(bid) {
+        /*
+        Needs to delete:
+        - book itself
+        - book from user
+        - detach recipes in this book (don't delete though!)
+         */
         return BookModel.findById(bid)
             .then(function (bookObj) {
                 model.userModel.removeBookFromUser(bookObj)
                     .then(function (response) {
-                        return BookModel.remove({_id: bid});
+                        model.recipeModel.detachRecipesFromBook(bookObj)
+                            .then(function (response) {
+                                return BookModel.remove({_id: bid});
+                            });
                     }, function(err) {
                         console.log(err);
                     })

@@ -28,11 +28,8 @@ module.exports = function(app, model) {
     app.put   ('/api/user/:uid', auth, updateUser);
     app.delete('/api/user/:uid', auth, deleteUser);
     app.get("/api/user", findUserByCredentials);
-    // app.post("/api/user", createUser);
     app.get("/api/user/search", searchUsers);
     app.get("/api/user/:uid", findUserById);
-    // app.delete("/api/user/:uid", deleteUser);
-    // app.put("/api/user/:uid", updateUser);
     app.get("api/admin/users", findAllUsers);
     //TODO: add in favoriting and friend requests
     app.put("/api/user/:uid/follow", followUser);
