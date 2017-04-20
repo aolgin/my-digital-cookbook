@@ -126,6 +126,13 @@
         }
 
         function createUser(user) {
+            if (!user || !user.username || !user.password || !user.confirmPass) {
+                vm.error = "Required fields: Username, Password, ConfirmPassword";
+                return;
+            } else if (user.password !== user.confirmPass) {
+                vm.error = "Passwords do not match!";
+                return;
+            }
             UserService.createUser(user)
                 .then(function (response) {
                     $location.url("/admin/user");
@@ -135,6 +142,10 @@
         }
 
         function createBook(book) {
+            if (!book || !book.name || !book._user) {
+                vm.error = "Required fields: Name, User";
+                return;
+            }
             BookService.createBook(book, book._user._id)
                 .then(function (response) {
                     $location.url("/admin/book");
@@ -144,6 +155,11 @@
         }
 
         function createRecipe(recipe) {
+            //TODO: decide how to do input validation here
+            if (!recipe || !recipe.name || !recipe._user) {
+                vm.error = "Required fields: Name, User";
+                return;
+            }
             RecipeService.createRecipe(recipe, recipe._user._id)
                 .then(function (response) {
                     $location.url("/admin/recipe");
@@ -153,6 +169,13 @@
         }
 
         function updateUser(user) {
+            if (!user || !user.username || !user.password || !user.confirmPass) {
+                vm.error = "Required fields: Username, Password, ConfirmPassword";
+                return;
+            } else if (user.password !== user.confirmPass) {
+                vm.error = "Passwords do not match!";
+                return;
+            }
             var uid = user._id;
             UserService.updateUser(uid, user)
                 .then(function (response) {
@@ -163,6 +186,10 @@
         }
 
         function updateBook(book) {
+            if (!book || !book.name) {
+                vm.error = "Required fields: Name";
+                return;
+            }
             var bid = book._id;
             BookService.updateBook(bid, book)
                 .then(function (response) {
@@ -173,6 +200,11 @@
         }
 
         function updateRecipe(recipe) {
+            //TODO: decide how to do input validation here
+            if (!recipe || !recipe.name) {
+                vm.error = "Required fields: Name";
+                return;
+            }
             var rid = recipe._id;
             RecipeService.updateRecipe(rid, recipe)
                 .then(function (response) {
