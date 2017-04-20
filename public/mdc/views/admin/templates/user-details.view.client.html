@@ -49,12 +49,11 @@
                    aria-describedby="desc"/>
         </div>
         <div class="input-group">
-            <!-- TODO: turn this into a set of checkboxes -->
             <span class="input-group-addon" id="role"><b>Role: </b></span>
-            <input type="text"
-                   class="form-control"
-                   value="{{model.user.role}}"
-                   aria-describedby="role" />
+            <select class="form-control" ng-model="model.user.role">
+                <option value="USER">USER</option>
+                <option value="ADMIN">ADMIN</option>
+            </select>
         </div>
         <div class="input-group">
             <span class="input-group-addon" id="public"><b>Public Url: </b></span>
@@ -89,22 +88,23 @@
         </div>
 
         <div class="input-group">
-            <span class="input-group-addon" id="faves"><b>Favorites: </b></span>
+            <span class="input-group-addon" id="following"><b>Following: </b></span>
             <input type="text"
                    class="form-control"
-                   value="{{model.user.favorites}}"
-                   aria-describedby="faves"
+                   value="{{model.user.following}}"
+                   aria-describedby="following"
                    disabled />
         </div>
 
         <div class="input-group">
-            <span class="input-group-addon" id="friends"><b>Friends: </b></span>
+            <span class="input-group-addon" id="follower_count"><b># Followers: </b></span>
             <input type="text"
                    class="form-control"
-                   value="{{model.user.friends}}"
-                   aria-describedby="friends"
+                   value="{{model.user.follower_count}}"
+                   aria-describedby="follower_count"
                    disabled />
         </div>
+
         <div class="input-group">
             <span class="input-group-addon" id="created"><b>DateCreated: </b></span>
             <input type="text"
