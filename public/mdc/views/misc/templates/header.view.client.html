@@ -1,21 +1,24 @@
 <!-- https://github.com/BlackrockDigital/startbootstrap-simple-sidebar/blob/master/index.html -->
 <nav class="navbar navbar-default navbar-fixed-top" id="wrapper">
     <div class="container-fluid">
-        <div class="navbar-header mdc-logo pull-left">
-            <a class="navbar-brand" href="/">
-                <img src="../../../../img/logo-100x70.png"/>
-            </a>
+        <div>
+            <div class="navbar-header mdc-logo pull-left">
+                <a class="navbar-brand" href="/">
+                    <img src="../../../../img/logo-100x70.png"/>
+                </a>
+            </div>
+            <div class="pull-right" id="menu-toggle-div">
+                <a class="navbar-brand" id="menu-toggle">
+                    <span class="glyphicon glyphicon-menu-hamburger"></span>
+                </a>
+            </div>
+            <div class="navbar-header">
+                <a class="navbar-brand">
+                    My Digital Cookbook
+                </a>
+            </div>
         </div>
-        <div class="navbar-header">
-            <a class="navbar-brand">
-                My Digital Cookbook
-            </a>
-        </div>
-        <div class="navbar-header navbar-nav pull-right">
-            <a class="btn btn-default" id="menu-toggle">
-                <span class="glyphicon glyphicon-menu-hamburger"></span>
-            </a>
-        </div>
+
         <!-- Sidebar -->
         <div id="sidebar-wrapper">
             <ul class="sidebar-nav">
@@ -63,6 +66,7 @@
         $("#menu-toggle").click(function(e) {
             e.preventDefault();
             $("#wrapper").toggleClass("toggled");
+            $("#menu-toggle-div").toggleClass("mdc-adjust-pr");
         });
     </script>
 </nav>
