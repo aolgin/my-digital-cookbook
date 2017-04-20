@@ -45,6 +45,11 @@
             RecipeService.findRecipeById(rid)
                 .then(function (response) {
                     vm.recipe = response.data;
+                    if (!vm.recipe._user) {
+                        vm.recipe._user = {
+                            username: "[removed]"
+                        }
+                    }
                 }).catch(function (err) {
                     console.log(err);
                     vm.error = "Error fetching recipe:\n" + err;
@@ -73,6 +78,13 @@
             AdminService.findAllRecipes()
                 .then(function (response) {
                     vm.recipes = response.data;
+                    vm.recipes.find(function(recipe) {
+                        if (!recipe._user) {
+                            recipe._user = {
+                                username: "[removed]"
+                            }
+                        }
+                    });
                 }).catch(function (err) {
                     vm.error = "Error fetching recipes: \n" + err;
                 });

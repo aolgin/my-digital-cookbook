@@ -34,14 +34,16 @@
 
             var promise = UserService.updateUser(vm.uid, user);
             promise.then(function (response) {
-                if (response.status == 200) {
+                if (response.status === 200) {
                     vm.error = null;
                     vm.message = "Successfully updated user information!";
                 }
             }).catch(function (err) {
                 vm.message = null;
                 var status = err.status;
-                if (status == 409) {
+                if (status === 401) {
+                    vm.error = "You are not authorized to perform this action";
+                } else if (status === 409) {
                     vm.error = "A user with that username already exists!";
                 } else {
                     vm.error = "An uncaught error occurred updating your user information: \n" + err.data;
@@ -54,11 +56,15 @@
             if (answer) {
                 var promise = UserService.deleteUser(vm.uid);
                 promise.then(function (response) {
-                    if (response.status == 200) {
+                    if (response.status === 200) {
                         $location.url('/');
                     }
                 }).catch(function (err) {
-                    vm.error = "An uncaught error occurred deleting your user: \n" + err.data;
+                    if (err.status === 401) {
+                        vm.error = "You are not authorized to perform this action";
+                    } else {
+                        vm.error = "An uncaught error occurred deleting your user: \n" + err.data;
+                    }
                 });
             }
         }

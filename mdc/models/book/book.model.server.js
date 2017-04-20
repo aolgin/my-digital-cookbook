@@ -11,6 +11,7 @@ module.exports = function() {
         findRecipesForBook: findRecipesForBook,
         updateBook: updateBook,
         removeBook: removeBook,
+        removeBooksForUser: removeBooksForUser,
         removeRecipeFromBook: removeRecipeFromBook,
         removeRecipeFromAllBooks: removeRecipeFromAllBooks,
         findAllBooks: findAllBooks,
@@ -35,6 +36,10 @@ module.exports = function() {
             .populate("_user", "username")
             .sort({'dateModified': 1})
             .exec();
+    }
+
+    function removeBooksForUser(user) {
+        return BookModel.remove({_user: user});
     }
 
     function findAllBooks() {
@@ -81,6 +86,7 @@ module.exports = function() {
                         model.recipeModel
                             .detachRecipesFromBook(bookObj)
                             .then(function (response) {
+                                console.log(response);
                                 // TODO: is not executing
                                 return BookModel.remove({_id: bid});
                             }, function (err) {

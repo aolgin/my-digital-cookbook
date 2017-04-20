@@ -18,6 +18,11 @@
             RecipeService.findRecipeById(vm.rid)
                 .then(function (response) {
                     vm.recipe = response.data;
+                    if (!vm.recipe._user) {
+                        vm.recipe._user = {
+                            username: "[removed]"
+                        }
+                    }
                     if (vm.recipe.comments.length === 0) {
                         vm.commentsMsg = "No comments yet! Please login to comment and rate this recipe.";
                     }

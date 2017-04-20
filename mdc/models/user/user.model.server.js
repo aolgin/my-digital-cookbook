@@ -118,9 +118,19 @@ module.exports = function() {
     }
 
     function removeUser(uid) {
-        // Design choice: Deleting the user will not delete their content.
-        // Individual books or recipes may be removed from their respective pages.
-        return UserModel.remove({_id: uid});
+        // Design choice: Deleting the user will only delete their books. Their recipes remain.
+        // Recipes may be removed from the admin console.
+        return UserModel
+            .findById(uid)
+            .then(function (userObj) {
+                model.bookModel
+                    .removeBooksForUser(userObj)
+                    .then(function(response) {
+                        return UserModel.remove({_id: uid});
+                    })
+            }).catch(function(err) {
+                console.log(err);
+            });
     }
 
     function findRecipesForUser(userId, limit) {
@@ -188,11 +198,6 @@ module.exports = function() {
             username: username,
             password: password
         });
-    }
-
-
-    function findUserByUsername(uname) {
-        return UserModel.findOne({ username: uname });
     }
 
     function updateProfile(userId, user) {

@@ -83,7 +83,11 @@
                     renderProfile(vm.chefId);
                 }).catch(function (err) {
                     console.log(err);
-                    vm.error = "An error occurred trying to follow this chef:\n" + err;
+                    if (err.status === 401) {
+                        vm.error = "You are not authorized to perform this action";
+                    } else {
+                        vm.error = "An error occurred trying to follow this chef:\n" + err;
+                    }
                 });
         }
 
@@ -94,7 +98,11 @@
                     renderProfile(vm.chefId);
                 }).catch(function (err) {
                     console.log(err);
-                    vm.error = "An error occurred trying to unfollow this chef:\n" + err;
+                    if (err.status === 401) {
+                        vm.error = "You are not authorized to perform this action";
+                    } else {
+                        vm.error = "An error occurred trying to unfollow this chef:\n" + err;
+                    }
                 });
         }
     }
