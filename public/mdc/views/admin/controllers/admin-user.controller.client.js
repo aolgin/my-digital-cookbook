@@ -3,7 +3,7 @@
         .module("MyDigitalCookbook")
         .controller("AdminUserController", AdminUserController);
 
-    function AdminUserController(AdminService, $location, UserService, adminUser) {
+    function AdminUserController(AdminService, $location, UserService, adminUser, $routeParams) {
         var vm = this;
 
         function init() {
@@ -23,6 +23,7 @@
         vm.deleteUser = deleteUser;
         vm.createUser = createUser;
         vm.updateUser = updateUser;
+        vm.renderDetails = renderDetails;
         vm.logout = logout;
 
         function search(term, type) {
@@ -37,20 +38,31 @@
                 });
         }
 
+        function renderDetails() {
+            var uid = $routeParams['uid'];
+            UserService.findUserById(uid)
+                .then(function (response) {
+                    vm.user = response.data;
+                }).catch(function (err) {
+                    console.log(err);
+                    vm.error = "Error fetching user:\n" + err;
+                })
+        }
+
         function renderUsers() {
             AdminService.findAllUsers()
                 .then(function (response) {
                     vm.users = response.data;
                 }).catch(function (err) {
                     vm.error = "Error fetching users: \n" + err;
-                })
+                });
         }
 
         function deleteUser(user, fromDetailsPage) {
             var uid = user._id;
             var answer = confirm("Are you sure?");
             if (answer) {
-                UserService.deleteUser(uid)
+                AdminService.deleteUser(uid)
                     .then(function (response) {
                         if (fromDetailsPage) {
                             $location.url("/admin/user");
@@ -72,7 +84,7 @@
                 vm.error = "Passwords do not match!";
                 return;
             }
-            UserService.createUser(user)
+            AdminService.createUser(user)
                 .then(function (response) {
                     $location.url("/admin/user");
                 }).catch(function (err) {
@@ -81,15 +93,17 @@
         }
 
         function updateUser(user) {
-            if (!user || !user.username || !user.password || !user.confirmPass) {
+            // if (!user || !user.username || !user.password || !user.confirmPass) {
+            if (!user || !user.username) {
                 vm.error = "Required fields: Username, Password, ConfirmPassword";
                 return;
-            } else if (user.password !== user.confirmPass) {
-                vm.error = "Passwords do not match!";
-                return;
             }
+            // else if (user.password !== user.confirmPass) {
+            //     vm.error = "Passwords do not match!";
+            //     return;
+            // }
             var uid = user._id;
-            UserService.updateUser(uid, user)
+            AdminService.updateUser(uid, user)
                 .then(function (response) {
                     $location.url("/admin/user");
                 }).catch(function (err) {

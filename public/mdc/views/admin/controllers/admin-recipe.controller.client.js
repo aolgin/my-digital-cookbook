@@ -3,7 +3,7 @@
         .module("MyDigitalCookbook")
         .controller("AdminRecipeController", AdminRecipeController);
 
-    function AdminRecipeController(AdminService, $location, UserService, RecipeService, adminUser) {
+    function AdminRecipeController(AdminService, $location, UserService, RecipeService, adminUser, $routeParams) {
         var vm = this;
 
         function init() {
@@ -25,6 +25,7 @@
         vm.deleteRecipe = deleteRecipe;
         vm.createRecipe = createRecipe;
         vm.updateRecipe = updateRecipe;
+        vm.renderDetails = renderDetails;
         vm.logout = logout;
 
         function search(term, type) {
@@ -39,13 +40,24 @@
                 });
         }
 
+        function renderDetails() {
+            var rid = $routeParams['rid'];
+            RecipeService.findRecipeById(rid)
+                .then(function (response) {
+                    vm.recipe = response.data;
+                }).catch(function (err) {
+                    console.log(err);
+                    vm.error = "Error fetching recipe:\n" + err;
+                });
+        }
+
         function renderBooks() {
             AdminService.findAllBooks()
                 .then(function (response) {
                     vm.books = response.data;
                 }).catch(function (err) {
-                vm.error = "Error fetching books: \n" + err;
-            })
+                    vm.error = "Error fetching books: \n" + err;
+                });
         }
 
         function renderUsers() {
@@ -54,7 +66,7 @@
                     vm.users = response.data;
                 }).catch(function (err) {
                     vm.error = "Error fetching users: \n" + err;
-                })
+                });
         }
 
         function renderRecipes() {
@@ -63,14 +75,14 @@
                     vm.recipes = response.data;
                 }).catch(function (err) {
                     vm.error = "Error fetching recipes: \n" + err;
-                })
+                });
         }
 
         function deleteRecipe(recipe, fromDetailsPage) {
             var rid = recipe._id;
             var answer = confirm("Are you sure?");
             if (answer) {
-                RecipeService.deleteRecipe(rid)
+                AdminService.deleteRecipe(rid, recipe)
                     .then(function (response) {
                         if (fromDetailsPage) {
                             $location.url("/admin/recipe");
@@ -90,7 +102,7 @@
                 vm.error = "Required fields: Name, User";
                 return;
             }
-            RecipeService.createRecipe(recipe, recipe._user._id)
+            AdminService.createRecipe(recipe, recipe._user._id)
                 .then(function (response) {
                     $location.url("/admin/recipe");
                 }).catch(function (err) {
@@ -105,7 +117,7 @@
                 return;
             }
             var rid = recipe._id;
-            RecipeService.updateRecipe(rid, recipe)
+            AdminService.updateRecipe(rid, recipe)
                 .then(function (response) {
                     $location.url("/admin/recipe");
                 }).catch(function (err) {

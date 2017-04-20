@@ -21,8 +21,8 @@
             return $http.post("/api/user/" + uid + "/book", book);
         }
 
-        function deleteBook(bid) {
-            return $http.delete("/api/book/" + bid);
+        function deleteBook(bid, book) {
+            return $http.delete("/api/book/" + bid, book);
         }
 
         function updateBook(bid, newBook) {

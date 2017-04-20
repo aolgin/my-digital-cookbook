@@ -12,6 +12,7 @@ module.exports = function() {
         updateBook: updateBook,
         removeBook: removeBook,
         removeRecipeFromBook: removeRecipeFromBook,
+        removeRecipeFromAllBooks: removeRecipeFromAllBooks,
         findAllBooks: findAllBooks,
         searchBooks: searchBooks,
         setModel: setModel
@@ -43,6 +44,14 @@ module.exports = function() {
             .populate("_user", "_id username")
             .populate("recipes", "_id name")
             .exec();
+    }
+
+    function removeRecipeFromAllBooks(recipeObj) {
+        //TODO: Test that this works...
+        return BookModel.update(
+            {recipes: {$elemMatch: recipeObj}},
+            {$pullAll: {recipes: [recipeObj]}}
+        );
     }
 
     function removeRecipeFromBook(recipe) {

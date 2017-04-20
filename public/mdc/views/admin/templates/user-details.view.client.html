@@ -1,6 +1,6 @@
 <ng-include src="'views/misc/templates/header.view.client.html'"></ng-include>
 
-<div id="page-content-wrapper">
+<div id="page-content-wrapper" ng-init="model.renderDetails()">
     <h3>Details for {{model.user.name}}</h3>
     <div class="mdc-msg-text">
         <div class="alert alert-danger" ng-show="model.error">
@@ -17,35 +17,49 @@
             <input type="text"
                    class="form-control"
                    aria-describedby="uid"
-                   value="{{model.user._id}}"
+                   ng-model="model.user._id"
                    disabled />
         </div>
         <div class="input-group">
             <span class="input-group-addon" id="name"><b>Username: </b></span>
             <input type="text"
                    class="form-control"
-                   value="{{model.user.username}}"
+                   ng-model="model.user.username"
                    aria-describedby="name"/>
         </div>
+        <!--<div class="input-group">-->
+            <!--<span class="input-group-addon" id="pass"><b>Password: </b></span>-->
+            <!--<input type="password"-->
+                   <!--class="form-control"-->
+                   <!--ng-model="model.user.password"-->
+                   <!--aria-describedby="pass"/>-->
+        <!--</div>-->
+        <!--<div class="input-group">-->
+            <!--<span class="input-group-addon" id="confirmPass"><b>Confirm Password: </b></span>-->
+            <!--<input type="password"-->
+                   <!--class="form-control"-->
+                   <!--ng-model="model.user.confirmPass"-->
+                   <!--aria-describedby="confirmPass"/>-->
+        <!--</div>-->
         <div class="input-group">
             <span class="input-group-addon" id="first"><b>First Name: </b></span>
             <input type="text"
                    class="form-control"
-                   value="{{model.user.firstName}}"
+                   ng-model="model.user.firstName"
                    aria-describedby="first"/>
         </div>
         <div class="input-group">
             <span class="input-group-addon" id="last"><b>Last Name: </b></span>
             <input type="text"
                    class="form-control"
-                   value="{{model.user.lastName}}"
+                   ng-model="model.user.lastName"
                    aria-describedby="last"/>
         </div>
         <div class="input-group">
             <span class="input-group-addon" id="desc"><b>About: </b></span>
             <input type="text"
                    class="form-control"
-                   value="{{model.user.about}}"
+                   ng-model="model.user.about"
                    aria-describedby="desc"/>
         </div>
         <div class="input-group">
@@ -67,6 +81,7 @@
             <span class="input-group-addon" id="image"><b>Profile Img: </b></span>
             <input type="text"
                    class="form-control"
+                   ng-model="model.user.image_url"
                    value="{{model.user.image_url}}"
                    aria-describedby="image"/>
         </div>
@@ -74,6 +89,7 @@
             <span class="input-group-addon" id="books"><b>Cookbooks: </b></span>
             <input type="text"
                    class="form-control"
+                   ng-model="model.user.books"
                    value="{{model.user.books}}"
                    aria-describedby="books"
                    disabled />
@@ -82,6 +98,7 @@
             <span class="input-group-addon" id="recipes"><b>Recipes: </b></span>
             <input type="text"
                    class="form-control"
+                   ng-model="model.user.recipes"
                    value="{{model.user.recipes}}"
                    aria-describedby="recipes"
                    disabled />
@@ -91,6 +108,7 @@
             <span class="input-group-addon" id="following"><b>Following: </b></span>
             <input type="text"
                    class="form-control"
+                   ng-model="model.user.following"
                    value="{{model.user.following}}"
                    aria-describedby="following"
                    disabled />
@@ -100,7 +118,7 @@
             <span class="input-group-addon" id="follower_count"><b># Followers: </b></span>
             <input type="text"
                    class="form-control"
-                   value="{{model.user.follower_count}}"
+                   ng-model="model.user.follower_count"
                    aria-describedby="follower_count"
                    disabled />
         </div>
@@ -109,7 +127,8 @@
             <span class="input-group-addon" id="created"><b>DateCreated: </b></span>
             <input type="text"
                    class="form-control"
-                   value="{{model.book.dateCreated | date}}"
+                   ng-model="model.user.dateCreated"
+                   value="{{model.user.dateCreated | date}}"
                    aria-describedby="created"
                    disabled />
         </div>
@@ -117,13 +136,14 @@
             <span class="input-group-addon" id="modified"><b>DateModified: </b></span>
             <input type="text"
                    class="form-control"
-                   value="{{model.book.dateModified | date}}"
+                   ng-model="model.user.dateModified"
+                   value="{{model.user.dateModified | date}}"
                    aria-describedby="modified"
                    disabled />
         </div>
     </div>
 
-    <a class="btn btn-block btn-success" href="#/admin/user/{{model.user._id}}">
+    <a class="btn btn-block btn-success" ng-click="model.updateUser(model.user)">
         Modify
     </a>
     <a class="btn btn-block btn-severe" ng-click="model.deleteUser(model.user, true)">

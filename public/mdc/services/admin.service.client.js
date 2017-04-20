@@ -15,8 +15,12 @@
             "createRecipe": createRecipe,
             "createCategory": createCategory,
             "updateUser": updateUser,
+            "updateBook": updateBook,
+            "updateRecipe": updateRecipe,
             "updateCategory": updateCategory,
             "deleteUser": deleteUser,
+            "deleteBook": deleteBook,
+            "deleteRecipe": deleteRecipe,
             "deleteCategory": deleteCategory,
             "isAdmin": isAdmin
         };
@@ -62,16 +66,32 @@
             return $http.put('/api/admin/user/' + uid, user);
         }
 
+        function updateBook(bid, book) {
+            return $http.put('/api/admin/book/' + bid, book);
+        }
+
+        function updateRecipe(rid, recipe) {
+            return $http.put('/api/admin/recipe/' + rid, recipe);
+        }
+
         function updateCategory(cid, category) {
-            return $http.put('/api/category/' + cid, category);
+            return $http.put('/api/admin/category/' + cid, category);
         }
 
         function deleteUser(uid) {
             return $http.delete('/api/admin/user/' + uid);
         }
 
+        function deleteBook(bid) {
+            return $http.delete('/api/admin/book/' + bid);
+        }
+
+        function deleteRecipe(rid) {
+            return $http.delete('/api/admin/recipe/' + rid);
+        }
+
         function deleteCategory(cid) {
-            return $http.delete('/api/category/' + cid);
+            return $http.delete('/api/admin/category/' + cid);
         }
 
     }

@@ -13,10 +13,10 @@
         function init() {
             var bookPromise = BookService.findBookById(vm.bookId);
             bookPromise.then(function(response) {
-                vm.book = response.data;
                 if (!currentUser || currentUser._id !== vm.book._user._id) {
                     $location.url("/error?code=401");
                 } else {
+                    vm.book = response.data;
                     vm.username = currentUser.username;
                 }
             }, function (err) {

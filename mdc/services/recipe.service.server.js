@@ -1,15 +1,47 @@
 module.exports = function(app, model) {
     var recipeModel = model.recipeModel;
+    var auth = authorized;
 
     app.get("/api/user/:uid/recipe", findRecipesByUser);
     app.get("/api/book/:bid/recipe", findRecipesByBook);
-    app.post("/api/user/:uid/recipe", createRecipe);
-    app.post("/api/user/:uid/book/:bid/recipe", createRecipeInBook);
+    app.post("/api/user/:uid/recipe", auth, createRecipe);
+    app.post("/api/user/:uid/book/:bid/recipe", auth, createRecipeInBook);
     app.get("/api/recipe/search", searchRecipes);
     app.get("/api/recipe/:rid", findRecipeById);
-    app.delete("/api/recipe/:rid", deleteRecipe);
-    app.put("/api/recipe/:rid", updateRecipe);
-    app.get("/api/admin/recipes", findAllRecipes);
+    app.post("/api/admin/recipe", checkAdmin, createRecipe);
+    app.put("/api/admin/recipe/:rid", checkAdmin, updateRecipe);
+    app.delete("/api/admin/recipe/:rid", checkAdmin, deleteRecipe);
+    app.delete("/api/recipe/:rid", checkSameUser, deleteRecipe);
+    app.put("/api/recipe/:rid", checkSameUser, updateRecipe);
+    app.get("/api/admin/recipes", checkAdmin, findAllRecipes);
+
+
+    // Helper functions
+
+    function authorized (req, res, next) {
+        if (!req.isAuthenticated()) {
+            res.sendStatus(401);
+        } else {
+            next();
+        }
+    }
+
+    function checkSameUser(req, res, next) {
+        var recipe = req.body;
+        if (req.user && req.user._id == recipe._user._id) {
+            next();
+        } else {
+            res.sendStatus(401);
+        }
+    }
+
+    function checkAdmin(req, res, next) {
+        if(req.user && req.user.role === 'ADMIN') {
+            next();
+        } else {
+            res.sendStatus(401);
+        }
+    }
 
     // Service Functions
 

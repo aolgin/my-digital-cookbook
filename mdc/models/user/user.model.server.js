@@ -18,6 +18,7 @@ module.exports = function() {
         updateProfile: updateProfile,
         removeUser: removeUser,
         removeBookFromUser: removeBookFromUser,
+        removeRecipeFromUser: removeRecipeFromUser,
         updatePassword: updatePassword,
         findAllUsers: findAllUsers,
         findFollowingByUserId: findFollowingByUserId,
@@ -101,6 +102,16 @@ module.exports = function() {
         return UserModel.findById(uid)
             .then(function (userObj) {
                 userObj.books.pull(book);
+                return userObj.save();
+            }, function (err) {
+                console.log(err);
+            });
+    }
+
+    function removeRecipeFromUser(recipe) {
+        return UserModel.findById(recipe._user._id)
+            .then(function (userObj) {
+                userObj.recipes.pull(recipe);
                 return userObj.save();
             }, function (err) {
                 console.log(err);
@@ -204,7 +215,7 @@ module.exports = function() {
                 lastName: user.lastName,
                 username: user.username,
                 about: user.about,
-                password: password,
+                password: user.password,
                 role: user.role
             }
         );

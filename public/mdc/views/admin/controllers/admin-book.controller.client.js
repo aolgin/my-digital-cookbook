@@ -3,7 +3,7 @@
         .module("MyDigitalCookbook")
         .controller("AdminBookController", AdminBookController);
 
-    function AdminBookController(AdminService, $location, UserService, BookService, adminUser) {
+    function AdminBookController(AdminService, $location, UserService, BookService, adminUser, $routeParams) {
         var vm = this;
 
         function init() {
@@ -24,6 +24,7 @@
         vm.deleteBook = deleteBook;
         vm.createBook = createBook;
         vm.updateBook = updateBook;
+        vm.renderDetails = renderDetails;
         vm.logout = logout;
 
         function search(term, type) {
@@ -35,6 +36,17 @@
                 .logout()
                 .then(function (response) {
                     $location.url("/login");
+                });
+        }
+
+        function renderDetails() {
+            var bid = $routeParams['bid'];
+            BookService.findBookById(bid)
+                .then(function (response) {
+                    vm.book = response.data;
+                }).catch(function (err) {
+                    console.log(err);
+                    vm.error = "Error fetching book:\n" + err;
                 });
         }
 
@@ -60,7 +72,7 @@
             var bid = book._id;
             var answer = confirm("Are you sure?");
             if (answer) {
-                BookService.deleteBook(bid)
+                AdminService.deleteBook(bid, book)
                     .then(function (response) {
                         if (fromDetailsPage) {
                             $location.url("/admin/book");
@@ -79,7 +91,7 @@
                 vm.error = "Required fields: Name, User";
                 return;
             }
-            BookService.createBook(book, book._user._id)
+            AdminService.createBook(book, book._user._id)
                 .then(function (response) {
                     $location.url("/admin/book");
                 }).catch(function (err) {
@@ -93,7 +105,7 @@
                 return;
             }
             var bid = book._id;
-            BookService.updateBook(bid, book)
+            AdminService.updateBook(bid, book)
                 .then(function (response) {
                     $location.url("/admin/book");
                 }).catch(function (err) {

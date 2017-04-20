@@ -1,6 +1,6 @@
 <ng-include src="'views/misc/templates/header.view.client.html'"></ng-include>
 
-<div id="page-content-wrapper">
+<div id="page-content-wrapper" ng-init="model.renderDetails()">
     <h3>Details for {{model.book.name}}</h3>
     <div class="mdc-msg-text">
         <div class="alert alert-danger" ng-show="model.error">
@@ -17,27 +17,28 @@
             <input type="text"
                    class="form-control"
                    aria-describedby="bid"
-                   value="{{model.book._id}}"
+                   ng-model="model.book._id"
                    disabled />
         </div>
         <div class="input-group">
             <span class="input-group-addon" id="name"><b>Name: </b></span>
             <input type="text"
                    class="form-control"
-                   value="{{model.book.name}}"
+                   ng-model="model.book.name"
                    aria-describedby="name"/>
         </div>
         <div class="input-group">
             <span class="input-group-addon" id="desc"><b>Description: </b></span>
             <input type="text"
                    class="form-control"
-                   value="{{model.book.description}}"
+                   ng-model="model.book.description"
                    aria-describedby="desc"/>
         </div>
         <div class="input-group">
             <span class="input-group-addon" id="owner"><b>Owner: </b></span>
             <input type="text"
                    class="form-control"
+                   ng-model="model.book._user"
                    value="{{model.book._user}}"
                    aria-describedby="owner"
                    disabled />
@@ -54,13 +55,14 @@
             <span class="input-group-addon" id="image"><b>Image Url: </b></span>
             <input type="text"
                    class="form-control"
-                   value="{{model.book.image_url}}"
+                   ng-model="model.book.image_url"
                    aria-describedby="image"/>
         </div>
         <div class="input-group">
             <span class="input-group-addon" id="recipes"><b>Recipes: </b></span>
             <input type="text"
                    class="form-control"
+                   ng-model="model.book.recipes"
                    value="{{model.book.recipes}}"
                    aria-describedby="recipes"
                    disabled />
@@ -69,6 +71,7 @@
             <span class="input-group-addon" id="created"><b>DateCreated: </b></span>
             <input type="text"
                    class="form-control"
+                   ng-model="model.book.dateCreated"
                    value="{{model.book.dateCreated | date}}"
                    aria-describedby="created"
                    disabled />
@@ -77,13 +80,14 @@
             <span class="input-group-addon" id="modified"><b>DateModified: </b></span>
             <input type="text"
                    class="form-control"
+                   ng-model="model.book.dateModified"
                    value="{{model.book.dateModified | date}}"
                    aria-describedby="modified"
                    disabled />
         </div>
     </div>
 
-    <a class="btn btn-block btn-success" href="#/admin/book/{{model.book._id}}/details">
+    <a class="btn btn-block btn-success" ng-click="model.updateBook(model.book)">
         Modify
     </a>
     <a class="btn btn-block btn-severe" ng-click="model.deleteBook(model.book, true)">

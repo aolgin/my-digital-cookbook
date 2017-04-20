@@ -1,14 +1,44 @@
 module.exports = function(app, model) {
     var CategoryModel = model.categoryModel;
+    var auth = authorized;
 
     app.get("/api/category", findCategoriesForRecipe);
-    app.put("/api/category/:cid/recipe/:rid", applyCategoryToRecipe);
-    app.delete("/api/category/:cid/recipe/:rid", detachCategoryFromRecipe);
+    app.put("/api/category/:cid/recipe/:rid", checkSameUserOrAdmin, applyCategoryToRecipe);
+    app.delete("/api/category/:cid/recipe/:rid", checkSameUserOrAdmin, detachCategoryFromRecipe);
     app.get("/api/category/:cid", findCategoryById);
     app.post("/api/category", createCategory);
-    app.put("/api/category/:cid", updateCategory);
-    app.delete("/api/category/:cid", deleteCategory);
-    app.get("/api/admin/categories", listAllCategories);
+    app.put("/api/admin/category/:cid", checkAdmin, updateCategory);
+    app.delete("/api/admin/category/:cid", checkAdmin, deleteCategory);
+    app.get("/api/admin/categories", checkAdmin, listAllCategories);
+
+    // Helper functions
+
+    function authorized (req, res, next) {
+        if (!req.isAuthenticated()) {
+            res.sendStatus(401);
+        } else {
+            next();
+        }
+    }
+
+    function checkSameUserOrAdmin(req, res, next) {
+        var recipe = req.body;
+        if (req.user && req.user.role === 'ADMIN') {
+            next();
+        } else if (req.user && req.user._id == recipe._user._id) {
+            next();
+        } else {
+            res.sendStatus(401);
+        }
+    }
+
+    function checkAdmin(req, res, next) {
+        if(req.user && req.user.role === 'ADMIN') {
+            next();
+        } else {
+            res.sendStatus(401);
+        }
+    }
 
     // Service Functions
 

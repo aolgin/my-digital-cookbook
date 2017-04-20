@@ -13,10 +13,10 @@
         function init() {
             RecipeService.findRecipeById(vm.rid)
                 .then(function(response) {
-                    vm.recipe = response.data;
                     if (!currentUser || currentUser._id !== vm.recipe._user._id) {
                         $location.url("/error?code=401");
                     } else {
+                        vm.recipe = response.data;
                         vm.username = currentUser.username;
                     }
                 }, function (err) {
@@ -46,7 +46,7 @@
         function deleteRecipe() {
             var answer = confirm("Delete this recipe?");
             if (answer) {
-                var promise = RecipeService.deleteRecipe(vm.rid);
+                var promise = RecipeService.deleteRecipe(vm.rid, vm.recipe);
                 promise.then(function (response) {
                     if (response.status == 200) {
                         $location.url("/dashboard/recipes");

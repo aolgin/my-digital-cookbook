@@ -1,11 +1,36 @@
 module.exports = function(app, model) {
     var CommentModel = model.commentModel;
 
+    var auth = authorized;
+
     app.get("/api/comment/:cid", findCommentById);
     app.get("/api/recipe/:rid/comment", findCommentsForRecipe);
-    app.post("/api/recipe/:rid/comment", createComment);
-    app.delete("/api/comment/:cid", deleteComment);
-    app.put("/api/comment/:cid", updateComment);
+    app.post("/api/recipe/:rid/comment", auth, createComment);
+    app.delete("/api/comment/:cid", auth, deleteComment);
+    app.put("/api/comment/:cid", auth, updateComment);
+    // TODO: Need to determine best way to actually use checkSameUserOrAdmin. Just an auth check will do for the meantime, though
+    // app.delete("/api/comment/:cid", checkSameUserOrAdmin, deleteComment);
+    // app.put("/api/comment/:cid", checkSameUserOrAdmin, updateComment);
+
+    // Helper Functions
+    function authorized (req, res, next) {
+        if (!req.isAuthenticated()) {
+            res.sendStatus(401);
+        } else {
+            next();
+        }
+    }
+
+    function checkSameUserOrAdmin(req, res, next) {
+        var comment = req.body;
+        if (req.user && req.user.role === 'ADMIN') {
+            next();
+        } else if (req.user && req.user._id == comment._user._id) {
+            next();
+        } else {
+            res.sendStatus(401);
+        }
+    }
 
     // Service Functions
 
@@ -19,8 +44,7 @@ module.exports = function(app, model) {
             }, function (err) {
                 console.log(err);
                 res.sendStatus(500);
-            })
-
+            });
     }
 
     function findCommentById(req, res) {

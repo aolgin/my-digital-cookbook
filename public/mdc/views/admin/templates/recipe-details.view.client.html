@@ -1,6 +1,6 @@
 <ng-include src="'views/misc/templates/header.view.client.html'"></ng-include>
 
-<div id="page-content-wrapper">
+<div id="page-content-wrapper" ng-init="model.renderDetails()">
     <h3>Details for {{model.recipe.name}}</h3>
     <div class="mdc-msg-text">
         <div class="alert alert-danger" ng-show="model.error">
@@ -17,27 +17,28 @@
             <input type="text"
                    class="form-control"
                    aria-describedby="rid"
-                   value="{{model.recipe._id}}"
+                   ng-model="model.recipe._id"
                    disabled />
         </div>
         <div class="input-group">
             <span class="input-group-addon" id="name"><b>Name: </b></span>
             <input type="text"
                    class="form-control"
-                   value="{{model.recipe.name}}"
+                   ng-model="model.recipe.name"
                    aria-describedby="name"/>
         </div>
         <div class="input-group">
             <span class="input-group-addon" id="desc"><b>Description: </b></span>
             <input type="text"
                    class="form-control"
-                   value="{{model.recipe.description}}"
+                   ng-model="model.recipe.description"
                    aria-describedby="desc"/>
         </div>
         <div class="input-group">
             <span class="input-group-addon" id="owner"><b>Owner: </b></span>
             <input type="text"
                    class="form-control"
+                   ng-model="model.recipe._user"
                    value="{{model.recipe._user}}"
                    aria-describedby="owner"
                    disabled />
@@ -47,7 +48,7 @@
             <span uib-rating
                   id="recipe-rating"
                   class="form-control"
-                  ng-model="model.recipe.rating.acutal"
+                  ng-model="model.recipe.rating.actual"
                   max="5"
                   read-only="true"
                   on-hover="hoveringOver(value)"
@@ -68,48 +69,49 @@
             <span class="input-group-addon" id="image"><b>Photo: </b></span>
             <input type="text"
                    class="form-control"
-                   value="{{model.recipe.image_url}}"
+                   ng-model="model.recipe.image_url"
                    aria-describedby="image"/>
         </div>
         <div class="input-group">
             <span class="input-group-addon" id="yield"><b>Yield: </b></span>
             <input type="text"
                    class="form-control"
-                   value="{{model.recipe.yield}}"
+                   ng-model="model.recipe.yield"
                    aria-describedby="yield"/>
         </div>
         <div class="input-group">
             <span class="input-group-addon" id="servings"><b>Num. Servings: </b></span>
             <input type="text"
                    class="form-control"
-                   value="{{model.recipe.num_servings}}"
+                   ng-model="model.recipe.num_servings"
                    aria-describedby="servings"/>
         </div>
         <div class="input-group">
             <span class="input-group-addon" id="ctime"><b>Cook time: </b></span>
             <input type="text"
                    class="form-control"
-                   value="{{model.recipe.cook_time}}"
+                   ng-model="model.recipe.cook_time"
                    aria-describedby="ctime"/>
         </div>
         <div class="input-group">
             <span class="input-group-addon" id="ptime"><b>Prep Time: </b></span>
             <input type="text"
                    class="form-control"
-                   value="{{model.recipe.prep_time}}"
+                   ng-model="model.recipe.prep_time"
                    aria-describedby="ptime"/>
         </div>
         <div class="input-group">
             <span class="input-group-addon" id="ready"><b>Ready In: </b></span>
             <input type="text"
                    class="form-control"
-                   value="{{model.recipe.ready_in}}"
+                   ng-model="model.recipe.ready_in"
                    aria-describedby="ready"/>
         </div>
         <div class="input-group">
             <span class="input-group-addon" id="books"><b>Member of Books: </b></span>
             <input type="text"
                    class="form-control"
+                   ng-model="model.recipe.books"
                    value="{{model.recipe.books}}"
                    aria-describedby="books"
                    disabled />
@@ -118,6 +120,7 @@
             <span class="input-group-addon" id="categories"><b>Categories: </b></span>
             <input type="text"
                    class="form-control"
+                   ng-model="model.recipe.categories"
                    value="{{model.recipe.categories}}"
                    aria-describedby="categories"
                    disabled />
@@ -126,7 +129,8 @@
             <span class="input-group-addon" id="created"><b>DateCreated: </b></span>
             <input type="text"
                    class="form-control"
-                   value="{{model.book.dateCreated | date}}"
+                   ng-model="model.recipe.dateCreated"
+                   value="{{model.recipe.dateCreated | date}}"
                    aria-describedby="created"
                    disabled />
         </div>
@@ -134,13 +138,14 @@
             <span class="input-group-addon" id="modified"><b>DateModified: </b></span>
             <input type="text"
                    class="form-control"
-                   value="{{model.book.dateModified | date}}"
+                   ng-model="model.recipe.dateModified"
+                   value="{{model.recipe.dateModified | date}}"
                    aria-describedby="modified"
                    disabled />
         </div>
     </div>
 
-    <a class="btn btn-block btn-success" href="#/admin/recipe/{{model.recipe._id}}">
+    <a class="btn btn-block btn-success" ng-click="model.updateRecipe(model.recipe)">
         Modify
     </a>
     <a class="btn btn-block btn-severe" ng-click="model.deleteRecipe(model.recipe, true)">

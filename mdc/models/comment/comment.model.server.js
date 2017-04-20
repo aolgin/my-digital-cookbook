@@ -11,6 +11,7 @@ module.exports = function() {
         findCommentsForRecipe: findCommentsForRecipe,
         updateComment: updateComment,
         removeComment: removeComment,
+        removeAllCommentsFromRecipe: removeAllCommentsFromRecipe,
         setModel: setModel
     };
     return api;
@@ -75,6 +76,10 @@ module.exports = function() {
                         rating: rating
                     });
             });
+    }
+
+    function removeAllCommentsFromRecipe(recipeObj) {
+        return CommentModel.remove({_recipe: recipeObj});
     }
 
     function removeComment(cid, rid) {

@@ -1,13 +1,45 @@
 module.exports = function(app, model) {
     var bookModel = model.bookModel;
 
+    var auth = authorized;
+
     app.get("/api/user/:uid/book", findBooksByUser);
-    app.post("/api/user/:uid/book", createBook);
+    app.post("/api/user/:uid/book", auth, createBook);
     app.get("/api/book/search", searchBooks);
     app.get("/api/book/:bid", findBookById);
-    app.delete("/api/book/:bid", deleteBook);
-    app.put("/api/book/:bid", updateBook);
-    app.get("/api/admin/books", findAllBooks);
+    app.delete("/api/book/:bid", checkSameUser, deleteBook);
+    app.put("/api/book/:bid", checkSameUser, updateBook);
+    app.delete("/api/admin/book/:bid", checkAdmin, deleteBook);
+    app.post("/api/admin/book", checkAdmin, createBook);
+    app.put("/api/admin/book/:bid", checkAdmin, updateBook);
+    app.get("/api/admin/books", checkAdmin, findAllBooks);
+
+    // Helper functions
+
+    function authorized (req, res, next) {
+        if (!req.isAuthenticated()) {
+            res.sendStatus(401);
+        } else {
+            next();
+        }
+    }
+
+    function checkSameUser(req, res, next) {
+        var book = req.body;
+        if (req.user && req.user._id == book._user._id) {
+            next();
+        } else {
+            res.sendStatus(401);
+        }
+    }
+
+    function checkAdmin(req, res, next) {
+        if(req.user && req.user.role === 'ADMIN') {
+            next();
+        } else {
+            res.sendStatus(401);
+        }
+    }
 
     // Service Functions
 
@@ -74,7 +106,6 @@ module.exports = function(app, model) {
 
     function findBookById(req, res) {
         var bid = req.params['bid'];
-
         bookModel
             .findBookById(bid)
             .then(function (book) {
