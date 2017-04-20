@@ -55,10 +55,7 @@
                         {{user.role}}
                     </div>
                     <div class="col-xs-2 col-sm-3">
-                        <a href="#/admin/user/{{user._id}}">
-                            <span class="glyphicon glyphicon-edit pull-right"></span>
-                        </a>
-                        <a ng-click="model.deleteUser(user)">
+                        <a ng-click="model.deleteUser(user, false)">
                             <span class="glyphicon glyphicon-remove pull-right"></span>
                         </a>
                     </div>

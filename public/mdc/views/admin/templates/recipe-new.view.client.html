@@ -1,24 +1,6 @@
-<nav class="navbar navbar-default navbar-fixed-top">
-    <div class="container-fluid">
-        <div class="navbar-header mdc-logo pull-left">
-            <a class="navbar-brand" href="#/admin">
-                <img src="../../../../img/logo-100x70.png"/>
-            </a>
-        </div>
-        <div class="navbar-header">
-            <a class="navbar-brand">
-                My Digital Cookbook
-            </a>
-        </div>
-        <div class="pull-right">
-            <a class="navbar-brand" href="#/login/admin">
-                <span class="fa fa-sign-out" aria-hidden="true"></span>
-            </a>
-        </div>
-    </div>
-</nav>
+<ng-include src="'views/misc/templates/header.view.client.html'"></ng-include>
 
-<div>
+<div id="page-content-wrapper">
     <h3>New Recipe</h3>
     <div class="mdc-msg-text">
         <div class="alert alert-danger" ng-show="model.error">
@@ -29,10 +11,16 @@
         </div>
     </div>
 
-    <form>
-        <!--TODO: Need a way to grab the users and add using that-->
+    <form ng-init="model.renderUsers()">
+        <label for="recipe-user">Associated User: </label>
+        <input id="recipe-user"
+               type="text"
+               ng-model="recipe._user"
+               uib-typeahead="user as user.username for user in model.users | filter:$viewValue | limitTo:8"
+               class="form-control"/>
+
         <div class="form-group">
-            <label for="recipe-name">Name</label>
+            <label for="recipe-name">Name: </label>
             <input ng-model="recipe.name"
                    type="text"
                    placeholder="Chocolate Chip Cookies"
@@ -122,7 +110,7 @@
         <img ng-src="{{model.recipe.image_url}}" id="preview" width="100%"/>
     </form>
 
-    <a class="btn btn-success btn-block"
+    <a class="btn btn-primary btn-block"
        ng-click="model.createRecipe(recipe)">
         Save
     </a>
@@ -131,10 +119,5 @@
         Cancel
     </a>
 
+    <ng-include src="'views/misc/templates/footer.view.client.html'"></ng-include>
 </div>
-
-<nav class="visible-md navbar navbar-default navbar-fixed-bottom">
-    <div class="container-fluid pull-right">
-        <p class="navbar-text">Source code available on <a href="https://github.com/aolgin/my-digital-cookbook/tree/master/public">Github</a></p>
-    </div>
-</nav>

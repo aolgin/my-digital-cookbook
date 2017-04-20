@@ -20,7 +20,7 @@ module.exports = function(app, model) {
             }, function (err) {
                 console.log(err);
                 res.sendStatus(500);
-            })
+            });
     }
 
 

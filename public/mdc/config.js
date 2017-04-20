@@ -13,6 +13,7 @@
                     deferred.reject();
                     $location.url('/error?code=401');
                 } else {
+                    user.password = undefined;
                     deferred.resolve(user);
                 }
             });
@@ -29,6 +30,7 @@
             .then(function (response) {
                 var user = response.data;
                 if(user !== '0') {
+                    user.password = undefined;
                     deferred.resolve(user);
                 } else {
                     deferred.resolve();
@@ -50,6 +52,7 @@
             .then(function (response) {
                 var user = response.data;
                 if(user !== '0') {
+                    user.password = undefined;
                     deferred.resolve(user);
                 } else {
                     deferred.resolve();
@@ -72,6 +75,7 @@
                     deferred.reject();
                     $location.url('/error?code=401');
                 } else {
+                    user.password = undefined;
                     deferred.resolve(user);
                 }
             });
@@ -79,6 +83,8 @@
     }
 
     var redirectTo404 = function($location) {
+        var path = $location.path();
+        console.log("Being redirected from " + path + "...");
         $location.url('/error?code=404');
     };
 
@@ -124,13 +130,13 @@
             })
             .when("/admin/user/new", {
                 templateUrl: 'views/admin/templates/user-new.view.client.html',
-                controller: 'RegisterController',
+                controller: 'AdminController',
                 controllerAs: 'model',
                 resolve: { adminUser: isAdmin }
             })
             .when("/admin/user/:uid/details", {
                 templateUrl: 'views/admin/templates/user-details.view.client.html',
-                controller: 'ProfileController',
+                controller: 'AdminController',
                 controllerAs: 'model',
                 resolve: { adminUser: isAdmin }
             })
@@ -142,13 +148,13 @@
             })
             .when("/admin/book/new", {
                 templateUrl: 'views/admin/templates/book-new.view.client.html',
-                controller: 'BookNewController',
+                controller: 'AdminController',
                 controllerAs: 'model',
                 resolve: { adminUser: isAdmin }
             })
             .when("/admin/book/:bid/details", {
                 templateUrl: 'views/admin/templates/book-details.view.client.html',
-                controller: 'BookEditController',
+                controller: 'AdminController',
                 controllerAs: 'model',
                 resolve: { adminUser: isAdmin }
             })
@@ -160,13 +166,13 @@
             })
             .when("/admin/recipe/new", {
                 templateUrl: 'views/admin/templates/recipe-new.view.client.html',
-                controller: 'RecipeNewController',
+                controller: 'AdminController',
                 controllerAs: 'model',
                 resolve: { adminUser: isAdmin }
             })
             .when("/admin/recipe/:rid/details", {
                 templateUrl: 'views/admin/templates/recipe-details.view.client.html',
-                controller: 'RecipeEditController',
+                controller: 'AdminController',
                 controllerAs: 'model',
                 resolve: { adminUser: isAdmin }
             })

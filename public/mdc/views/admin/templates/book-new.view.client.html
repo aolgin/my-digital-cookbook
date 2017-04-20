@@ -1,24 +1,6 @@
-<nav class="navbar navbar-default navbar-fixed-top">
-    <div class="container-fluid">
-        <div class="navbar-header mdc-logo pull-left">
-            <a class="navbar-brand" href="#/admin">
-                <img src="../../../../img/logo-100x70.png"/>
-            </a>
-        </div>
-        <div class="navbar-header">
-            <a class="navbar-brand">
-                My Digital Cookbook
-            </a>
-        </div>
-        <div class="pull-right">
-            <a class="navbar-brand" href="#/login/admin">
-                <span class="fa fa-sign-out" aria-hidden="true"></span>
-            </a>
-        </div>
-    </div>
-</nav>
+<ng-include src="'views/misc/templates/header.view.client.html'"></ng-include>
 
-<div>
+<div id="page-content-wrapper">
     <h3>New Cookbook</h3>
     <div class="mdc-msg-text">
         <div class="alert alert-danger" ng-show="model.error">
@@ -29,9 +11,14 @@
         </div>
     </div>
 
-    <form>
+    <form ng-init="model.renderUsers()">
 
-        <!--TODO: Need a way to grab the users and add using that-->
+        <label for="book-user">Associated User: </label>
+        <input id="book-user"
+               type="text"
+               ng-model="book._user"
+               uib-typeahead="user as user.username for user in model.users | filter:$viewValue | limitTo:8"
+               class="form-control"/>
 
         <label for="name">Name: </label>
         <input type="text"
@@ -54,20 +41,15 @@
                class="form-control"/>
 
         <label for="preview">Image Preview: </label>
-        <img ng-src="{{book.image_url}}" id="preview" width="100%"/>
+        <img ng-src="{{book.img_record.url}}" id="preview" width="100%"/>
 
     </form>
 
     <button class="btn btn-block btn-primary"
-            ng-click="model.createBook(book)">Create Book!</button>
+            ng-click="model.createBook(book)">Create Book</button>
     <a href="#/admin/book" class="btn btn-block btn-danger">
         Cancel
     </a>
 
+    <ng-include src="'views/misc/templates/footer.view.client.html'"></ng-include>
 </div>
-
-<nav class="visible-md navbar navbar-default navbar-fixed-bottom">
-    <div class="container-fluid pull-right">
-        <p class="navbar-text">Source code available on <a href="https://github.com/aolgin/my-digital-cookbook/tree/master/public">Github</a></p>
-    </div>
-</nav>

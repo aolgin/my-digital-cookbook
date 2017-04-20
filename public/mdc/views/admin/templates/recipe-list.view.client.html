@@ -11,7 +11,7 @@
         </a>
         <h3>Manage Recipes</h3>
     </div>
-    
+
     <div class="mdc-msg-text">
         <div class="alert alert-danger" ng-show="model.error">
             {{model.error}}
@@ -54,10 +54,7 @@
                         {{recipe.dateCreated | date}}
                     </div>
                     <div class="col-xs-2 col-sm-3">
-                        <a href="#/admin/recipe/{{recipe._id}}">
-                            <span class="glyphicon glyphicon-edit pull-right"></span>
-                        </a>
-                        <a ng-click="model.deleteUser(user)">
+                        <a ng-click="model.deleteRecipe(recipe, false)">
                             <span class="glyphicon glyphicon-remove pull-right"></span>
                         </a>
                     </div>

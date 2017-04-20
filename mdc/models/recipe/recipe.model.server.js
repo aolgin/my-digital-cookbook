@@ -89,7 +89,6 @@ module.exports = function() {
         return RecipeModel
             .find()
             .populate("_user", "_id username")
-            .populate("rating", "total actual -_id")
             .exec();
     }
 
@@ -124,7 +123,7 @@ module.exports = function() {
             .populate("_user", "_id username")
             .populate({
                 path: "comments",
-                select: "_user text rating _id",
+                select: "_user text rating _id dateCreated",
                 populate: {
                     path: "_user",
                     select: "username _id",

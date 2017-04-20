@@ -1,24 +1,6 @@
-<nav class="navbar navbar-default navbar-fixed-top">
-    <div class="container-fluid">
-        <div class="navbar-header mdc-logo pull-left">
-            <a class="navbar-brand" href="#/admin">
-                <img src="../../../../img/logo-100x70.png"/>
-            </a>
-        </div>
-        <div class="navbar-header">
-            <a class="navbar-brand">
-                My Digital Cookbook
-            </a>
-        </div>
-        <div class="pull-right">
-            <a class="navbar-brand" href="#/login/admin">
-                <span class="fa fa-sign-out" aria-hidden="true"></span>
-            </a>
-        </div>
-    </div>
-</nav>
+<ng-include src="'views/misc/templates/header.view.client.html'"></ng-include>
 
-<div>
+<div id="page-content-wrapper">
     <h3>Details for {{model.recipe.name}}</h3>
     <div class="mdc-msg-text">
         <div class="alert alert-danger" ng-show="model.error">
@@ -60,6 +42,20 @@
                    aria-describedby="owner"
                    disabled />
         </div>
+        <div class="input-group">
+            <span class="input-group-addon" id="rating"><b>Rating: </b></span>
+            <span uib-rating
+                  id="recipe-rating"
+                  class="form-control"
+                  ng-model="model.recipe.rating.acutal"
+                  max="5"
+                  read-only="true"
+                  on-hover="hoveringOver(value)"
+                  on-leave="overStar = null"
+                  aria-labelledby="default-rating"
+                  disabled></span>
+        </div>
+
         <div class="input-group">
             <span class="input-group-addon" id="public"><b>Public Url: </b></span>
             <input type="text"
@@ -111,14 +107,7 @@
                    aria-describedby="ready"/>
         </div>
         <div class="input-group">
-            <span class="input-group-addon" id="rating"><b>Rating: </b></span>
-            <input type="text"
-                   class="form-control"
-                   value="{{model.recipe.rating.actual}}"
-                   aria-describedby="rating"/>
-        </div>
-        <div class="input-group">
-            <span class="input-group-addon" id="books"><b>Member of: </b></span>
+            <span class="input-group-addon" id="books"><b>Member of Books: </b></span>
             <input type="text"
                    class="form-control"
                    value="{{model.recipe.books}}"
@@ -169,16 +158,12 @@
     <a class="btn btn-block btn-success" href="#/admin/recipe/{{model.recipe._id}}">
         Modify
     </a>
-    <a class="btn btn-block btn-severe" ng-click="model.deleteRecipe(model.recipe._id)">
+    <a class="btn btn-block btn-severe" ng-click="model.deleteRecipe(model.recipe, true)">
         Delete
     </a>
     <a class="btn btn-block btn-danger" href="#/admin/recipe">
         Back to Overview
     </a>
-</div>
 
-<nav class="visible-md navbar navbar-default navbar-fixed-bottom">
-    <div class="container-fluid pull-right">
-        <p class="navbar-text">Source code available on <a href="https://github.com/aolgin/my-digital-cookbook/tree/master/public">Github</a></p>
-    </div>
-</nav>
+    <ng-include src="'views/misc/templates/footer.view.client.html'"></ng-include>
+</div>
