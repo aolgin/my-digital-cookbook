@@ -43,8 +43,7 @@ module.exports = function() {
         return UserModel
             .find()
             .or([{ 'firstName': { $regex: re }}, { 'lastName': { $regex: re }}, { 'about': { $regex: re }}, { 'username': { $regex: re }}])
-            .select("img_record username firstName lastName about")
-            .populate("img_record", "url")
+            .select("username firstName lastName about")
             .sort({'username': 1})
             .exec();
     }

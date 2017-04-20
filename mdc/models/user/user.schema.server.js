@@ -9,8 +9,6 @@ module.exports = function() {
         books: [{type: mongoose.Schema.Types.ObjectId, ref:'BookModel'}],
         recipes: [{type: mongoose.Schema.Types.ObjectId, ref:'RecipeModel'}],
         about: String,
-        img_record: {type: mongoose.Schema.Types.ObjectId, ref: 'FileModel'},
-        photos: [String],
         role: {type: String, enum: ['ADMIN', 'USER'], default: 'USER'},
         following: [{type: mongoose.Schema.Types.ObjectId, ref:'UserModel'}],
         follower_count: {type: Number, default: 0},

@@ -72,12 +72,6 @@ module.exports = function(app, model) {
         var uid = req.params['uid'];
         var limit = req.query['limit'];
 
-        // var userBooks = books.filter(function(r) {
-        //     return r._user = uid;
-        // });
-        //
-        // res.json(userBooks);
-
         model.userModel.findBooksForUser(uid, limit)
             .then(function (user) {
                 var books = user.books;

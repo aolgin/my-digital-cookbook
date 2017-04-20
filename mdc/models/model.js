@@ -19,7 +19,6 @@ module.exports = function() {
     var userModel = require("./user/user.model.server")();
     var bookModel = require("./book/book.model.server")();
     var recipeModel = require("./recipe/recipe.model.server")();
-    var fileModel = require("./file/file.model.server")();
     var categoryModel = require("./category/category.model.server")();
     var commentModel = require("./comment/comment.model.server")();
     var notificationModel = require("./notification/notification.model.server")();
@@ -28,7 +27,6 @@ module.exports = function() {
         userModel: userModel,
         bookModel: bookModel,
         recipeModel: recipeModel,
-        fileModel: fileModel,
         notificationModel: notificationModel,
         categoryModel: categoryModel,
         commentModel: commentModel,
@@ -38,7 +36,6 @@ module.exports = function() {
     model.userModel.setModel(model);
     model.bookModel.setModel(model);
     model.recipeModel.setModel(model);
-    model.fileModel.setModel(model);
     model.notificationModel.setModel(model);
     model.categoryModel.setModel(model);
     model.commentModel.setModel(model);

@@ -7,6 +7,11 @@ body {
     text-align: center;
 }
 
+.mdc-extra-vertical-padding {
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
 .mdc-comment-editor {
     padding-bottom: 10px;
 }

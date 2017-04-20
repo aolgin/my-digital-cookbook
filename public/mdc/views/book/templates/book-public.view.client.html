@@ -1,12 +1,7 @@
 <ng-include src="'views/misc/templates/header.view.client.html'"></ng-include>
 
 <div id="page-content-wrapper" class="container-fluid">
-
-    <div ng-if="model.book.img_record.url"
-         class="col-md-3 hidden-sm">
-        <img ng-src="{{model.book.img_record.url}}" width="100%"/>
-    </div>
-    <div class="col-md-9 col-xs-12">
+    <div class="col-xs-12">
         <h3>{{model.book.name}}</h3>
         <h5>Created by {{model.book._user.username}} on {{model.book.dateCreated | date}}</h5>
         <h4>{{model.book.description}}</h4>

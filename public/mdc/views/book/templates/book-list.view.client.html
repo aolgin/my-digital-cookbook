@@ -13,7 +13,6 @@
     </div>
     <ul class="list-group">
         <li class="list-group-item" ng-repeat="book in model.books">
-            <img ng-src="{{book.image_url}}"/>
             <span><a href="#/user/{{model.userId}}/book/{{book._id}}/recipe">{{book.name}}</a></span>
             <span>{{book.description}}</span>
             <div class="pull-right">

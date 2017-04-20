@@ -45,10 +45,9 @@ module.exports = function() {
                 { 'ingredients': { $regex: re }},
                 { 'directions': { $regex: re }}
             ])
-            .select("name description img_record rating _user")
+            .select("name description rating _user")
             .populate("rating", "actual")
             .populate("_user", "username")
-            .populate("img_record", "url")
             .populate("categories", "name")
             .sort({'dateModified': 1})
             .exec();
@@ -60,7 +59,7 @@ module.exports = function() {
             .find({
                 category: { $regex: re }
             })
-            .select("-_id name description img_record rating _user")
+            .select("-_id name description rating _user")
             .populate("rating", "actual")
             .populate("categories", "name")
             .populate("_user", "username")

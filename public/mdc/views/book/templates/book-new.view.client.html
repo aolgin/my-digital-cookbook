@@ -25,16 +25,6 @@
                   ng-model="book.description"
                   class="form-control"></textarea>
 
-        <label for="image">Image (Optional): </label>
-        <input type="file"
-               id="image"
-               name="myFile"
-               ng-model="book.file"
-               class="form-control"/>
-
-        <label for="preview">Image Preview: </label>
-        <img ng-src="{{book.image_url}}" id="preview" width="100%"/>
-
     </form>
 
     <button class="btn btn-block btn-primary"

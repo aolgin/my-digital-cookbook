@@ -10,7 +10,6 @@ module.exports = function () {
         ingredients: String,
         directions: String,
         prep_time: String,
-        img_record: {type: mongoose.Schema.Types.ObjectId, ref: "FileModel"},
         ready_in: String,
         yield: String,
         num_servings: String, // UNSURE

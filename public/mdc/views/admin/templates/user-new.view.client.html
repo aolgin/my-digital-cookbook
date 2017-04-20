@@ -47,20 +47,18 @@
                type="text"
                placeholder="Something about yourself..."
                ng-model="user.about"/>
-        <!-- TODO: Add in checkbox or multi-select dropdown for roles -->
-
-        <input class="form-control"
-               type="text"
-               placeholder="need to properly do this..."
-               ng-model="user.image_url"/>
     </form>
 
-    <button class="btn btn-block btn-primary"
-            ng-click="model.createUser(user)">Create User</button>
-    <a href="#/admin/user"
-       class="btn btn-block btn-danger">
-        Cancel
-    </a>
+    <div class="btn-group btn-group-justified mdc-extra-vertical-padding">
+        <a class="btn btn-block btn-primary"
+                ng-click="model.createUser(user)">
+            Create
+        </a>
+        <a href="#/admin/user"
+           class="btn btn-block btn-danger">
+            Cancel
+        </a>
+    </div>
 
     <ng-include src="'views/misc/templates/footer.view.client.html'"></ng-include>
 </div>
