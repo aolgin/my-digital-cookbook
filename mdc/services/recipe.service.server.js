@@ -7,13 +7,14 @@ module.exports = function(app, model) {
     app.post("/api/user/:uid/recipe", auth, createRecipe);
     app.delete("/api/recipe/:rid", checkSameUser, deleteRecipe);
     app.put("/api/recipe/:rid", checkSameUser, updateRecipe);
+    app.put('/api/book/:bid/recipe/:rid', auth, attachRecipeToBook);
+    app.delete('/api/book/:bid/recipe/:rid', auth, detachRecipeFromBook);
     app.get("/api/recipe/search", searchRecipes);
     app.get("/api/recipe/:rid", findRecipeById);
     app.post("/api/admin/recipe", checkAdmin, createRecipe);
     app.put("/api/admin/recipe/:rid", checkAdmin, updateRecipe);
     app.delete("/api/admin/recipe/:rid", checkAdmin, deleteRecipe);
     app.get("/api/admin/recipes", checkAdmin, findAllRecipes);
-
 
     // Helper functions
 
@@ -48,6 +49,32 @@ module.exports = function(app, model) {
     }
 
     // Service Functions
+
+    function attachRecipeToBook(req, res) {
+        var rid = req.params['rid'];
+        var bid = req.params['bid'];
+
+        recipeModel.attachRecipeToBook(rid, bid)
+            .then(function (response) {
+                res.sendStatus(200);
+            }, function (err) {
+                console.log(err);
+                res.sendStatus(500);
+            })
+    }
+
+    function detachRecipeFromBook(req, res) {
+        var rid = req.params['rid'];
+        var bid = req.params['bid'];
+
+        recipeModel.detachRecipeFromBook(rid, bid)
+            .then(function (response) {
+                res.sendStatus(200);
+            }, function (err) {
+                console.log(err);
+                res.sendStatus(500);
+            })
+    }
 
     function findAllRecipes(req, res) {
         recipeModel.findAllRecipes()

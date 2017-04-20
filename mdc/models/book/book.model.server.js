@@ -117,7 +117,7 @@ module.exports = function() {
     function findBookById(bid) {
         return BookModel
             .findById(bid)
-            .populate("recipes", "name _user _id")
+            .populate("recipes", "name description _user _id")
             .populate("_user", "username _id")
             .exec();
     }

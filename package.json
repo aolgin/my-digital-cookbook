@@ -8,6 +8,7 @@
     "aws-sdk": "^2.28.0",
     "bcrypt-nodejs": "0.0.3",
     "body-parser": "^1.15.1",
+    "bootstrap-select": "^1.12.2",
     "cookie-parser": "^1.4.3",
     "ejs": "^2.5.3",
     "express": "^4.13.4",

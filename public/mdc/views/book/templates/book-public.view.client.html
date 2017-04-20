@@ -1,9 +1,18 @@
 <ng-include src="'views/misc/templates/header.view.client.html'"></ng-include>
 
 <div id="page-content-wrapper" class="container-fluid">
+    <div class="mdc-msg-text">
+        <div class="alert alert-danger" ng-show="model.error">
+            {{model.error}}
+        </div>
+        <div class="alert alert-success" ng-show="model.message">
+            {{model.message}}
+        </div>
+    </div>
+
     <div class="col-xs-12">
         <h3>{{model.book.name}}</h3>
-        <h5>Created by {{model.book._user.username}} on {{model.book.dateCreated | date}}</h5>
+        <h5>Created by <a href="#/chef/{{model.book._user._id}}">{{model.book._user.username}}</a> on {{model.book.dateCreated | date}}</h5>
         <h4>{{model.book.description}}</h4>
         <div ng-if="model.yourBook">
             <a href="#/dashboard/books/{{model.book._id}}">
@@ -16,27 +25,35 @@
             <table class="table table-striped">
                 <thead>
                     <tr>
-                        <th class="hidden-sm hidden-xs">Image</th>
                         <th>Recipe</th>
                         <th>Description</th>
+                        <th>Detach</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr ng-repeat="recipe in model.book.recipes">
-                        <th class="hidden-sm hidden-xs">
-                            <img ng-src="{{recipe.img_record.url}}"/>
-                        </th>
                         <th>
-                            <a href="/recipes/{{recipe._id}}">
+                            <a href="#/recipe/{{recipe._id}}">
                                 <span>{{recipe.name}}</span>
                             </a>
                         </th>
                         <th>
                             <span>{{recipe.description}}</span>
                         </th>
+                        <th>
+                            <a ng-click="model.detachRecipeFromBook(recipe._id)">
+                                <span class="glyphicon glyphicon-remove"></span>
+                            </a>
+                        </th>
                     </tr>
                 </tbody>
             </table>
+        </div>
+
+        <div ng-if="model.noRecipes" class="alert alert-success">
+                <span >
+                    No recipes in this book yet! Go to a recipe page to add some!
+                </span>
         </div>
     </div>
 

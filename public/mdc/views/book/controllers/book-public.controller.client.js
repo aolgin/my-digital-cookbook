@@ -3,7 +3,7 @@
         .module("MyDigitalCookbook")
         .controller("PublicBookController", PublicBookController);
 
-    function PublicBookController(BookService, $routeParams, $location, currentUser, UserService, adminUser) {
+    function PublicBookController(BookService, $routeParams, $location, currentUser, UserService, adminUser, RecipeService) {
         var vm = this;
         vm.bid = $routeParams['bid'];
         if (currentUser) {
@@ -14,9 +14,21 @@
         }
 
         function init() {
+            renderBook();
+        }
+        init();
+
+        vm.search = search;
+        vm.logout = logout;
+        vm.detachRecipeFromBook = detachRecipeFromBook;
+
+        function renderBook() {
             BookService.findBookById(vm.bid)
                 .then(function (response) {
                     vm.book = response.data;
+                    if (vm.book.recipes.length === 0) {
+                        vm.noRecipes = true;
+                    } else { vm.noRecipes = false; }
                     isYourBook();
                 }, function (err) {
                     console.log(err);
@@ -27,10 +39,6 @@
                     vm.yourBook = false;
                 });
         }
-        init();
-
-        vm.search = search;
-        vm.logout = logout;
 
         function isYourBook() {
             if (currentUser && currentUser._id === vm.book._user._id) {
@@ -49,6 +57,18 @@
                 .logout()
                 .then(function (response) {
                     $location.url("/");
+                });
+        }
+
+        function detachRecipeFromBook(rid) {
+            RecipeService.detachRecipeFromBook(rid, vm.bid)
+                .then(function (response) {
+                    vm.error = null;
+                    vm.messsage = "Successfully removed recipe from " + vm.book.name + "!";
+                    renderBook();
+                }).catch(function (err) {
+                    vm.message = null;
+                    vm.error = "An unexpected error occured while trying to add this recipe to your book:\n" + err;
                 });
         }
 

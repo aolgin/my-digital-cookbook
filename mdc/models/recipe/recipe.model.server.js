@@ -145,31 +145,33 @@ module.exports = function() {
             .exec();
     }
 
-    function detachRecipeFromBook(bid, recipe) {
-        //TODO: write this
+    function detachRecipeFromBook(rid, bid) {
+        return RecipeModel.findById(rid)
+            .then(function (recipeObj) {
+                model.bookModel.findBookById(bid)
+                    .then(function (bookObj) {
+                        bookObj.recipes.pull(recipeObj);
+                        bookObj.save();
+                        recipeObj.books.pull(bookObj);
+                        return recipeObj.save();
+                    })
+            }).catch(function (err) {
+                console.log(err);
+            });
     }
 
-    //TODO: rewrite to match the new functionality
-    function attachRecipeToBook(bid, recipe) {
-        return RecipeModel
-            .create(recipe)
-            .then(function(recipeObj){
-                model.userModel
-                    .findUserById(uid)
-                    .then(function(userObj){
-                        model.bookModel.findBookById(bid)
-                            .then(function (bookObj) {
-                                recipeObj._user = userObj._id;
-                                recipeObj.books.addToSet(bookObj);
-                                recipeObj.save();
-                                bookObj.recipes.addToSet(recipeObj);
-                                bookObj.save();
-                                userObj.recipes.addToSet(recipeObj);
-                                return userObj.save();
-                            });
-                    }, function(error){
-                        console.log(error);
-                    });
+    function attachRecipeToBook(rid, bid) {
+        return RecipeModel.findById(rid)
+            .then(function (recipeObj) {
+                model.bookModel.findBookById(bid)
+                    .then(function (bookObj) {
+                        bookObj.recipes.addToSet(recipeObj);
+                        bookObj.save();
+                        recipeObj.books.addToSet(bookObj);
+                        return recipeObj.save();
+                    })
+            }).catch(function (err) {
+                console.log(err);
             });
     }
 

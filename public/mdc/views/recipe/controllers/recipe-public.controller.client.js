@@ -8,6 +8,8 @@
         vm.rid = $routeParams['rid'];
         if (currentUser) {
             vm.uid = currentUser._id;
+            // console.log(currentUser);
+            vm.books = currentUser.books;
             vm.username = currentUser.username;
         }
         if (adminUser) {
@@ -18,11 +20,6 @@
             RecipeService.findRecipeById(vm.rid)
                 .then(function (response) {
                     vm.recipe = response.data;
-                    if (!vm.recipe._user) {
-                        vm.recipe._user = {
-                            username: "[removed]"
-                        }
-                    }
                     if (vm.recipe.comments.length === 0) {
                         vm.commentsMsg = "No comments yet! Please login to comment and rate this recipe.";
                     }
@@ -41,6 +38,19 @@
         vm.commentOnRecipe = commentOnRecipe;
         vm.commentBoxToggle = commentBoxToggle;
         vm.deleteComment = deleteComment;
+        vm.attachRecipeToBook = attachRecipeToBook;
+
+        function attachRecipeToBook(book) {
+            RecipeService.attachRecipeToBook(vm.rid, book._id)
+                .then(function (response) {
+                    vm.error = null;
+                    vm.messsage = "Successfully added recipe to " + book.name + "!";
+                }).catch(function (err) {
+                    vm.message = null;
+                    vm.error = "An unexpected error occured while trying to add this recipe to your book:\n" + err;
+                });
+
+        }
 
         function deleteComment(cid) {
             var answer = confirm("Are you sure you would like to delete this comment?");
@@ -54,9 +64,9 @@
                                 vm.recipe = response.data;
                             });
                     }).catch(function (err) {
-                    console.log(err);
-                    vm.commentErr = "An unexpected error occured trying to delete your comment";
-                });
+                        console.log(err);
+                        vm.commentErr = "An unexpected error occured trying to delete your comment";
+                    });
             }
         }
 
