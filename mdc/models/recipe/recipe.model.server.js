@@ -25,19 +25,15 @@ module.exports = function() {
         model = _model;
     }
 
-    //TODO: is currently only oneway here
     function detachRecipesFromBook(bookObj) {
-        console.log("Detaching...");
-        return RecipeModel
-            .elemMatch("books", {_id: bookObj._id})
-            .pull({books: bookObj})
-            .exec();
-        // return RecipeModel.update(
-        //     { books:
-        //         { $elemMatch: { _id: bookObj._id}}
-        //     },
-        //     { $pull: {books: bookObj}}
-        // );
+        return RecipeModel.updateMany(
+            { books:
+                {$elemMatch: {$eq: bookObj._id}}
+            },
+            { $pull:
+                {books: bookObj._id}
+            }
+        );
     }
 
     function searchRecipes(term) {
@@ -82,7 +78,6 @@ module.exports = function() {
 
     }
 
-    // TODO determine how best to handle this
     function removeRecipe(rid) {
         return RecipeModel.findById(rid)
             .then(function (recipeObj) {

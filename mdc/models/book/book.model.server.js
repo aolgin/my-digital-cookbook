@@ -12,7 +12,6 @@ module.exports = function() {
         updateBook: updateBook,
         removeBook: removeBook,
         removeBooksForUser: removeBooksForUser,
-        removeRecipeFromBook: removeRecipeFromBook,
         removeRecipeFromAllBooks: removeRecipeFromAllBooks,
         findAllBooks: findAllBooks,
         searchBooks: searchBooks,
@@ -51,46 +50,26 @@ module.exports = function() {
     }
 
     function removeRecipeFromAllBooks(recipeObj) {
-        //TODO: Test that this works...
         return BookModel.update(
             {recipes: {$elemMatch: recipeObj}},
             {$pullAll: {recipes: [recipeObj]}}
         );
     }
 
-    function removeRecipeFromBook(recipe) {
-        // Is just temporary for now
-        var bid = recipe._book; //TODO: due to the many to many relationship here, this will not work like this.
-        return BookModel.findById(bid)
-            .then(function (bookObj) {
-                bookObj.recipes.pull(recipe);
-                return bookObj.save();
-            }, function (err) {
-                console.log(err);
-            });
-    }
-
     function removeBook(bid) {
-        /*
-        Needs to delete:
-        - book itself
-        - book from user - ✓
-        - detach recipes in this book (don't delete though!)
-         */
         return BookModel.findById(bid)
             .then(function (bookObj) {
-                model.userModel
-                    .removeBookFromUser(bookObj)
+                model.recipeModel
+                    .detachRecipesFromBook(bookObj)
                     .then(function (response) {
-                        // // Seems to be what's causing a hold-up here
-                        // model.recipeModel
-                        //     .detachRecipesFromBook(bookObj)
-                        //     .then(function (response) {
-                        return BookModel.remove({_id: bid});
-                    }, function (err) {
-                        console.log(err);
+                        model.userModel
+                            .removeBookFromUser(bookObj)
+                            .then(function (response) {
+                                return BookModel.remove({_id: bid});
+                            })
                     })
-                    // })
+            }).catch(function (err) {
+                console.log(err);
             });
     }
 
