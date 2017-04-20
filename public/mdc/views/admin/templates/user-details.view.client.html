@@ -121,27 +121,11 @@
                    aria-describedby="modified"
                    disabled />
         </div>
-
-        <!--<p><b>ObjectId:</b> {{model.user._id}}</p>-->
-        <!--<p><b>Username:</b> {{model.user.username}}</p>-->
-        <!--<p><b>First Name:</b> {{model.user.firstName}}</p>-->
-        <!--<p><b>Last Name:</b> {{model.user.lastName}}</p>-->
-        <!--<p><b>Role:</b> {{model.user.role}}</p>-->
-        <!--<p><b>Profile Picture:</b> {{model.user.image_url}}</p>-->
-        <!--&lt;!&ndash;<p><b>About:</b> {{model.user.about}}</p>&ndash;&gt;-->
-        <!--<p><b>Public Url:</b> /chef/{{model.user._id}}</p>-->
-        <!--<p><b>Cookbooks:</b> {{model.user.books}}</p>-->
-        <!--<p><b>Recipes:</b> {{model.user.recipes}}</p>-->
-        <!--<p><b>Favorites:</b> {{model.user.favorites}}</p>-->
-        <!--<p><b>Friends:</b> {{model.user.friends}}</p>-->
-        <!--<p><b>DateCreated:</b> {{model.user.dateCreated}}</p>-->
-        <!--<p><b>DateModified:</b> {{model.user.dateModified}}</p>-->
     </div>
 
     <a class="btn btn-block btn-success" href="#/admin/user/{{model.user._id}}">
         Modify
     </a>
-    <!--TODO: Way to update password via admin console-->
     <a class="btn btn-block btn-severe" ng-click="model.deleteUser(model.user, true)">
         Delete
     </a>

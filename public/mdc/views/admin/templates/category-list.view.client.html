@@ -1,0 +1,85 @@
+<ng-include src="'views/misc/templates/header.view.client.html'"></ng-include>
+
+<div id="page-content-wrapper">
+    <a href="#/admin">
+        <span class="glyphicon glyphicon-chevron-left"></span>
+        Back
+    </a>
+    <div>
+        <a ng-click="model.toggleCategoryCreationBox()" class="badge pull-right">
+            <span class="glyphicon glyphicon-plus"></span>
+        </a>
+        <h3>Manage Recipe Categories</h3>
+    </div>
+    <div class="mdc-msg-text">
+        <div class="alert alert-danger" ng-show="model.error">
+            {{model.error}}
+        </div>
+        <div class="alert alert-success" ng-show="model.message">
+            {{model.message}}
+        </div>
+    </div>
+
+    <div class="well" ng-if="model.showCreationBox">
+        <label for="new-cat-name">Name: </label>
+        <input type="text"
+               class="form-control"
+               id="new-cat-name"
+               ng-model="category.name"/>
+        <div class="btn-group btn-group-justified">
+            <a ng-click="model.createCategory(category)"
+               class="btn btn-block btn-primary form-control">
+                Create
+            </a>
+            <a ng-click="model.toggleCategoryCreationBox()"
+               class="btn btn-danger">Cancel</a>
+        </div>
+    </div>
+
+    <div class="well" ng-if="model.showUpdateBox">
+        <label for="cat-name">Name: </label>
+        <input type="text"
+               class="form-control"
+               id="cat-name"
+               value="{{model.category.name}}"
+               ng-model="model.category.name"/>
+        <div class="btn-group btn-group-justified">
+            <a ng-click="model.updateCategory(model.category)"
+               class="btn btn-block btn-success form-control">
+                Modify
+            </a>
+            <a ng-click="model.toggleCategoryUpdateBox('')"
+               class="btn btn-danger">Cancel</a>
+        </div>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Created</th>
+                    <th>Modify</th>
+                </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="cat in model.categories">
+                <th>{{cat._id}}</th>
+                <th>{{cat.name}}</th>
+                <th>{{cat.dateCreated | date}}</th>
+                <th>
+                    <a ng-click="model.toggleCategoryUpdateBox(cat)">
+                        <span class="glyphicon glyphicon-edit"></span>
+                    </a>
+                    <a ng-click="model.deleteCategory(cat._id)">
+                        <span class="glyphicon glyphicon-remove"></span>
+                    </a>
+                </th>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <ng-include src="'views/misc/templates/footer.view.client.html'"></ng-include>
+</div>

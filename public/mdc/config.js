@@ -118,61 +118,67 @@
             })
             .when("/admin", {
                 templateUrl: 'views/admin/templates/home.view.client.html',
-                controller: 'AdminController',
+                controller: 'AdminUserController',
                 controllerAs: 'model',
                 resolve: { adminUser: isAdmin }
             })
             .when("/admin/user", {
                 templateUrl: 'views/admin/templates/user-list.view.client.html',
-                controller: 'AdminController',
+                controller: 'AdminUserController',
                 controllerAs: 'model',
                 resolve: { adminUser: isAdmin }
             })
             .when("/admin/user/new", {
                 templateUrl: 'views/admin/templates/user-new.view.client.html',
-                controller: 'AdminController',
+                controller: 'AdminUserController',
                 controllerAs: 'model',
                 resolve: { adminUser: isAdmin }
             })
             .when("/admin/user/:uid/details", {
                 templateUrl: 'views/admin/templates/user-details.view.client.html',
-                controller: 'AdminController',
+                controller: 'AdminUserController',
                 controllerAs: 'model',
                 resolve: { adminUser: isAdmin }
             })
             .when("/admin/book", {
                 templateUrl: 'views/admin/templates/book-list.view.client.html',
-                controller: 'AdminController',
+                controller: 'AdminBookController',
                 controllerAs: 'model',
                 resolve: { adminUser: isAdmin }
             })
             .when("/admin/book/new", {
                 templateUrl: 'views/admin/templates/book-new.view.client.html',
-                controller: 'AdminController',
+                controller: 'AdminBookController',
                 controllerAs: 'model',
                 resolve: { adminUser: isAdmin }
             })
             .when("/admin/book/:bid/details", {
                 templateUrl: 'views/admin/templates/book-details.view.client.html',
-                controller: 'AdminController',
+                controller: 'AdminBookController',
                 controllerAs: 'model',
                 resolve: { adminUser: isAdmin }
             })
             .when("/admin/recipe", {
                 templateUrl: 'views/admin/templates/recipe-list.view.client.html',
-                controller: 'AdminController',
+                controller: 'AdminRecipeController',
                 controllerAs: 'model',
                 resolve: { adminUser: isAdmin }
             })
             .when("/admin/recipe/new", {
                 templateUrl: 'views/admin/templates/recipe-new.view.client.html',
-                controller: 'AdminController',
+                controller: 'AdminRecipeController',
                 controllerAs: 'model',
                 resolve: { adminUser: isAdmin }
             })
             .when("/admin/recipe/:rid/details", {
                 templateUrl: 'views/admin/templates/recipe-details.view.client.html',
-                controller: 'AdminController',
+                controller: 'AdminRecipeController',
+                controllerAs: 'model',
+                resolve: { adminUser: isAdmin }
+            })
+            .when("/admin/category", {
+                templateUrl: 'views/admin/templates/category-list.view.client.html',
+                controller: 'AdminCategoryController',
                 controllerAs: 'model',
                 resolve: { adminUser: isAdmin }
             })
