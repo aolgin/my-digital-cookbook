@@ -6,7 +6,7 @@
         Back
     </a>
     <div>
-        <a href="#/admin/recipe/new" class="pull-right">
+        <a href="#/admin/recipe/new" class="badge pull-right">
             <span class="glyphicon glyphicon-plus"></span>
         </a>
         <h3>Manage Recipes</h3>
@@ -21,46 +21,33 @@
         </div>
     </div>
 
-    <div>
-        <ul class="list-group">
-            <li class="list-group-item">
-                <div class="row">
-                    <div class="col-sm-4 col-xs-9">
-                        <u>Name</u>
-                    </div>
-                    <div class="col-sm-3 hidden-xs">
-                        <u>ID</u>
-                    </div>
-                    <div class="col-sm-3 hidden-xs">
-                        <u>Owner</u>
-                    </div>
-                    <div class="col-sm-3 hidden-xs">
-                        <u>Created</u>
-                    </div>
-                </div>
-            </li>
-            <li class="list-group-item" ng-repeat="recipe in model.recipes">
-                <div class="row">
-                    <div class="col-sm-4 col-xs-5">
-                        <a href="#/admin/recipe/{{recipe._id}}/details">{{recipe.name}}</a>
-                    </div>
-                    <div class="col-sm-3 col-xs-5">
-                        {{recipe._id}}
-                    </div>
-                    <div class="col-sm-3 col-xs-5">
-                        {{recipe._user.username}}
-                    </div>
-                    <div class="col-sm-3 hidden-xs">
-                        {{recipe.dateCreated | date}}
-                    </div>
-                    <div class="col-xs-2 col-sm-3">
-                        <a ng-click="model.deleteRecipe(recipe, false)">
-                            <span class="glyphicon glyphicon-remove pull-right"></span>
-                        </a>
-                    </div>
-                </div>
-            </li>
-        </ul>
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>ID</th>
+                    <th>Owner</th>
+                    <th>Created</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="recipe in model.recipes">
+                <th>
+                    <a href="#/admin/recipe/{{recipe._id}}/details">{{recipe.name}}</a>
+                </th>
+                <th>{{recipe._id}}</th>
+                <th>{{recipe._user.username}}</th>
+                <th>{{recipe.dateCreated | date}}</th>
+                <th>
+                    <a ng-click="model.deleteRecipe(recipe, false)">
+                        <span class="glyphicon glyphicon-remove"></span>
+                    </a>
+                </th>
+            </tr>
+            </tbody>
+        </table>
     </div>
 
     <ng-include src="'views/misc/templates/footer.view.client.html'"></ng-include>

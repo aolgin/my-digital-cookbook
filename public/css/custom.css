@@ -3,6 +3,10 @@ body {
     padding-bottom: 55px;
 }
 
+.mdc-align-center {
+    text-align: center;
+}
+
 .mdc-comment-editor {
     padding-bottom: 10px;
 }
