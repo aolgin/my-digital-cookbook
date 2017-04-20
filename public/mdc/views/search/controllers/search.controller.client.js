@@ -3,14 +3,14 @@
         .module("MyDigitalCookbook")
         .controller("SearchController", SearchController);
 
-    function SearchController(SearchService, currentUser, $routeParams, UserService, adminUser) {
+    function SearchController(SearchService, currentUser, $routeParams, UserService, adminUser, $location) {
         var vm = this;
         var term = $routeParams['term'];
         var type = $routeParams['type'];
 
 
         if (currentUser) {
-            vm.uid = currentUser._id;
+            vm.username = currentUser.username;
         }
         if (adminUser) {
             vm.admin = true;
@@ -48,11 +48,6 @@
                     vm.error = "Please select a search parameter";
                     break;
             }
-        }
-
-        function changeSearchType(type) {
-            console.log(type);
-            vm.searchType = type;
         }
 
         function logout() {

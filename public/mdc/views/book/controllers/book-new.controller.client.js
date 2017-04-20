@@ -14,6 +14,7 @@
                 $location.url("/error?code=401");
             } else {
                 vm.uid = currentUser._id;
+                vm.username = currentUser.username;
             }
         }
         init();

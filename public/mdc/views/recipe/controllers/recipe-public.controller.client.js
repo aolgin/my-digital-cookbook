@@ -3,11 +3,12 @@
         .module("MyDigitalCookbook")
         .controller("PublicRecipeController", PublicRecipeController);
 
-    function PublicRecipeController(RecipeService, $routeParams, $sce, currentUser, UserService, adminUser) {
+    function PublicRecipeController(RecipeService, $routeParams, $sce, currentUser, UserService, adminUser, $location) {
         var vm = this;
         vm.rid = $routeParams['rid'];
         if (currentUser) {
             vm.uid = currentUser._id;
+            vm.username = currentUser.username;
         }
         if (adminUser) {
             vm.admin = true;

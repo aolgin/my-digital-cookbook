@@ -7,7 +7,7 @@
         var vm = this;
         vm.bid = $routeParams['bid'];
         if (currentUser) {
-            vm.uid = currentUser._id;
+            vm.username = currentUser.username;
         }
         if (adminUser) {
             vm.admin = true;

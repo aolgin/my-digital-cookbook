@@ -7,6 +7,7 @@
         var vm = this;
         vm.user = currentUser;
         vm.uid = currentUser._id;
+        vm.username = currentUser.username;
         if (adminUser) {
             vm.admin = true;
         }
@@ -31,7 +32,7 @@
                 return;
             }
 
-            var promise = UserService.updateUser(vm.user._id, user);
+            var promise = UserService.updateUser(vm.uid, user);
             promise.then(function (response) {
                 if (response.status == 200) {
                     vm.error = null;

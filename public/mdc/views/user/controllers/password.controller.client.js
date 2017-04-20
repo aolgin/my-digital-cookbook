@@ -6,6 +6,7 @@
     function PasswordController(UserService, currentUser, adminUser, $location) {
         var vm = this;
         vm.uid = currentUser._id;
+        vm.username = currentUser.username;
         if (adminUser) {
             vm.admin = true;
         }

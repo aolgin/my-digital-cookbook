@@ -8,6 +8,7 @@
         vm.chefId = $routeParams['uid'];
         if (currentUser) {
             vm.uid = currentUser._id;
+            vm.username = currentUser.username;
         }
         if (adminUser) {
             vm.admin = true;

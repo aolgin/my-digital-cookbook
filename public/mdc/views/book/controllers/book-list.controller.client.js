@@ -3,7 +3,7 @@
         .module("MyDigitalCookbook")
         .controller("BookListController", BookListController);
 
-    function BookListController(BookService, $routeParams, UserService, adminUser) {
+    function BookListController(BookService, $routeParams, UserService, adminUser, $location) {
         var vm = this;
         vm.uid = $routeParams['uid'];
         if (adminUser) {
@@ -18,6 +18,7 @@
             promise = UserService.findUserById(vm.uid);
             promise.then(function(response) {
                 vm.user = response.data;
+                vm.username = vm.user.username;
             });
         }
         init();

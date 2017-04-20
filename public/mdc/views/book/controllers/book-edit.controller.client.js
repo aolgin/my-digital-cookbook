@@ -17,7 +17,7 @@
                 if (!currentUser || currentUser._id !== vm.book._user._id) {
                     $location.url("/error?code=401");
                 } else {
-                    vm.uid = currentUser._id;
+                    vm.username = currentUser.username;
                 }
             }, function (err) {
                 $location.url("/error?code=404");

@@ -5,7 +5,7 @@
 
     function RecipeListController(RecipeService, currentUser, UserService, adminUser) {
         var vm = this;
-        vm.uid = currentUser._id;
+        vm.username = currentUser.username;
         if (adminUser) {
             vm.admin = true;
         }

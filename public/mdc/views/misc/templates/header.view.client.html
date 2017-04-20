@@ -20,9 +20,17 @@
         <div id="sidebar-wrapper">
             <ul class="sidebar-nav">
                 <li class="sidebar-brand">
-                    <a href="/">
-                        My Digital Cookbook
-                    </a>
+                    <h3>
+                        <a href="/">
+                            My Digital Cookbook
+                        </a>
+                    </h3>
+                    <h4 ng-if="model.username">
+                        Welcome, {{model.username}}
+                    </h4>
+                </li>
+                <li>
+                    <hr>
                 </li>
                 <li>
                     <ng-include src="'views/search/templates/search-bar.view.client.html'"></ng-include>
@@ -30,21 +38,21 @@
                 <li ng-if="model.admin">
                     <a href="#/admin">Admin Portal</a>
                 </li>
-                <li ng-if="model.uid">
+                <li ng-if="model.username">
                     <a href="#/dashboard">Dashboard</a>
                 </li>
-                <li ng-if="model.uid">
+                <li ng-if="model.username">
                     <a href="#/profile">Profile</a>
                 </li>
-                <li ng-if="model.uid">
+                <li ng-if="model.username">
                     <a ng-click="model.logout()">
                         Logout
                     </a>
                 </li>
-                <li ng-if="!model.uid">
+                <li ng-if="!model.username">
                     <a href="#/login">Login</a>
                 </li>
-                <li ng-if="!model.uid">
+                <li ng-if="!model.username">
                     <a href="#/register">Register</a>
                 </li>
             </ul>

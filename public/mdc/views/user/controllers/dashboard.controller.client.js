@@ -5,7 +5,7 @@
 
     function DashboardController(UserService, currentUser, $location, NotificationService, adminUser) {
         var vm = this;
-        vm.user = currentUser;
+        vm.username = currentUser.username;
         vm.uid = currentUser._id;
         if (adminUser) {
             vm.admin = true;

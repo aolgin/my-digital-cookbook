@@ -6,7 +6,7 @@
     function ErrorController($routeParams, currentUser, UserService, $location, adminUser) {
         var vm = this;
         if (currentUser) {
-            vm.uid = currentUser._id;
+            vm.username = currentUser.username;
         }
         if (adminUser) {
             vm.admin = true;
