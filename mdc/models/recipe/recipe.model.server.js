@@ -89,27 +89,19 @@ module.exports = function() {
                 model.commentModel
                     .removeAllCommentsFromRecipe(recipeObj)
                     .then(function (response) {
-                        model.userModel
-                            .removeRecipeFromUser(recipeObj)
+                        model.bookModel
+                            .removeRecipeFromAllBooks(recipeObj)
                             .then(function (response) {
-                                return RecipeModel.remove({_id: rid})
+                                model.userModel
+                                    .removeRecipeFromUser(recipeObj)
+                                    .then(function (response) {
+                                        return RecipeModel.remove({_id: rid})
+                                    })
                             })
                     })
-                    // .then(RecipeModel.remove({_id: rid}))
-                    // .then(function (response) {
-                    //     return model.bookModel.removeRecipeFromAllBooks(recipeObj)
-                    // // })
-            }, function (err) {
+            }).catch(function(err) {
                 console.log(err);
             });
-        /*
-        Need to delete: ✓
-        - recipe itself
-        - its comments
-        - its place in books
-        - its place in the owning user
-         */
-        // return RecipeModel.remove({_id: rid});
     }
 
     function updateRecipe(rid, recipe) {
@@ -136,6 +128,7 @@ module.exports = function() {
             .populate({
                 path: "comments",
                 select: "_user text rating _id dateCreated",
+                options: { sort: { dateCreated: -1 }},
                 populate: {
                     path: "_user",
                     select: "username _id",

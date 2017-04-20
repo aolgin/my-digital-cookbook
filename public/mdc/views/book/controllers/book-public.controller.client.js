@@ -61,15 +61,18 @@
         }
 
         function detachRecipeFromBook(rid) {
-            RecipeService.detachRecipeFromBook(rid, vm.bid)
-                .then(function (response) {
-                    vm.error = null;
-                    vm.messsage = "Successfully removed recipe from " + vm.book.name + "!";
-                    renderBook();
-                }).catch(function (err) {
-                    vm.message = null;
-                    vm.error = "An unexpected error occured while trying to add this recipe to your book:\n" + err;
-                });
+            var answer = confirm("Are you sure you would like to remove this recipe from the book?");
+            if (answer) {
+                RecipeService.detachRecipeFromBook(rid, vm.bid)
+                    .then(function (response) {
+                        vm.error = null;
+                        vm.message = "Successfully removed recipe from " + vm.book.name + "!";
+                        renderBook();
+                    }).catch(function (err) {
+                        vm.message = null;
+                        vm.error = "An unexpected error occured while trying to add this recipe to your book:\n" + err;
+                    });
+            }
         }
 
     }

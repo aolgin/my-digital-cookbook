@@ -8,7 +8,6 @@
         vm.rid = $routeParams['rid'];
         if (currentUser) {
             vm.uid = currentUser._id;
-            // console.log(currentUser);
             vm.books = currentUser.books;
             vm.username = currentUser.username;
         }
@@ -44,12 +43,11 @@
             RecipeService.attachRecipeToBook(vm.rid, book._id)
                 .then(function (response) {
                     vm.error = null;
-                    vm.messsage = "Successfully added recipe to " + book.name + "!";
+                    vm.message = "Successfully added recipe to " + book.name + "!";
                 }).catch(function (err) {
                     vm.message = null;
                     vm.error = "An unexpected error occured while trying to add this recipe to your book:\n" + err;
                 });
-
         }
 
         function deleteComment(cid) {
@@ -58,10 +56,13 @@
                 RecipeService.deleteComment(cid, vm.rid)
                     .then(function (response) {
                         vm.commentMsg = "Comment successfully deleted";
-                        // Need to refresh the data once comments are added, otherwise, the comment won't show up until page refresh
+                        // Refresh the data once comments are added, otherwise, the comment won't show up until page refresh
                         RecipeService.findRecipeById(vm.rid)
                             .then(function (response) {
                                 vm.recipe = response.data;
+                                if (vm.recipe.comments.length === 0) {
+                                    vm.commentsMsg = "No comments yet! Please login to comment and rate this recipe.";
+                                }
                             });
                     }).catch(function (err) {
                         console.log(err);
@@ -89,6 +90,7 @@
                 promise.then(function (response) {
                     vm.commentMsg = "Comment successfully posted! Thank you!";
                     vm.showCommentBox = false;
+                    vm.commentsMsg = null;
                     // Need to refresh the data once comments are added, otherwise, the comment won't show up until page refresh
                     RecipeService.findRecipeById(vm.rid)
                         .then(function (response) {

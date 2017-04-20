@@ -104,7 +104,7 @@
         <button ng-if="model.uid && !model.showCommentBox"
                 ng-click="model.commentBoxToggle()"
                 class="btn btn-success form-control mdc-comment-toggle">Comment</button>
-        <div ng-show="model.commentMsg" class="alert alert-info mdc-msg-text">
+        <div ng-show="model.commentMsg" class="alert alert-warning mdc-msg-text">
             {{model.commentMsg}}
         </div>
         <div ng-if="model.showCommentBox" class="mdc-comment-editor well">
@@ -135,7 +135,7 @@
             </form>
         </div>
 
-        <div ng-if="model.commentsMsg" class="mdc-msg-text">
+        <div ng-show="model.commentsMsg" class="mdc-msg-text">
             <span>{{model.commentsMsg}}</span>
         </div>
 

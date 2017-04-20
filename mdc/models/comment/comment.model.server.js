@@ -63,6 +63,7 @@ module.exports = function() {
                             recipeObj.rating.total -= commentObj.rating;
                             recipeObj.rating.total += rating;
                             recipeObj.rating.actual = recipeObj.rating.total / recipeObj.rating.count;
+                            recipeObj.save();
                         })
                 }
             })
@@ -92,7 +93,11 @@ module.exports = function() {
                         if (commentObj.rating) {
                             recipeObj.rating.count -= 1;
                             recipeObj.rating.total -= commentObj.rating;
-                            recipeObj.rating.actual = recipeObj.rating.total / recipeObj.rating.count;
+                            if (recipeObj.rating.count > 0) {
+                                recipeObj.rating.actual = recipeObj.rating.total / recipeObj.rating.count;
+                            } else {
+                                recipeObj.rating.actual = null;
+                            }
                         }
                         recipeObj.comments.pull(commentObj);
                         recipeObj.save();

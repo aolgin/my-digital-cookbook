@@ -27,7 +27,7 @@
                     <tr>
                         <th>Recipe</th>
                         <th>Description</th>
-                        <th>Detach</th>
+                        <th ng-if="model.yourBook">Detach</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -40,7 +40,7 @@
                         <th>
                             <span>{{recipe.description}}</span>
                         </th>
-                        <th>
+                        <th ng-if="model.yourBook">
                             <a ng-click="model.detachRecipeFromBook(recipe._id)">
                                 <span class="glyphicon glyphicon-remove"></span>
                             </a>
@@ -50,7 +50,7 @@
             </table>
         </div>
 
-        <div ng-if="model.noRecipes" class="alert alert-success">
+        <div ng-if="model.noRecipes" class="alert alert-warning">
                 <span >
                     No recipes in this book yet! Go to a recipe page to add some!
                 </span>
