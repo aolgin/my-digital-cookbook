@@ -81,7 +81,6 @@
             <span class="input-group-addon" id="books"><b>Cookbooks: </b></span>
             <input type="text"
                    class="form-control"
-                   ng-model="model.user.books"
                    value="{{model.user.books}}"
                    aria-describedby="books"
                    disabled />
@@ -90,22 +89,18 @@
             <span class="input-group-addon" id="recipes"><b>Recipes: </b></span>
             <input type="text"
                    class="form-control"
-                   ng-model="model.user.recipes"
                    value="{{model.user.recipes}}"
                    aria-describedby="recipes"
                    disabled />
         </div>
-
         <div class="input-group">
             <span class="input-group-addon" id="following"><b>Following: </b></span>
             <input type="text"
                    class="form-control"
-                   ng-model="model.user.following"
                    value="{{model.user.following}}"
                    aria-describedby="following"
                    disabled />
         </div>
-
         <div class="input-group">
             <span class="input-group-addon" id="follower_count"><b># Followers: </b></span>
             <input type="text"
@@ -114,13 +109,11 @@
                    aria-describedby="follower_count"
                    disabled />
         </div>
-
         <div class="input-group">
             <span class="input-group-addon" id="created"><b>DateCreated: </b></span>
             <input type="text"
                    class="form-control"
                    ng-model="model.user.dateCreated"
-                   value="{{model.user.dateCreated | date}}"
                    aria-describedby="created"
                    disabled />
         </div>
@@ -129,7 +122,6 @@
             <input type="text"
                    class="form-control"
                    ng-model="model.user.dateModified"
-                   value="{{model.user.dateModified | date}}"
                    aria-describedby="modified"
                    disabled />
         </div>

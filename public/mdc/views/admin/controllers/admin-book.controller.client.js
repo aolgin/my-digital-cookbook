@@ -44,6 +44,7 @@
             BookService.findBookById(bid)
                 .then(function (response) {
                     vm.book = response.data;
+                    console.log(vm.book);
                 }).catch(function (err) {
                     console.log(err);
                     vm.error = "Error fetching book:\n" + err;

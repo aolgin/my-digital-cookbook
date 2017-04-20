@@ -38,7 +38,6 @@
             <span class="input-group-addon" id="owner"><b>Owner: </b></span>
             <input type="text"
                    class="form-control"
-                   ng-model="model.book._user"
                    value="{{model.book._user}}"
                    aria-describedby="owner"
                    disabled />
@@ -55,7 +54,6 @@
             <span class="input-group-addon" id="recipes"><b>Recipes: </b></span>
             <input type="text"
                    class="form-control"
-                   ng-model="model.book.recipes"
                    value="{{model.book.recipes}}"
                    aria-describedby="recipes"
                    disabled />
@@ -65,7 +63,6 @@
             <input type="text"
                    class="form-control"
                    ng-model="model.book.dateCreated"
-                   value="{{model.book.dateCreated | date}}"
                    aria-describedby="created"
                    disabled />
         </div>
@@ -74,7 +71,6 @@
             <input type="text"
                    class="form-control"
                    ng-model="model.book.dateModified"
-                   value="{{model.book.dateModified | date}}"
                    aria-describedby="modified"
                    disabled />
         </div>
