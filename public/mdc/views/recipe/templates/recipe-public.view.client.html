@@ -5,6 +5,7 @@
          class="col-md-3 hidden-sm">
         <img ng-src="{{model.recipe.img_record.url}}" width="100%"/>
     </div>
+
     <div class="col-md-9 col-xs-12">
         <div class="col-xs-12 col-md-6">
             <h3>{{model.recipe.name}}</h3>
@@ -22,7 +23,15 @@
             <p>Ready In: {{model.recipe.ready_in}}</p>
             <p>Num. Servings: {{model.recipe.num_servings}}</p>
             <p>Yield: {{model.recipe.yield}}</p>
-            <p>Rating: {{model.recipe.rating.actual}}</p>
+            <p>Rating:
+                <span uib-rating
+                      ng-model="model.recipe.rating.actual"
+                      max="5"
+                      read-only="true"
+                      on-hover="hoveringOver(value)"
+                      on-leave="overStar = null"
+                      aria-labelledby="default-rating"></span>
+            </p>
             <p>Rating Count: {{model.recipe.rating.count}}</p>
         </div>
         <hr>
@@ -40,7 +49,7 @@
         <hr>
         <button ng-if="model.uid && !model.showCommentBox"
                 ng-click="model.commentBoxToggle()"
-                class="btn btn-success form-control">Comment</button>
+                class="btn btn-success form-control mdc-comment-toggle">Comment</button>
         <div ng-show="model.commentMsg" class="alert alert-info mdc-msg-text">
             {{model.commentMsg}}
         </div>
@@ -49,14 +58,17 @@
                 {{model.commentErr}}
             </div>
             <form>
-                <label for="comment-rating">Rating (1-5): </label>
-                <input id="comment-rating"
-                       type="number"
-                       min="0"
-                       max="5"
-                       class="form-control"
-                       ng-model="comment.rating"/>
-                <label for="comment-text">Comment</label>
+                <label for="comment-rating">Rating: </label>
+                <span uib-rating
+                      id="comment-rating"
+                      ng-model="comment.rating"
+                      max="5"
+                      read-only="false"
+                      on-hover="hoveringOver(value)"
+                      on-leave="overStar = null"
+                      aria-labelledby="default-rating"></span>
+                <br>
+                <label for="comment-text">Comment: </label>
                 <textarea id="comment-text"
                           class="form-control"
                           ng-model="comment.text"></textarea>
@@ -68,27 +80,34 @@
                 </div>
             </form>
         </div>
+
         <div ng-if="model.commentsMsg" class="mdc-msg-text">
             <span>{{model.commentsMsg}}</span>
         </div>
 
         <div ng-repeat="comment in model.recipe.comments" class="mdc-comment">
-            <div class="col-xs-12">
-                <div class="panel panel-default">
+            <div>
+                <div class="panel panel-info">
                     <div class="panel-heading">
-                        <a class="pull-right"
-                           ng-if="model.uid === comment._user._id"
-                           ng-click="model.deleteComment(comment._id)">
-                            <span class="glyphicon glyphicon-remove"></span>
-                        </a>
-                        <h4><a href="#/chef/{{comment._user._id}}">{{comment._user.username}}</a></h4>
+                        <div>
+                            <a class="pull-right"
+                               ng-if="model.uid === comment._user._id"
+                               ng-click="model.deleteComment(comment._id)">
+                                <span class="glyphicon glyphicon-remove"></span>
+                            </a>
+                            <span uib-rating
+                                  ng-model="comment.rating"
+                                  max="5"
+                                  read-only="true"
+                                  on-hover="hoveringOver(value)"
+                                  aria-labelledby="default-rating"></span>
+                        </div>
                     </div>
                     <div class="panel-body">
                         <p>{{comment.text}}</p>
                     </div>
                     <div class="panel-footer" ng-if="comment.rating">
-                        <!-- TODO: how to represent this -->
-                        <b>Rating: {{comment.rating}} out of 5</b>
+                        <span> Submitted by <a href="#/chef/{{comment._user._id}}">{{comment._user.username}}</a> on {{comment.dateCreated | date}}</span>
                     </div>
                 </div>
             </div>

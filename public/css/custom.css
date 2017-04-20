@@ -3,6 +3,14 @@ body {
     padding-bottom: 55px;
 }
 
+.mdc-comment-editor {
+    padding-bottom: 10px;
+}
+
+.mdc-comment-toggle {
+    margin-bottom: 10px;
+}
+
 .mdc-msg-text {
     text-align: center;
 }
