@@ -6,8 +6,9 @@ module.exports = function(app, model) {
     app.delete("/api/category/:cid/recipe/:rid", detachCategoryFromRecipe);
     app.get("/api/category/:cid", findCategoryById);
     app.post("/api/category", createCategory);
+    app.put("/api/category/:cid", updateCategory);
     app.delete("/api/category/:cid", deleteCategory);
-    app.get("/api/categories", listAllCategories);
+    app.get("/api/admin/categories", listAllCategories);
 
     // Service Functions
 
@@ -77,18 +78,38 @@ module.exports = function(app, model) {
                 res.json(catObj);
             }, function (err) {
                 console.log(err);
-                res.sendStatus(500);
+                if (err.code === 11000) {
+                    res.sendStatus(409);
+                } else {
+                    res.sendStatus(500);
+                }
             })
     }
 
     function deleteCategory(req, res) {
         var cid = req.params['cid'];
-        CategoryModel.deleteCategory(cid)
+        CategoryModel.removeCategory(cid)
             .then(function (response) {
                 res.sendStatus(200);
             }, function (err) {
                 console.log(err);
                 res.sendStatus(500);
+            })
+    }
+
+    function updateCategory(req, res) {
+        var cid = req.params['cid'];
+        var cat = req.body;
+        CategoryModel.updateCategory(cid, cat)
+            .then(function (response) {
+                res.sendStatus(200);
+            }, function (err) {
+                console.log(err);
+                if (err.code === 11000) {
+                    res.sendStatus(409);
+                } else {
+                    res.sendStatus(500);
+                }
             })
     }
 

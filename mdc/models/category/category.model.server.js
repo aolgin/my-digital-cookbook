@@ -10,6 +10,7 @@ module.exports = function() {
         applyCategoryToRecipe: applyCategoryToRecipe,
         detachCategoryFromRecipe: detachCategoryFromRecipe,
         removeCategory: removeCategory,
+        updateCategory: updateCategory,
         findCategoryById: findCategoryById,
         findAllCategories: findAllCategories,
         setModel: setModel
@@ -20,11 +21,14 @@ module.exports = function() {
         model = _model;
     }
 
-    function createCategory(name) {
-        var newCat = {
-            name: name
-        };
+    function updateCategory(cid, newCat) {
+        return CategoryModel.update(
+            {_id: cid},
+            {name: newCat.name}
+        );
+    }
 
+    function createCategory(newCat) {
         return CategoryModel.create(newCat);
     }
 
@@ -63,7 +67,6 @@ module.exports = function() {
 
     function findAllCategories() {
         return CategoryModel.find();
-
     }
 
 };

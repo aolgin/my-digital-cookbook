@@ -49,6 +49,7 @@ module.exports = function() {
             .populate("rating", "actual")
             .populate("_user", "username")
             .populate("img_record", "url")
+            .populate("categories", "name")
             .sort({'dateModified': 1})
             .exec();
     }
@@ -61,6 +62,7 @@ module.exports = function() {
             })
             .select("-_id name description img_record rating _user")
             .populate("rating", "actual")
+            .populate("categories", "name")
             .populate("_user", "username")
             .sort({'dateModified': 1})
             .exec();
@@ -89,6 +91,7 @@ module.exports = function() {
         return RecipeModel
             .find()
             .populate("_user", "_id username")
+            .populate("categories", "name")
             .exec();
     }
 
@@ -144,6 +147,7 @@ module.exports = function() {
         return RecipeModel
             .findById(bid)
             .populate("_user", "_id username")
+            .populate("categories", "name")
             .populate({
                 path: "comments",
                 select: "_user text rating _id dateCreated",
