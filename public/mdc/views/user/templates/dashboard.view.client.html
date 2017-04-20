@@ -1,12 +1,31 @@
 <ng-include src="'views/misc/templates/header.view.client.html'"></ng-include>
 
 <div id="page-content-wrapper">
-    <!-- Should just make it into a hamburger or something when medium to small -->
     <ul class="nav nav-tabs nav-justified dashboard-tabs">
-        <li class="active"><a>Dashboard</a></li>
-        <li><a href="#/dashboard/books">Cookbooks</a></li>
-        <li><a href="#/dashboard/recipes">Recipes</a></li>
-        <li><a href="#/dashboard/following">Following</a></li>
+        <li class="active">
+            <a>
+                <span class="glyphicon glyphicon-th-large"></span>
+                <span class="visible-md visible-lg">Dashboard</span>
+            </a>
+        </li>
+        <li>
+            <a href="#/dashboard/books">
+                <i class="fa fa-book" aria-hidden="true"></i>
+                <span class="visible-md visible-lg">Cookbooks</span>
+            </a>
+        </li>
+        <li>
+            <a href="#/dashboard/recipes">
+                <span class="glyphicon glyphicon-cutlery"></span>
+                <span class="visible-md visible-lg">Recipes</span>
+            </a>
+        </li>
+        <li>
+            <a href="#/dashboard/following">
+                <i class="fa fa-users" aria-hidden="true"></i>
+                <span class="visible-md visible-lg">Following</span>
+            </a>
+        </li>
     </ul>
 
     <div class="mdc-msg-text">
