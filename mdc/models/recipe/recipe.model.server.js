@@ -97,22 +97,45 @@ module.exports = function() {
     }
 
     // TODO determine how best to handle this
-    function removeRecipe(uid) {
+    function removeRecipe(rid) {
+        return RecipeModel.findById(rid)
+            .then(function (recipeObj) {
+                model.commentModel
+                    .removeAllCommentsFromRecipe(recipeObj)
+                    .then(function (response) {
+                        return model.bookModel.removeRecipeFromAllBooks(recipeObj)
+                    })
+                    .then(function (response) {
+                        return model.userModel.removeRecipeFromUser(recipeObj)
+                    })
+                    .then(function (response) {
+                        return RecipeModel.remove({_id: rid});
+                    })
+            }, function (err) {
+                console.log(err);
+            });
         /*
-        Need to delete:
+        Need to delete: ✓
         - recipe itself
         - its comments
         - its place in books
         - its place in the owning user
          */
-        return RecipeModel.remove({_id: uid});
+        // return RecipeModel.remove({_id: rid});
     }
 
-    function updateRecipe(bid, recipe) {
-        return RecipeModel.update({ _id: bid },
+    function updateRecipe(rid, recipe) {
+        return RecipeModel.update({ _id: rid },
             {
                 name: recipe.name,
-                description: recipe.description
+                description: recipe.description,
+                ingredients: recipe.ingredients,
+                directions: recipe.directions,
+                prep_time: recipe.prep_time,
+                ready_in: recipe.ready_in,
+                yield: recipe.yield,
+                num_servings: recipe.num_servings,
+                cook_time: recipe.cook_time
             }
         );
     }

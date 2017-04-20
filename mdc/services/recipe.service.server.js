@@ -77,9 +77,10 @@ module.exports = function(app, model) {
         model.userModel.findRecipesForUser(uid, limit)
             .then(function (user) {
                 var recipes = user.recipes;
-                for (var i = 0; i < user.recipes.length; i++) {
-                    recipes[i].description = recipes[i].description.substring(0, 5);
-                }
+                //TODO: determine what to do with this...
+                // for (var i = 0; i < user.recipes.length; i++) {
+                //     recipes[i].description = recipes[i].description.substring(0, 5);
+                // }
                 res.json(recipes);
             }, function (err) {
                 console.log(err);

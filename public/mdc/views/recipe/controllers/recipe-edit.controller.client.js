@@ -57,7 +57,7 @@
             }
         }
 
-        function updateRecipe(rid, recipe) {
+        function updateRecipe(recipe) {
         //    TODO: form validation
             var promise = RecipeService.updateRecipe(vm.rid, recipe);
             promise.then(function(response) {
