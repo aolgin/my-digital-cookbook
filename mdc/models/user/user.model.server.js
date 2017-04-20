@@ -108,7 +108,7 @@ module.exports = function() {
     }
 
     function removeRecipeFromUser(recipe) {
-        return UserModel.findById(recipe._user._id)
+        return UserModel.findById(recipe._user)
             .then(function (userObj) {
                 userObj.recipes.pull(recipe);
                 return userObj.save();

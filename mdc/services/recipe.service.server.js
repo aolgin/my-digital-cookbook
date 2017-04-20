@@ -5,14 +5,13 @@ module.exports = function(app, model) {
     app.get("/api/user/:uid/recipe", findRecipesByUser);
     app.get("/api/book/:bid/recipe", findRecipesByBook);
     app.post("/api/user/:uid/recipe", auth, createRecipe);
-    app.post("/api/user/:uid/book/:bid/recipe", auth, createRecipeInBook);
+    app.delete("/api/recipe/:rid", checkSameUser, deleteRecipe);
+    app.put("/api/recipe/:rid", checkSameUser, updateRecipe);
     app.get("/api/recipe/search", searchRecipes);
     app.get("/api/recipe/:rid", findRecipeById);
     app.post("/api/admin/recipe", checkAdmin, createRecipe);
     app.put("/api/admin/recipe/:rid", checkAdmin, updateRecipe);
     app.delete("/api/admin/recipe/:rid", checkAdmin, deleteRecipe);
-    app.delete("/api/recipe/:rid", checkSameUser, deleteRecipe);
-    app.put("/api/recipe/:rid", checkSameUser, updateRecipe);
     app.get("/api/admin/recipes", checkAdmin, findAllRecipes);
 
 
@@ -27,12 +26,17 @@ module.exports = function(app, model) {
     }
 
     function checkSameUser(req, res, next) {
-        var recipe = req.body;
-        if (req.user && req.user._id == recipe._user._id) {
-            next();
-        } else {
-            res.sendStatus(401);
-        }
+        recipeModel.findRecipeById(req.params['rid'])
+            .then(function (recipe) {
+                if (req.user && String(req.user._id) == String(recipe._user._id)) {
+                    next();
+                } else {
+                    res.sendStatus(401);
+                }
+            }).catch(function (err) {
+                console.log(err);
+                res.sendStatus(500);
+            });
     }
 
     function checkAdmin(req, res, next) {
@@ -122,23 +126,9 @@ module.exports = function(app, model) {
 
     function createRecipe(req, res) {
         var newRecipe = req.body;
-        var uid = req.params['uid'];
+        var uid = req.params['uid'] || newRecipe._user._id;
 
         recipeModel.createRecipe(uid, newRecipe)
-            .then(function (recipe) {
-                res.json(recipe);
-            }, function (err) {
-                console.log(err);
-                res.sendStatus(500);
-            });
-    }
-
-    function createRecipeInBook(req, res) {
-        var newRecipe = req.body;
-        var uid = req.params['uid'];
-        var bid = req.params['bid'];
-
-        recipeModel.createRecipeInBook(uid, bid, newRecipe)
             .then(function (recipe) {
                 res.json(recipe);
             }, function (err) {

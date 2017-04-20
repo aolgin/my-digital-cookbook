@@ -41,11 +41,15 @@
 
             var promise = RecipeService.createRecipeInBook(recipe, vm.uid, bid);
             promise.then(function (response) {
-                if (response.status == 200) {
+                if (response.status === 200) {
                     $location.url("/dashboard/recipes");
                 }
             }).catch(function (err) {
-                vm.error = "An uncaught error occurred creating your recipe: \n" + err.data;
+                if (err.status === 401) {
+                    vm.error = "You are not authorized to perform this action";
+                } else {
+                    vm.error = "An uncaught error occurred creating your recipe: \n" + err.data;
+                }
             });
         }
 
@@ -54,11 +58,15 @@
 
             var promise = RecipeService.createRecipe(recipe, vm.uid);
             promise.then(function (response) {
-                if (response.status == 200) {
+                if (response.status === 200) {
                     $location.url("/dashboard/recipes");
                 }
             }).catch(function (err) {
-                vm.error = "An uncaught error occurred creating your recipe: \n" + err.data;
+                if (err.status === 401) {
+                    vm.error = "You are not authorized to perform this action";
+                } else {
+                    vm.error = "An uncaught error occurred creating your recipe: \n" + err.data;
+                }
             });
         }
     }

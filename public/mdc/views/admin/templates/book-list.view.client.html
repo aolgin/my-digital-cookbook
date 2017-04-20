@@ -37,7 +37,7 @@
                     <a href="#/admin/book/{{book._id}}/details">{{book.name}}</a>
                 </th>
                 <th>{{book._id}}</th>
-                <th>{{book._user.username}}</th>
+                <th><a href="#/admin/user/{{book._user._id}}/details">{{book._user.username}}</a></th>
                 <th>{{book.dateCreated | date}}</th>
                 <th>
                     <a ng-click="model.deleteBook(book, false)">

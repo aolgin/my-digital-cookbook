@@ -13,10 +13,10 @@
         function init() {
             RecipeService.findRecipeById(vm.rid)
                 .then(function(response) {
+                    vm.recipe = response.data;
                     if (!currentUser || currentUser._id !== vm.recipe._user._id) {
                         $location.url("/error?code=401");
                     } else {
-                        vm.recipe = response.data;
                         vm.username = currentUser.username;
                     }
                 }, function (err) {
@@ -46,13 +46,17 @@
         function deleteRecipe() {
             var answer = confirm("Delete this recipe?");
             if (answer) {
-                var promise = RecipeService.deleteRecipe(vm.rid, vm.recipe);
+                var promise = RecipeService.deleteRecipe(vm.rid);
                 promise.then(function (response) {
-                    if (response.status == 200) {
+                    if (response.status === 200) {
                         $location.url("/dashboard/recipes");
                     }
                 }).catch(function (err) {
-                    vm.error = "An uncaught error occurred deleting your recipe: \n" + err.data;
+                    if (err.status === 401) {
+                        vm.error = "You are not authorized to perform this action";
+                    } else {
+                        vm.error = "An uncaught error occurred deleting your recipe: \n" + err.data;
+                    }
                 });
             }
         }
@@ -61,11 +65,15 @@
         //    TODO: form validation
             var promise = RecipeService.updateRecipe(vm.rid, recipe);
             promise.then(function(response) {
-                if (response.status == 200) {
+                if (response.status === 200) {
                     $location.url("/dashboard/recipes");
                 }
             }).catch(function(err) {
-                vm.error = "An uncaught error occurred when updating your recipe: \n" + err.data;
+                if (err.status === 401) {
+                    vm.error = "You are not authorized to perform this action";
+                } else {
+                    vm.error = "An uncaught error occurred when updating your recipe: \n" + err.data;
+                }
             });
 
         }

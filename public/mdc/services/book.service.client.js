@@ -21,12 +21,12 @@
             return $http.post("/api/user/" + uid + "/book", book);
         }
 
-        function deleteBook(bid, book) {
-            return $http.delete("/api/book/" + bid, book);
+        function deleteBook(bid) {
+            return $http.delete('/api/book/' + bid);
         }
 
-        function updateBook(bid, newBook) {
-            return $http.put("/api/book/" + bid, newBook);
+        function updateBook(bid, book) {
+            return $http.put('/api/book/' + bid, book);
         }
     }
 })();

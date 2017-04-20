@@ -77,7 +77,11 @@
                         renderCategories();
                     }).catch(function (err) {
                         vm.message = null;
-                        vm.error = "An uncaught error occurred deleting the category: \n" + err.data;
+                        if (err.status === 401) {
+                            vm.error = "You are not authorized to perform that action";
+                        } else {
+                            vm.error = "An uncaught error occurred deleting the category: \n" + err.data;
+                        }
                     });
             }
         }
@@ -97,6 +101,8 @@
                     vm.message = null;
                     if (err.status === 409) {
                         vm.error = "A category with that name already exists!";
+                    } else if (err.status === 401) {
+                        vm.error = "You are not authorized to perform that action";
                     } else {
                         vm.error = "An uncaught error occurred creating the category: \n" + err.data;
                     }
@@ -118,6 +124,8 @@
                     vm.message = null;
                     if (err.status === 409) {
                         vm.error = "A category with that name already exists!";
+                    } else if (err.status === 401) {
+                        vm.error = "You are not authorized to perform that action";
                     } else {
                         vm.error = "An uncaught error occurred updating the category: \n" + err.data;
                     }

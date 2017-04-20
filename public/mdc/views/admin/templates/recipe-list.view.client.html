@@ -38,7 +38,10 @@
                     <a href="#/admin/recipe/{{recipe._id}}/details">{{recipe.name}}</a>
                 </th>
                 <th>{{recipe._id}}</th>
-                <th>{{recipe._user.username}}</th>
+                <th>
+                    <a ng-if="recipe._user" href="#/admin/user/{{recipe._user._id}}/details">{{recipe._user.username}}</a>
+                    <span ng-if="!recipe._user">[removed]</span>
+                </th>
                 <th>{{recipe.dateCreated | date}}</th>
                 <th>
                     <a ng-click="model.deleteRecipe(recipe, false)">

@@ -70,7 +70,6 @@ module.exports = function() {
             });
     }
 
-    // TODO: how to best handle this
     function removeBook(bid) {
         /*
         Needs to delete:
@@ -83,16 +82,15 @@ module.exports = function() {
                 model.userModel
                     .removeBookFromUser(bookObj)
                     .then(function (response) {
-                        model.recipeModel
-                            .detachRecipesFromBook(bookObj)
-                            .then(function (response) {
-                                console.log(response);
-                                // TODO: is not executing
-                                return BookModel.remove({_id: bid});
-                            }, function (err) {
-                                console.log(err);
-                            })
+                        // // Seems to be what's causing a hold-up here
+                        // model.recipeModel
+                        //     .detachRecipesFromBook(bookObj)
+                        //     .then(function (response) {
+                        return BookModel.remove({_id: bid});
+                    }, function (err) {
+                        console.log(err);
                     })
+                    // })
             });
     }
 
@@ -130,14 +128,14 @@ module.exports = function() {
             .then(function(bookObj){
                 model.userModel
                     .findUserById(userId)
-                    .then(function(userObj){
+                    .then(function(userObj) {
                         bookObj._user = userObj._id;
                         bookObj.save();
                         userObj.books.push(bookObj);
                         return userObj.save();
-                    }, function(error){
-                        console.log(error);
-                    });
+                    })
+            }).catch(function (err) {
+                console.log(err);
             });
     }
 };

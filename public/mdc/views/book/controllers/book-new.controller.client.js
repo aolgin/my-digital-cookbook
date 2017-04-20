@@ -47,7 +47,9 @@
                 }
             }).catch(function (err) {
                 var status = err.status;
-                if (status == 'Conflict') {
+                if (status === 401) {
+                    vm.error = "You are not authorized to perform this action";
+                } else if (status === 409) {
                     vm.error = "A book with this name already exists! Please use a different name!";
                 } else {
                     vm.error = "An uncaught error occurred creating your book: \n" + err.data;

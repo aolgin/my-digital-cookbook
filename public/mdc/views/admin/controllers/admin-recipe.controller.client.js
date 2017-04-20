@@ -78,13 +78,6 @@
             AdminService.findAllRecipes()
                 .then(function (response) {
                     vm.recipes = response.data;
-                    vm.recipes.find(function(recipe) {
-                        if (!recipe._user) {
-                            recipe._user = {
-                                username: "[removed]"
-                            }
-                        }
-                    });
                 }).catch(function (err) {
                     vm.error = "Error fetching recipes: \n" + err;
                 });
@@ -94,7 +87,7 @@
             var rid = recipe._id;
             var answer = confirm("Are you sure?");
             if (answer) {
-                AdminService.deleteRecipe(rid, recipe)
+                AdminService.deleteRecipe(rid)
                     .then(function (response) {
                         if (fromDetailsPage) {
                             $location.url("/admin/recipe");
@@ -103,7 +96,11 @@
                             renderRecipes();
                         }
                     }).catch(function (err) {
-                        vm.error = "An uncaught error occurred deleting the recipe: \n" + err.data;
+                        if (err.status === 401) {
+                            vm.error = "You are not authorized to perform that action";
+                        } else {
+                            vm.error = "An uncaught error occurred deleting the recipe: \n" + err.data;
+                        }
                     });
             }
         }
@@ -118,7 +115,11 @@
                 .then(function (response) {
                     $location.url("/admin/recipe");
                 }).catch(function (err) {
-                    vm.error = "An uncaught error occurred creating the recipe: \n" + err.data;
+                    if (err.status === 401) {
+                        vm.error = "You are not authorized to perform that action";
+                    } else {
+                        vm.error = "An uncaught error occurred creating the recipe: \n" + err.data;
+                    }
                 });
         }
 
@@ -133,7 +134,11 @@
                 .then(function (response) {
                     $location.url("/admin/recipe");
                 }).catch(function (err) {
-                    vm.error = "An uncaught error occurred updating the recipe: \n" + err.data;
+                    if (err.status === 401) {
+                        vm.error = "You are not authorized to perform that action";
+                    } else {
+                        vm.error = "An uncaught error occurred updating the recipe: \n" + err.data;
+                    }
                 });
         }
     }

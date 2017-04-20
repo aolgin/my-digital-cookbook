@@ -38,7 +38,7 @@ module.exports = function() {
             .then(function (recipeObj) {
                 CategoryModel.findCategoryById(cid)
                     .then(function (catObj) {
-                        recipeObj.categories.push(catObj);
+                        recipeObj.categories.addToSet(catObj);
                         return recipeObj.save();
                     });
             })

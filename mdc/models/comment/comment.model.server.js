@@ -29,7 +29,7 @@ module.exports = function() {
                     .then(function(recipeObj) {
                         model.userModel.findUserById(uid)
                             .then(function (userObj) {
-                                recipeObj.comments.push(commentObj);
+                                recipeObj.comments.addToSet(commentObj);
                                 if (comment.rating) {
                                     recipeObj.rating.count += 1;
                                     recipeObj.rating.total += comment.rating;

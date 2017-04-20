@@ -25,12 +25,17 @@ module.exports = function(app, model) {
     }
 
     function checkSameUser(req, res, next) {
-        var book = req.body;
-        if (req.user && req.user._id == book._user._id) {
-            next();
-        } else {
-            res.sendStatus(401);
-        }
+        bookModel.findBookById(req.params['bid'])
+            .then(function (book) {
+                if (req.user && String(req.user._id) == String(book._user._id)) {
+                    next();
+                } else {
+                    res.sendStatus(401);
+                }
+            }).catch(function (err) {
+                console.log(err);
+                res.sendStatus(500);
+            });
     }
 
     function checkAdmin(req, res, next) {
@@ -87,7 +92,7 @@ module.exports = function(app, model) {
 
     function createBook(req, res) {
         var newBook = req.body;
-        var uid = req.params['uid'];
+        var uid = req.params['uid'] || newBook._user._id;
 
         bookModel.createBook(uid, newBook)
             .then(function (book) {

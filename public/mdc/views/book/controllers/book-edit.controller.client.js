@@ -13,10 +13,10 @@
         function init() {
             var bookPromise = BookService.findBookById(vm.bookId);
             bookPromise.then(function(response) {
+                vm.book = response.data;
                 if (!currentUser || currentUser._id !== vm.book._user._id) {
                     $location.url("/error?code=401");
                 } else {
-                    vm.book = response.data;
                     vm.username = currentUser.username;
                 }
             }, function (err) {
@@ -47,11 +47,15 @@
             if (answer) {
                 var promise = BookService.deleteBook(vm.bookId);
                 promise.then(function (response) {
-                    if (response.status == 200) {
+                    if (response.status === 200) {
                         $location.url("/dashboard/books");
                     }
                 }).catch(function (err) {
-                    vm.error = "An uncaught error occurred deleting your book: \n" + err.data;
+                    if (err.status === 401) {
+                        vm.error = "You are not authorized to perform this action";
+                    } else {
+                        vm.error = "An uncaught error occurred deleting your book: \n" + err.data;
+                    }
                 });
             }
         }
@@ -63,12 +67,14 @@
             }
             var promise = BookService.updateBook(vm.bookId, newBook);
             promise.then(function(response) {
-                if (response.status == 200) {
+                if (response.status === 200) {
                     $location.url("/cookbook/" + vm.bookId);
                 }
             }).catch(function(err) {
                 var status = err.status;
-                if (status == 409) {
+                if (status === 401) {
+                    vm.error = "You are not authorized to perform this action";
+                } else if (status === 409) {
                     vm.error = "A book with that name already exists! Please use a different name.";
                 } else {
                     vm.error = "An uncaught error occurred when updating your book: \n" + err.data;

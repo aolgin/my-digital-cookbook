@@ -81,7 +81,11 @@
                             renderBooks();
                         }
                     }).catch(function (err) {
-                        vm.error = "An uncaught error occurred deleting the book: \n" + err.data;
+                        if (err.status === 401) {
+                            vm.error = "You are not authorized to perform that action";
+                        } else {
+                            vm.error = "An uncaught error occurred deleting the book: \n" + err.data;
+                        }
                     });
             }
         }
@@ -95,7 +99,11 @@
                 .then(function (response) {
                     $location.url("/admin/book");
                 }).catch(function (err) {
-                    vm.error = "An uncaught error occurred creating the book: \n" + err.data;
+                    if (err.status === 401) {
+                        vm.error = "You are not authorized to perform that action";
+                    } else {
+                        vm.error = "An uncaught error occurred creating the book: \n" + err.data;
+                    }
                 });
         }
 
@@ -109,7 +117,11 @@
                 .then(function (response) {
                     $location.url("/admin/book");
                 }).catch(function (err) {
-                    vm.error = "An uncaught error occurred updating the book: \n" + err.data;
+                    if (err.status === 401) {
+                        vm.error = "You are not authorized to perform that action";
+                    } else {
+                        vm.error = "An uncaught error occurred updating the book: \n" + err.data;
+                    }
                 });
         }
     }

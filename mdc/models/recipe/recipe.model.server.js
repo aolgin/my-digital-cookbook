@@ -7,8 +7,8 @@ module.exports = function() {
 
     var api = {
         createRecipe: createRecipe,
-        createRecipeInBook: createRecipeInBook,
-        createRecipeInBooks: createRecipeInBooks,
+        attachRecipeToBook: attachRecipeToBook,
+        detachRecipeFromBook: detachRecipeFromBook,
         findRecipeById: findRecipeById,
         findBooksWithRecipe: findBooksWithRecipe,
         updateRecipe: updateRecipe,
@@ -17,7 +17,6 @@ module.exports = function() {
         searchRecipesByCategory: searchRecipesByCategory,
         detachRecipesFromBook: detachRecipesFromBook,
         findAllRecipes: findAllRecipes,
-        rateRecipe: rateRecipe,
         setModel: setModel
     };
     return api;
@@ -26,13 +25,19 @@ module.exports = function() {
         model = _model;
     }
 
+    //TODO: is currently only oneway here
     function detachRecipesFromBook(bookObj) {
-        return RecipeModel.update(
-            { books:
-                { $elemMatch: { _id: bookObj._id}}
-            },
-            { $pull: {books: bookObj}}
-        );
+        console.log("Detaching...");
+        return RecipeModel
+            .elemMatch("books", {_id: bookObj._id})
+            .pull({books: bookObj})
+            .exec();
+        // return RecipeModel.update(
+        //     { books:
+        //         { $elemMatch: { _id: bookObj._id}}
+        //     },
+        //     { $pull: {books: bookObj}}
+        // );
     }
 
     function searchRecipes(term) {
@@ -46,9 +51,8 @@ module.exports = function() {
                 { 'directions': { $regex: re }}
             ])
             .select("name description rating _user")
-            .populate("rating", "actual")
             .populate("_user", "username")
-            .populate("categories", "name")
+            .populate("categories", "name -_id")
             .sort({'dateModified': 1})
             .exec();
     }
@@ -60,30 +64,10 @@ module.exports = function() {
                 category: { $regex: re }
             })
             .select("-_id name description rating _user")
-            .populate("rating", "actual")
             .populate("categories", "name")
             .populate("_user", "username")
             .sort({'dateModified': 1})
             .exec();
-    }
-
-    function rateRecipe(rid, rating) {
-        return RecipeModel.findById(rid)
-            .then(function (recipe) {
-                var newTotal = rating + recipe.rating.total;
-                var newCount = recipe.rating.count + 1;
-                var newActual = newTotal / newCount;
-                // TODO: May not actually work as expected. Need to test.
-                RecipeModel.update(
-                    { _id: rid },
-                    { rating: {
-                        count: newCount,
-                        total: newTotal,
-                        actual: newActual
-                        }
-                    }
-                )
-            })
     }
 
     function findAllRecipes() {
@@ -105,14 +89,16 @@ module.exports = function() {
                 model.commentModel
                     .removeAllCommentsFromRecipe(recipeObj)
                     .then(function (response) {
-                        return model.bookModel.removeRecipeFromAllBooks(recipeObj)
+                        model.userModel
+                            .removeRecipeFromUser(recipeObj)
+                            .then(function (response) {
+                                return RecipeModel.remove({_id: rid})
+                            })
                     })
-                    .then(function (response) {
-                        return model.userModel.removeRecipeFromUser(recipeObj)
-                    })
-                    .then(function (response) {
-                        return RecipeModel.remove({_id: rid});
-                    })
+                    // .then(RecipeModel.remove({_id: rid}))
+                    // .then(function (response) {
+                    //     return model.bookModel.removeRecipeFromAllBooks(recipeObj)
+                    // // })
             }, function (err) {
                 console.log(err);
             });
@@ -159,11 +145,12 @@ module.exports = function() {
             .exec();
     }
 
-    function createRecipeInBooks(recipe) {
-        console.log("Create recipe in books. Will write this later");
+    function detachRecipeFromBook(bid, recipe) {
+        //TODO: write this
     }
 
-    function createRecipeInBook(uid, bid, recipe) {
+    //TODO: rewrite to match the new functionality
+    function attachRecipeToBook(bid, recipe) {
         return RecipeModel
             .create(recipe)
             .then(function(recipeObj){
@@ -173,11 +160,11 @@ module.exports = function() {
                         model.bookModel.findBookById(bid)
                             .then(function (bookObj) {
                                 recipeObj._user = userObj._id;
-                                recipeObj.books.push(bookObj);
+                                recipeObj.books.addToSet(bookObj);
                                 recipeObj.save();
-                                bookObj.recipes.push(recipeObj);
+                                bookObj.recipes.addToSet(recipeObj);
                                 bookObj.save();
-                                userObj.recipes.push(recipeObj);
+                                userObj.recipes.addToSet(recipeObj);
                                 return userObj.save();
                             });
                     }, function(error){
@@ -187,23 +174,19 @@ module.exports = function() {
     }
 
     function createRecipe(uid, recipe) {
-        if (recipe.books) {
-            createRecipeInBooks(recipe);
-        } else {
-            return RecipeModel
-                .create(recipe)
-                .then(function(recipeObj){
-                    model.userModel
-                        .findUserById(uid)
-                        .then(function(userObj){
-                            recipeObj._user = userObj._id;
-                            recipeObj.save();
-                            userObj.recipes.push(recipeObj);
-                            return userObj.save();
-                        }, function(error){
-                            console.log(error);
-                        });
-                });
-        }
+        return RecipeModel
+            .create(recipe)
+            .then(function(recipeObj){
+                model.userModel
+                    .findUserById(uid)
+                    .then(function(userObj){
+                        recipeObj._user = userObj._id;
+                        recipeObj.save();
+                        userObj.recipes.push(recipeObj);
+                        return userObj.save();
+                    }, function(error){
+                        console.log(error);
+                    });
+            });
     }
 };
