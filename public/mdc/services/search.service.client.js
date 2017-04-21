@@ -8,8 +8,8 @@
         var api = {
             "searchUsers": searchUsers,
             "searchBooks": searchBooks,
-            "searchRecipes": searchRecipes,
-            "searchRecipesByCategory": searchRecipesByCategory
+            "searchRecipes": searchRecipes
+            // "searchRecipesByCategory": searchRecipesByCategory
         };
         return api;
 
@@ -25,8 +25,8 @@
             return $http.get("/api/recipe/search?term=" + term);
         }
 
-        function searchRecipesByCategory(cat) {
-            return $http.get("/api/recipe/search?category=" + cat);
-        }
+        // function searchRecipesByCategory(cat) {
+        //     return $http.get("/api/recipe/search?category=" + cat);
+        // }
     }
 })();

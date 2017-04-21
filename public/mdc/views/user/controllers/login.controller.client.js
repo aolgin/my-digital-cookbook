@@ -6,6 +6,7 @@
     function LoginController(UserService, $location) {
         var vm = this;
         vm.login = login;
+        vm.search = search;
 
         function init() {}
         init();
@@ -31,6 +32,10 @@
                     vm.error = 'An uncaught error occurred when logging in:\n' + err.data;
                 }
             });
+        }
+
+        function search(term, type) {
+            $location.url("/search/results?term=" + term + "&type=" + type);
         }
     }
 })();

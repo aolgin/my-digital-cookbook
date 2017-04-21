@@ -26,7 +26,7 @@
         vm.searchUsers = searchUsers;
         vm.searchRecipes = searchRecipes;
         vm.searchBooks = searchBooks;
-        vm.searchRecipesByCategory = searchRecipesByCategory;
+        // vm.searchRecipesByCategory = searchRecipesByCategory;
         vm.search = search;
         vm.logout = logout;
 
@@ -41,9 +41,9 @@
                 case 'Recipes':
                     searchRecipes(term);
                     break;
-                case 'Categories':
-                    searchRecipesByCategory(term);
-                    break;
+                // case 'Categories':
+                //     searchRecipesByCategory(term);
+                //     break;
                 default:
                     vm.error = "Please select a search parameter";
                     break;
@@ -94,23 +94,23 @@
             });
         }
 
-        function searchRecipesByCategory(cat) {
-            vm.resType = 'recipe';
-            vm.error = null;
-            var promise = SearchService.searchRecipesByCategory(cat);
-            promise.then(function(response) {
-                vm.results = response.data;
-            }).catch(function (err) {
-                console.log(err);
-                vm.results = null;
-                var status = err.status;
-                if (status == 404) {
-                    vm.error = 'No recipes matching your search term found!';
-                } else {
-                    vm.error = 'An uncaught error occurred when searching:\n' + err.data;
-                }
-            });
-        }
+        // function searchRecipesByCategory(cat) {
+        //     vm.resType = 'recipe';
+        //     vm.error = null;
+        //     var promise = SearchService.searchRecipesByCategory(cat);
+        //     promise.then(function(response) {
+        //         vm.results = response.data;
+        //     }).catch(function (err) {
+        //         console.log(err);
+        //         vm.results = null;
+        //         var status = err.status;
+        //         if (status == 404) {
+        //             vm.error = 'No recipes matching your search term found!';
+        //         } else {
+        //             vm.error = 'An uncaught error occurred when searching:\n' + err.data;
+        //         }
+        //     });
+        // }
         
         function searchBooks(term) {
             vm.resType = 'book';

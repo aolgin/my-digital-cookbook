@@ -88,27 +88,11 @@ module.exports = function(app, model) {
 
 
     function searchRecipes(req, res) {
-        if (req.query['category']) {
-            searchRecipesByCategory(req, res);
-        } else {
-            var term = req.query['term'];
-            recipeModel.searchRecipes(term)
-                .then(function(response) {
-                    if (response.length > 0) {
-                        res.json(response);
-                    } else {
-                        res.sendStatus(404);
-                    }
-                }, function (err) {
-                    console.log(err);
-                    res.sendStatus(500);
-                });
-        }
-    }
-
-    function searchRecipesByCategory(req, res) {
-        var term = req.query['category'];
-        recipeModel.searchRecipesByCategory(term)
+        // if (req.query['category']) {
+        //     searchRecipesByCategory(req, res);
+        // } else {
+        var term = req.query['term'];
+        recipeModel.searchRecipes(term)
             .then(function(response) {
                 if (response.length > 0) {
                     res.json(response);
@@ -120,6 +104,21 @@ module.exports = function(app, model) {
                 res.sendStatus(500);
             });
     }
+
+    // function searchRecipesByCategory(req, res) {
+    //     var term = req.query['category'];
+    //     recipeModel.searchRecipesByCategory(term)
+    //         .then(function(response) {
+    //             if (response.length > 0) {
+    //                 res.json(response);
+    //             } else {
+    //                 res.sendStatus(404);
+    //             }
+    //         }, function (err) {
+    //             console.log(err);
+    //             res.sendStatus(500);
+    //         });
+    // }
 
     function findRecipesByBook(req, res) {
         var bid = req.params['bid'];

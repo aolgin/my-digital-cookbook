@@ -12,6 +12,11 @@
         init();
 
         vm.register = register;
+        vm.search = search;
+
+        function search(term, type) {
+            $location.url("/search/results?term=" + term + "&type=" + type);
+        }
 
         function register(user) {
             // This is done client-side, so no need to put it within the promise execution
