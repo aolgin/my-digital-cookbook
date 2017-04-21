@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="MyDigitalCookbook">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+        <link href="css/vendor/font-awesome.min.css" rel="stylesheet" type="text/css">
+        <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+        <link href='https://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
+        <link href="css/vendor/magnific-popup.css" rel="stylesheet" type="text/css">
+        <link href="css/vendor/creative.min.css" rel="stylesheet" type="text/css">
+
+        <link rel="icon" type="image/png" sizes="32x32" href="img/favicon.png">
+
+
+        <!--<script src="https://code.jquery.com/jquery-1.7.2.min.js"></script>-->
+        <!--<script src="https://code.jquery.com/ui/1.8.21/jquery-ui.min.js"></script>-->
+        <!--<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>-->
+
+
+        <script src="js/vendor/jquery.js"></script>
+        <script src="js/vendor/jquery.easing.min.js"></script>
+        <script src="js/vendor/jquery.ui.touch-punch.min.js"></script>
+        <script src="js/vendor/scrollreveal.min.js"></script>
+        <script src="js/vendor/jquery.magnific-popup.min.js"></script>
+        <!--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>-->
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>
+        <script src="js/vendor/creative.min.js"></script>
+
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular-route.min.js"></script>
+
+        <script src="js/vendor/jquery.ui.touch-punch.min.js"></script>
+
+        <script src="./mdc/app.js"></script>
+        <script src="./mdc/config.js"></script>
+
+        <script src="./mdc/views/search/controllers/search.controller.client.js"></script>
+        <script src="./mdc/views/home/controllers/home.controller.client.js"></script>
+        <script src="./mdc/services/user.service.client.js"></script>
+        <script src="./mdc/services/search.service.client.js"></script>
+
+        <title>My Digital Cookbook</title>
+    </head>
+    <body id="page-top">
+        <nav id="mainNav" class="navbar navbar-default navbar-fixed-top">
+            <div class="container-fluid">
+                <div class="navbar-header mdc-logo pull-left">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                        <span class="sr-only">Toggle navigation</span> Menu <i class="fa fa-bars"></i>
+                    </button>
+                    <a class="navbar-brand" href="/">
+                        <img src="../../../../img/logo-100x70.png"/>
+                    </a>
+                </div>
+                <ng-include src="views/search/templates/search-bar.view.client.html"></ng-include>
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>
+                            <a class="page-scroll" href="#about">About</a>
+                        </li>
+                        <li ng-if="!model.user">
+                            <!--Temporary-->
+                            <a class="page-scroll" href="mdc/index.html#/login">Login</a>
+                        </li>
+                        <li ng-if="!model.user">
+                            <!--Temporary-->
+                            <a class="page-scroll" href="mdc/index.html#/register">Register</a>
+                        </li>
+                        <li ng-if="model.user">
+                            <a class="page-scroll" href="mdc/index.html#/profile">Profile</a>
+                            <i class="fa fa-user-circle-o" aria-hidden="true"></i>
+                        </li>
+                        <li ng-if="model.user">
+                            <a class="page-scroll" ng-click="model.logout()">Logout</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <header>
+            <div class="header-content">
+                <div class="header-content-inner">
+                    <h1 id="homeHeading">Create your very own digital cookbook</h1>
+                    <hr>
+                    <p>Or search for books or recipes below</p>
+                    <div class="input-group">
+                        <input type="text"
+                               class="form-control btn"
+                               placeholder="Search books or recipes"/>
+                        <a class="input-group-addon btn btn-default">
+                            <span class="glyphicon glyphicon-search"></span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <section class="bg-primary" id="about">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-8 col-lg-offset-2 text-center">
+                        <h2 class="section-heading">Digitize your recipe collection today!</h2>
+                        <hr class="light">
+                        <p class="text-faded">
+                            My Digital Cookbook is an online repository for cookbooks and recipes. Search our site for options, or go ahead and create a profile and start digitizing your collection!
+                        </p>
+                        <a href="mdc/index.html#/register" class="page-scroll btn btn-default btn-xl sr-button">Get Started!</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <nav class="visible-md visible-lg navbar navbar-default navbar-fixed-bottom">
+            <div class="container-fluid pull-right">
+                <p class="navbar-text">Source code available on <a href="https://github.com/aolgin/my-digital-cookbook/tree/master/public">Github</a></p>
+            </div>
+        </nav>
+    </body>
+</html>
