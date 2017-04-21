@@ -50,7 +50,7 @@
             UserService
                 .logout()
                 .then(function (response) {
-                    $location.url("/home");
+                    $location.url("/");
                 });
         }
 

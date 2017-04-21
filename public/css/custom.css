@@ -14,9 +14,10 @@ body {
         border-radius: 4px 4px 0 0;
     }
 
-    .nav-tabs.nav-justified>.active>a, .nav-tabs.nav-justified>.active>a:hover, .nav-tabs.nav-justified>.active>a:focus {
+    .nav-tabs.nav-justified > .active > a, .nav-tabs.nav-justified > .active > a:hover, .nav-tabs.nav-justified > .active > a:focus {
         border-bottom-color: #fff;
     }
+}
 
 .mdc-align-center {
     text-align: center;

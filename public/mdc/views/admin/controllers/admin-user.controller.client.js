@@ -34,7 +34,7 @@
             UserService
                 .logout()
                 .then(function (response) {
-                    $location.url("/login");
+                    $location.url("/");
                 });
         }
 

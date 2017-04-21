@@ -93,8 +93,8 @@
         $httpProvider.defaults.headers.put['Content-Type'] = 'application/json;charset=utf-8';
 
         $routeProvider
-            .when("/home", {
-                templateUrl: 'views/home/templates/index.html',
+            .when("/", {
+                templateUrl: 'views/home/templates/home.html',
                 controller: 'HomeController',
                 controllerAs: 'model',
                 resolve: {
