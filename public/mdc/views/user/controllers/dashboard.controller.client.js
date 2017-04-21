@@ -36,6 +36,7 @@
 
         vm.search = search;
         vm.logout = logout;
+        vm.unfollowUser = unfollowUser;
 
         function logout() {
             UserService
@@ -47,6 +48,20 @@
 
         function search(term, type) {
             $location.url("/search/results?term=" + term + "&type=" + type);
+        }
+
+        function unfollowUser(chefId) {
+            UserService.unfollowUser(vm.uid, chefId)
+                .then(function (response) {
+                    renderFollowing();
+                }).catch(function (err) {
+                    console.log(err);
+                    if (err.status === 401) {
+                        vm.error = "You are not authorized to perform this action";
+                    } else {
+                        vm.error = "An error occurred trying to unfollow this chef:\n" + err;
+                    }
+                });
         }
 
         function renderDashboard() {
