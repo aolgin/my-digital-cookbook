@@ -9,6 +9,7 @@ module.exports = function() {
         createUser: createUser,
         findUserById: findUserById,
         findUserByCredentials: findUserByCredentials,
+        findUserByUsername: findUserByUsername,
         findBooksForUser: findBooksForUser,
         findRecipesForUser: findRecipesForUser,
         findUserByUsername: findUserByUsername,
@@ -193,6 +194,10 @@ module.exports = function() {
 
     }
 
+    function findUserByUsername(username) {
+        return UserModel.findOne({username: username});
+    }
+
     function findUserByCredentials(username, password) {
         return UserModel.findOne({
             username: username,
@@ -225,7 +230,13 @@ module.exports = function() {
     }
 
     function findUserById(userId) {
-        return UserModel.findById(userId);
+        return UserModel
+            .findById(userId)
+            .populate("books", "name")
+            .populate("recipes", "name")
+            .populate("following", "username")
+            .populate("favorites", "name")
+            .exec();
     }
 
     function createUser(user) {

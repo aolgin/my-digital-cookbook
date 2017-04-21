@@ -15,9 +15,11 @@
             RecipeService.findRecipeById(vm.rid)
                 .then(function (response) {
                     vm.recipe = response.data;
+                    isYourRecipe();
                 }).catch(function (err) {
                     console.log(err);
                     vm.error = "An error occurred finding this recipe. We apologize for any inconvenience";
+                    vm.yourRecipe = false;
                 });
         }
         init();
@@ -28,6 +30,14 @@
         vm.rateRecipe = rateRecipe;
         vm.search = search;
         vm.logout = logout;
+
+        function isYourRecipe() {
+            if (currentUser && currentUser._id === vm.recipe._user._id) {
+                vm.yourRecipe = true;
+            } else {
+                vm.yourRecipe = false;
+            }
+        }
 
         function search(term, type) {
             $location.url("/search/results?term=" + term + "&type=" + type);

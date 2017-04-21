@@ -93,21 +93,16 @@ module.exports = function(app, model) {
 
     function localStrategy(username, password, done) {
         userModel
-            .findUserByCredentials(username, password)
+            .findUserByUsername(username)
             .then(
                 function (user) {
                     // if the user exists, compare passwords with bcrypt.compareSync
-                    // if(user && bcrypt.compareSync(password, user.password)) {
-                    if (user) {
+                    if(user && bcrypt.compareSync(password, user.password)) {
                         return done(null, user);
                     } else {
                         return done(null, false);
                     }
                 },
-                // function(user) {
-                //     if (!user) { return done(null, false); }
-                //     return done(null, user);
-                // },
                 function(err) {
                     if (err) { return done(err); }
                 }
@@ -150,19 +145,23 @@ module.exports = function(app, model) {
         user.password = bcrypt.hashSync(user.password);
         userModel
             .createUser(user)
-            .then(
-                function(user){
-                    if(user){
-                        req.login(user, function(err) {
-                            if(err) {
-                                res.status(400).send(err);
-                            } else {
-                                res.json(user);
-                            }
-                        });
-                    }
+            .then(function(user){
+                if(user) {
+                    req.login(user, function (err) {
+                        if (err) {
+                            res.status(400).send(err);
+                        } else {
+                            res.json(user);
+                        }
+                    });
                 }
-            );
+            }).catch(function (err) {
+                if (err.code == 11000) {
+                    res.sendStatus(409);
+                } else {
+                    res.sendStatus(500);
+                }
+            });
     }
 
     // Service Functions
@@ -219,6 +218,7 @@ module.exports = function(app, model) {
             });
     }
 
+    // For use by admin
     function findAllUsers(req, res) {
         userModel.findAllUsers()
             .then(function (users) {
@@ -244,6 +244,7 @@ module.exports = function(app, model) {
             });
     }
 
+    // For use by admin
     function createUser(req, res) {
         var user = req.body;
 

@@ -10,6 +10,11 @@
             <h3>{{model.recipe.name}}</h3>
             <h5>Created by {{model.recipe._user.username}} on {{model.recipe.dateCreated | date}}</h5>
             <h4>{{model.recipe.description}}</h4>
+            <div ng-if="model.yourRecipe">
+                <a href="#/dashboard/recipes/{{model.recipe._id}}">
+                    <span class="btn btn-teal">Edit Recipe</span>
+                </a>
+            </div>
         </div>
         <div class="recipe-results pull-right col-xs-12 col-md-6">
             <p>Prep Time: {{model.recipe.prep_time}}</p>

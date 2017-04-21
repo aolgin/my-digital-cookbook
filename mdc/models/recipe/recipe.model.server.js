@@ -76,7 +76,11 @@ module.exports = function() {
     }
 
     function findAllRecipes() {
-        return RecipeModel.find();
+        return RecipeModel
+            .find()
+            .populate("_user", "_id username")
+            .populate("rating", "total actual -_id")
+            .exec();
     }
 
     function findBooksWithRecipe(rid) {
@@ -97,7 +101,13 @@ module.exports = function() {
     }
 
     function findRecipeById(bid) {
-        return RecipeModel.findById(bid);
+        return RecipeModel
+            .findById(bid)
+            .populate("_user", "_id username")
+            .populate("rating", "total actual -_id")
+            // .populate("comments", "poster description -_id")
+            // .populate("categories", "name")
+            .exec();
     }
 
     function createRecipeInBooks(recipe) {

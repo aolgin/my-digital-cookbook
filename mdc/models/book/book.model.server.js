@@ -38,7 +38,11 @@ module.exports = function() {
     }
 
     function findAllBooks() {
-        return BookModel.find();
+        return BookModel
+            .find()
+            .populate("_user", "_id username")
+            .populate("recipes", "_id name")
+            .exec();
     }
 
     function removeRecipeFromBook(recipe) {
@@ -87,7 +91,11 @@ module.exports = function() {
     }
 
     function findBookById(bid) {
-        return BookModel.findById(bid);
+        return BookModel
+            .findById(bid)
+            .populate("recipes", "name _user _id")
+            .populate("_user", "username _id")
+            .exec();
     }
 
     function createBook(userId, book) {

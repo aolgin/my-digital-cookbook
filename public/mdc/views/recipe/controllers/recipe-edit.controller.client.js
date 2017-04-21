@@ -5,14 +5,22 @@
 
     function RecipeEditController(RecipeService, $routeParams, $location, currentUser, UserService, $rootScope) {
         var vm = this;
-        vm.uid = currentUser._id;
         vm.rid = $routeParams['rid'];
 
         function init() {
             RecipeService.findRecipeById(vm.rid)
                 .then(function(response) {
                     vm.recipe = response.data;
+                    if (!currentUser || currentUser._id !== vm.recipe._user._id) {
+                        $location.url("/error?code=401");
+                    } else {
+                        vm.uid = currentUser._id;
+                    }
+                }, function (err) {
+                    $location.url("/error?code=404");
                 });
+
+
         }
         init();
 

@@ -5,10 +5,13 @@
 
     function RecipeNewController(RecipeService, $location, currentUser, UserService, $rootScope) {
         var vm = this;
-        vm.uid = currentUser._id;
 
         function init() {
-
+            if (!currentUser) {
+                $location.url("/error?code=401");
+            } else {
+                vm.uid = currentUser._id;
+            }
         }
         init();
 

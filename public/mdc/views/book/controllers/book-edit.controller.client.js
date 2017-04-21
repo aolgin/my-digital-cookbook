@@ -6,12 +6,18 @@
     function BookEditController(BookService, $location, $routeParams, currentUser, UserService, $rootScope) {
         var vm = this;
         vm.bookId = $routeParams['bid'];
-        vm.uid = currentUser._id;
 
         function init() {
             var bookPromise = BookService.findBookById(vm.bookId);
             bookPromise.then(function(response) {
                 vm.book = response.data;
+                if (!currentUser || currentUser._id !== vm.book._user._id) {
+                    $location.url("/error?code=401");
+                } else {
+                    vm.uid = currentUser._id;
+                }
+            }, function (err) {
+                $location.url("/error?code=404");
             });
         }
         init();
