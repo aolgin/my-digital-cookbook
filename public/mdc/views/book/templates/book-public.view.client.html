@@ -11,17 +11,19 @@
     </div>
 
     <div class="col-xs-12">
-        <h3>{{model.book.name}}</h3>
+        <div>
+            <div ng-if="model.yourBook" class="pull-right">
+                <a href="#/dashboard/books/{{model.book._id}}">
+                    <span class="btn btn-teal">Edit</span>
+                </a>
+            </div>
+            <h3>{{model.book.name}}</h3>
+        </div>
         <h5>Created by <a href="#/chef/{{model.book._user._id}}">{{model.book._user.username}}</a> on {{model.book.dateCreated | date}}</h5>
         <h4>{{model.book.description}}</h4>
-        <div ng-if="model.yourBook">
-            <a href="#/dashboard/books/{{model.book._id}}">
-                <span class="btn btn-teal">Edit Cookbook</span>
-            </a>
-        </div>
         <hr>
 
-        <div class="table-responsive">
+        <div>
             <table class="table table-striped">
                 <thead>
                     <tr>

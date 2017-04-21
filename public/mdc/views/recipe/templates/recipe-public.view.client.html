@@ -10,8 +10,8 @@
         </div>
     </div>
 
-    <div class="col-md-9 col-xs-12">
-        <div class="col-xs-12 col-md-6">
+    <div class="col-xs-12">
+        <div class="col-xs-12 col-md-9">
             <div>
                 <div ng-if="model.yourRecipe" class="pull-right">
                     <a href="#/dashboard/recipes/{{model.recipe._id}}">
@@ -42,11 +42,18 @@
                     </span>
                 </div>
             </div>
+            <hr>
+            <div class="mdc-html">
+                <label for="ingredients">Ingredients: </label>
+                <div id="ingredients" ng-bind-html="model.getTrustedHtml(model.recipe.ingredients)"></div>
+                <label for="directions">Directions: </label>
+                <div id="directions" ng-bind-html="model.getTrustedHtml(model.recipe.directions)"></div>
+            </div>
         </div>
-        <div class="recipe-results table-responsive pull-right col-xs-12 col-md-6">
+        <div class="recipe-results pull-right col-xs-12 col-md-3">
             <table class="table-striped">
                 <thead>
-                    <th>Metadata</th>
+                    <th>Recipe Information</th>
                 </thead>
                 <tbody>
                     <tr>
@@ -62,7 +69,7 @@
                         <th>{{model.recipe.ready_in}}</th>
                     </tr>
                     <tr>
-                        <th>Num. Servings: </th>
+                        <th># Servings: </th>
                         <th>{{model.recipe.num_servings}}</th>
                     </tr>
                     <tr>
@@ -82,20 +89,13 @@
                         </th>
                     </tr>
                     <tr>
-                        <th>Rating Count: </th>
+                        <th># Ratings: </th>
                         <th>{{model.recipe.rating.count}}</th>
                     </tr>
                 </tbody>
             </table>
         </div>
         <hr>
-
-        <div class="mdc-html">
-            <label for="ingredients">Ingredients: </label>
-            <div id="ingredients" ng-bind-html="model.getTrustedHtml(model.recipe.ingredients)"></div>
-            <label for="directions">Directions: </label>
-            <div id="directions" ng-bind-html="model.getTrustedHtml(model.recipe.directions)"></div>
-        </div>
     </div>
 
     <div class="mdc-comments col-xs-12">
@@ -141,7 +141,7 @@
 
         <div ng-repeat="comment in model.recipe.comments" class="mdc-comment">
             <div>
-                <div class="panel panel-info">
+                <div class="panel panel-default panel-seth-green">
                     <div class="panel-heading">
                         <div>
                             <a class="pull-right"
