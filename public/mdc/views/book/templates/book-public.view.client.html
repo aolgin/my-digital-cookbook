@@ -19,7 +19,7 @@
             </div>
             <h3>{{model.book.name}}</h3>
         </div>
-        <h5>Created by <a href="#/chef/{{model.book._user._id}}">{{model.book._user.username}}</a> on {{model.book.dateCreated | date}}</h5>
+        <h5>Created by <a href="#/chef/{{model.book._user._id}}">{{model.book._user.username}}</a> on {{model.book.dateCreated | date : "short"}}</h5>
         <h4>{{model.book.description}}</h4>
         <hr>
 

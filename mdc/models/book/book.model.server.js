@@ -70,7 +70,7 @@ module.exports = function() {
                                     .remove({_id: bid})
                                     .then(function (response) {
                                         return model.notificationModel
-                                            .createNotification(bookObj._user, "Deleting book: " + bookObj.name);
+                                            .createNotification(bookObj._user, "deleted book: " + bookObj.name);
                                     })
                             })
                     })
@@ -99,7 +99,7 @@ module.exports = function() {
             })
             .then(function (response) {
                 return model.notificationModel
-                    .createNotification(book._user, "Updated book: " + book.name);
+                    .createNotification(book._user, "updated book: " + book.name);
             })
     }
 
@@ -127,7 +127,7 @@ module.exports = function() {
                         userObj.books.push(bookObj);
                         userObj.save();
                         return model.notificationModel
-                            .createNotification(userId, "Created book: " + book.name);
+                            .createNotification(userId, "created book: " + book.name);
                     })
             }).catch(function (err) {
                 console.log(err);

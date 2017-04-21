@@ -59,8 +59,7 @@
                     var following = response.data;
                     vm.isFollowing = following.includes(vm.chefId);
                 }, function (err) {
-                    console.log(err);
-                    vm.error = "Unexpected error occurred when trying to determine if you are following this chef:\n" + err;
+                    vm.error = "Unexpected error occurred when trying to determine if you are following this chef:\n" + err.data;
                 })
         }
 
@@ -73,8 +72,7 @@
                     vm.numBooks = vm.user.books.length;
                     vm.numFollowers= vm.user.follower_count;
                 }).catch(function (err) {
-                    console.log(err);
-                    vm.error = "Unable to find a user with the specified ID";
+                    vm.error = "Error rendering chef\'s profile:\n" + err.data;
                 });
         }
 
@@ -84,7 +82,7 @@
                     vm.books = response.data;
                 }).catch(function (err) {
                     console.log(err);
-                    vm.error = "Error rendering user\'s books";
+                    vm.error = "Error rendering user\'s books:\n" + err.data;
                 });
         }
 
@@ -93,8 +91,7 @@
                 .then(function (response) {
                     vm.recipes = response.data;
                 }).catch(function (err) {
-                    console.log(err);
-                    vm.error = "Error rendering user\'s recipes";
+                    vm.error = "Error rendering user\'s recipes:\n" + err.data;
                 });
         }
 
@@ -104,11 +101,10 @@
                     vm.isFollowing = true;
                     renderProfile(vm.chefId);
                 }).catch(function (err) {
-                    console.log(err);
                     if (err.status === 401) {
                         vm.error = "You are not authorized to perform this action";
                     } else {
-                        vm.error = "An error occurred trying to follow this chef:\n" + err;
+                        vm.error = "An error occurred trying to follow this chef:\n" + err.data;
                     }
                 });
         }
@@ -119,11 +115,10 @@
                     vm.isFollowing = false;
                     renderProfile(vm.chefId);
                 }).catch(function (err) {
-                    console.log(err);
                     if (err.status === 401) {
                         vm.error = "You are not authorized to perform this action";
                     } else {
-                        vm.error = "An error occurred trying to unfollow this chef:\n" + err;
+                        vm.error = "An error occurred trying to unfollow this chef:\n" + err.data;
                     }
                 });
         }

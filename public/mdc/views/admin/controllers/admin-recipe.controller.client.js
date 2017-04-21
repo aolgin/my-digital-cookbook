@@ -51,7 +51,6 @@
                         }
                     }
                 }).catch(function (err) {
-                    console.log(err);
                     vm.error = "Error fetching recipe:\n" + err;
                 });
         }

@@ -9,7 +9,6 @@ module.exports = function() {
         createUser: createUser,
         findUserById: findUserById,
         findUserByCredentials: findUserByCredentials,
-        findUserByUsername: findUserByUsername,
         findBooksForUser: findBooksForUser,
         findRecipesForUser: findRecipesForUser,
         findUserByUsername: findUserByUsername,
@@ -25,6 +24,7 @@ module.exports = function() {
         followUser: followUser,
         unfollowUser: unfollowUser,
         isFollowingChef: isFollowingChef,
+        findFollowing: findFollowing,
         searchUsers: searchUsers,
         setModel: setModel
     };
@@ -58,7 +58,7 @@ module.exports = function() {
                         followingUser.follower_count += 1;
                         followingUser.save();
                         return model.notificationModel
-                            .createNotification(followerId, "Started following user: " + followingUser.username);
+                            .createNotification(followerId, "started following user: " + followingUser.username);
                     })
             })
     }
@@ -73,7 +73,7 @@ module.exports = function() {
                         followingUser.follower_count -= 1;
                         followingUser.save();
                         return model.notificationModel
-                            .createNotification(followerId, "Stopped following user: " + followingUser.username);
+                            .createNotification(followerId, "stopped following user: " + followingUser.username);
                     })
             })
     }
@@ -168,7 +168,6 @@ module.exports = function() {
         if (limit) {
             return UserModel
                 .findById(userId)
-                // .populate("books", "-_user -recipes")
                 .populate({
                     path: "books",
                     select: "-_user -recipes",
@@ -209,7 +208,7 @@ module.exports = function() {
             })
             .then(function(response) {
                 return model.notificationModel
-                    .createNotification(userId, "User profile updated!");
+                    .createNotification(userId, "updated their user profile");
             });
     }
 
@@ -232,6 +231,19 @@ module.exports = function() {
                 password: password
             }
         );
+    }
+
+    function findFollowing(uid) {
+        var deferred = q.defer();
+        UserModel
+            .findById(uid, function (err, data) {
+                if (err) {
+                    deferred.reject(err);
+                } else {
+                    deferred.resolve(data.following);
+                }
+            });
+        return deferred.promise;
     }
 
     function findUserById(userId) {

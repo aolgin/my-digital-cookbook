@@ -42,7 +42,7 @@
             <a href="#/dashboard/books" class="pull-right">
                 <span>See all...</span>
             </a>
-            <h4>My Cookbooks</h4>
+            <h4>My Recent Cookbooks</h4>
             <hr>
         </div>
         <div ng-show="model.book_msg" class="alert alert-success mdc-msg-text">
@@ -70,7 +70,7 @@
             <a href="#/dashboard/recipes" class="pull-right">
                 <span>See all...</span>
             </a>
-            <h4>My Recipes</h4>
+            <h4>My Recent Recipes</h4>
             <hr>
         </div>
         <div ng-show="model.recipe_msg" class="alert alert-success mdc-msg-text">
@@ -104,8 +104,9 @@
         <ul class="list-group">
             <li ng-repeat="item in model.feed"
                 class="list-group-item">
-                {{item}}
-                <p>{{item.description}}</p>
+                <span>{{item.dateCreated | date : "short"}}</span> - Chef
+                <span><a href="#/chef/{{item._user._id}}">{{item._user.username}}</a></span>
+                <span>{{item.description}}</span>
             </li>
         </ul>
     </div>

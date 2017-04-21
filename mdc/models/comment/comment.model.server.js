@@ -40,7 +40,7 @@ module.exports = function() {
                                 commentObj.save();
                                 recipeObj;
                                 return model.notificationModel
-                                    .createNotification(uid, "Commented on recipe: " + recipeObj.name);
+                                    .createNotification(uid, "commented on recipe: " + recipeObj.name);
                             });
                     })
             })
@@ -105,7 +105,7 @@ module.exports = function() {
                         CommentModel.remove({_id: cid})
                             .then(function (response) {
                                 return model.notificationModel
-                                    .createNotification(userId, "Removed comment from recipe: " + recipeObj.name);
+                                    .createNotification(userId, "removed comment from recipe: " + recipeObj.name);
                             });
                     })
             });

@@ -91,7 +91,7 @@ module.exports = function() {
                                             .remove({_id: rid})
                                             .then(function (response) {
                                                 return model.notificationModel
-                                                    .createNotification(recipeObj._user, "Deleting recipe: " + recipeObj.name);
+                                                    .createNotification(recipeObj._user, "deleted recipe: " + recipeObj.name);
                                             })
                                     })
                             })
@@ -116,7 +116,7 @@ module.exports = function() {
             })
             .then(function(response) {
                 return model.notificationModel
-                    .createNotification(recipe._user, "Updating recipe: " + recipe.name);
+                    .createNotification(recipe._user, "updated recipe: " + recipe.name);
             });
     }
 
@@ -148,7 +148,7 @@ module.exports = function() {
                         recipeObj.books.pull(bookObj);
                         recipeObj.save();
                         return model.notificationModel
-                            .createNotification(bookObj._user, "Detaching recipe \"" + recipeObj.name + "\" from book \"" + bookObj.name + "\"");
+                            .createNotification(bookObj._user, "detached recipe \"" + recipeObj.name + "\" from book \"" + bookObj.name + "\"");
                     })
             }).catch(function (err) {
                 console.log(err);
@@ -165,7 +165,7 @@ module.exports = function() {
                         recipeObj.books.addToSet(bookObj);
                         recipeObj.save();
                         return model.notificationModel
-                            .createNotification(bookObj._user, "Attaching recipe \"" + recipeObj.name + "\" to book \"" + bookObj.name + "\"");
+                            .createNotification(bookObj._user, "attached recipe \"" + recipeObj.name + "\" to book \"" + bookObj.name + "\"");
                     })
             }).catch(function (err) {
                 console.log(err);
@@ -184,7 +184,7 @@ module.exports = function() {
                         userObj.recipes.push(recipeObj);
                         userObj.save();
                         return model.notificationModel
-                            .createNotification(uid, "Creating new recipe: " + recipe.name);
+                            .createNotification(uid, "created new recipe: " + recipe.name);
                     }, function(error){
                         console.log(error);
                     });
