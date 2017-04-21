@@ -29,7 +29,7 @@
                 <th>Username</th>
                 <th>ID</th>
                 <th>Role</th>
-                <th>Created</th>
+                <th>Modified</th>
                 <th>Delete</th>
             </tr>
             </thead>
@@ -40,7 +40,7 @@
                 </th>
                 <th>{{user._id}}</th>
                 <th>{{user.role}}</th>
-                <th>{{user.dateCreated | date}}</th>
+                <th>{{user.dateModified | date}}</th>
                 <th>
                     <a ng-click="model.deleteUser(user, false)">
                         <span class="glyphicon glyphicon-remove"></span>

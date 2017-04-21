@@ -28,7 +28,7 @@
                     <th>Name</th>
                     <th>ID</th>
                     <th>Owner</th>
-                    <th>Created</th>
+                    <th>Modified</th>
                     <th>Delete</th>
                 </tr>
             </thead>
@@ -42,7 +42,7 @@
                     <a ng-if="recipe._user" href="#/admin/user/{{recipe._user._id}}/details">{{recipe._user.username}}</a>
                     <span ng-if="!recipe._user">[removed]</span>
                 </th>
-                <th>{{recipe.dateCreated | date}}</th>
+                <th>{{recipe.dateModified | date}}</th>
                 <th>
                     <a ng-click="model.deleteRecipe(recipe, false)">
                         <span class="glyphicon glyphicon-remove"></span>

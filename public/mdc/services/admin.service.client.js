@@ -10,6 +10,7 @@
             "findAllBooks": findAllBooks,
             "findAllRecipes": findAllRecipes,
             "findAllCategories": findAllCategories,
+            "findAllNotifications": findAllNotifications,
             "createUser": createUser,
             "createBook": createBook,
             "createRecipe": createRecipe,
@@ -22,6 +23,7 @@
             "deleteBook": deleteBook,
             "deleteRecipe": deleteRecipe,
             "deleteCategory": deleteCategory,
+            "deleteNotification": deleteNotification,
             "isAdmin": isAdmin
         };
         return api;
@@ -44,6 +46,10 @@
 
         function findAllCategories() {
             return $http.get("/api/admin/categories");
+        }
+
+        function findAllNotifications() {
+            return $http.get("/api/admin/notifications");
         }
 
         function createUser(user) {
@@ -92,6 +98,10 @@
 
         function deleteCategory(cid) {
             return $http.delete('/api/admin/category/' + cid);
+        }
+
+        function deleteNotification(nid) {
+            return $http.delete('/api/notification/' + nid);
         }
 
     }

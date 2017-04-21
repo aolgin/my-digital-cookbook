@@ -27,7 +27,7 @@
                     <th>Name</th>
                     <th>ID</th>
                     <th>Owner</th>
-                    <th>Created</th>
+                    <th>Modified</th>
                     <th>Delete</th>
                 </tr>
             </thead>
@@ -38,7 +38,7 @@
                 </th>
                 <th>{{book._id}}</th>
                 <th><a href="#/admin/user/{{book._user._id}}/details">{{book._user.username}}</a></th>
-                <th>{{book.dateCreated | date}}</th>
+                <th>{{book.dateModified | date}}</th>
                 <th>
                     <a ng-click="model.deleteBook(book, false)">
                         <span class="glyphicon glyphicon-remove"></span>
