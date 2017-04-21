@@ -2,7 +2,7 @@
 My Digital Cookbook
 ===================
 
-My Digital Cookbook is a MEAN webapp meant for users to be able to create, maintain, and, if they so wish, share their own personal recipes. These recipes can either be separate, or compiled into a cookbook, which can eventually be exported as a PDF.
+My Digital Cookbook is a MEAN webapp meant for users to be able to create, maintain, and, if they so wish, share their own personal recipes. It was built as the final project for my Web Development course at Northeastern University.
 
 
 Stack
@@ -16,7 +16,7 @@ Release Process
 
 This github repository is linked up with the Heroku app, and any changes pushed up to **Master** will be auto-built-and-deployed up to Heroku.
 
-General development is being done under a **development** branch, and then later merged into master. Specific feature development is done under a **feature/feature-name** branch, and then later merged into master.
+General development is being done under a **development** branch, and then later merged into master.
 
 
 Running Locally
@@ -49,3 +49,8 @@ nodemon server.js # or using nodemon (for auto-updating based on code changes)
 ```
 
 Open up a web browser to **localhost:3000**, and the app should open up to the desired front page.
+
+Further Documentation
+=====================
+
+Comprehensive Documentation can be found on this [GoogleDoc](https://docs.google.com/document/d/1-GM6ckc5MkMrZmH3zGW2_57toeR67MVR8sQP848r2gI/edit?usp=sharing)
