@@ -15,7 +15,7 @@
             var path = $location.path();
             // divvy up the path, and then route to specific rendering functions based on it
             var pathParts = path.split("/");
-            if (pathParts.length == 2) {
+            if (pathParts.length === 2) {
                 renderDashboard();
             } else {
                 var page = pathParts[2];
@@ -95,17 +95,19 @@
         }
 
         function renderFeed() {
-            // console.log("Rendering feed...");
-            if (!vm.following || vm.following.length === 0) {
+            var following = currentUser.following;
+            console.log("Rendering feed...");
+            if (!following || following.length === 0) {
                 vm.feed_msg = "You aren\'t following anyone yet! Follow someone to start acquiring a feed.";
             } else {
-                var promise = NotificationService.findNotificationsForUsers(vm.following);
-                promise.then(function (response) {
-                        vm.feed = response.data;
-                    }).catch(function (err) {
-                        console.log("Error populating feed:\n" + err);
-                        vm.error = err;
-                    });
+                vm.feed_msg = "This feature is not yet ready.";
+                // var promise = NotificationService.findNotificationsForUsers(following);
+                // promise.then(function (response) {
+                //         vm.feed = response.data;
+                //     }).catch(function (err) {
+                //         console.log("Error populating feed:\n" + err);
+                //         vm.error = err;
+                //     });
             }
         }
     }

@@ -27,12 +27,17 @@ module.exports = function() {
         // http://mongoosejs.com/docs/api.html#query_Query-in
         // https://stackoverflow.com/questions/5818303/how-do-i-perform-an-id-array-query-in-mongoose
         return NotificationModel
-            .find()
-            .where(_user)
-            .in(users)
+            .find(
+                {"_user": {$in: [users]}}
+            )
+            .populate("_user", "_id username")
             .sort({ dateCreated: -1 })
             .exec();
     }
+
+    /* Adam, Alice, then Test
+     [ObjectId("58f99c4ef73da21e28cd2bf1"), ObjectId("58ed1f6911a9393088cc22f6"), ObjectId("58f7bd6d40428c50a4bb548c")]
+     */
 
     function findNotificationsByUser(uid) {
         // TODO: verify that this works properly. May need to grab the userobj first

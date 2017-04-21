@@ -1,9 +1,10 @@
 module.exports = function(app, model) {
     var NotificationModel = model.notificationModel;
+    var mongoose = require('mongoose');
 
+    app.get("/api/notification", findNotificationsForUsers);
     app.get("/api/notification/:nid", findNotificationById);
     app.get("/api/user/:uid/notification", findNotificationsByUser);
-    app.get("/api/notification", findNotificationsForUsers);
     app.post("/api/user/:uid/notification", createNotification);
     app.delete("/api/notification/:nid", checkAdmin, deleteNotification);
     app.get("/api/admin/notifications", checkAdmin, listAllNotifications);
@@ -21,10 +22,14 @@ module.exports = function(app, model) {
 
     // A function to look for notifications for all users within the given array
     function findNotificationsForUsers(req, res) {
-        var users = req.body;
-
+        var users = req.user.following;
+        for (var u in users) {
+            // mongoose.mongo.BSONPure.ObjectID.fromHexString("4eb6e7e7e9b7f4194e000001");
+            users[u] = users[u]._id;
+        }
         NotificationModel.findNotificationsForUsers(users)
             .then(function(results) {
+                console.log(results);
                 res.json(results);
             }, function (err) {
                 console.log(err);
