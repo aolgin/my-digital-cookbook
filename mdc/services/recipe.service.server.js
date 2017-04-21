@@ -138,11 +138,7 @@ module.exports = function(app, model) {
 
         model.userModel.findRecipesForUser(uid, limit)
             .then(function (user) {
-                var recipes = user.recipes;
-                for (var i = 0; i < user.recipes.length; i++) {
-                    recipes[i].description = recipes[i].description.substring(0, 25);
-                }
-                res.json(recipes);
+                res.json(user.recipes);
             }, function (err) {
                 console.log(err);
                 res.sendStatus(500);
@@ -155,11 +151,7 @@ module.exports = function(app, model) {
 
         recipeModel.createRecipe(uid, newRecipe)
             .then(function (recipe) {
-                model.notificationModel
-                    .createNotification(uid, "Created a new recipe: " + recipe.name)
-                    .then(function (response) {
-                        res.json(recipe);
-                    });
+                res.json(recipe);
             }, function (err) {
                 console.log(err);
                 res.sendStatus(500);
@@ -189,11 +181,7 @@ module.exports = function(app, model) {
 
         recipeModel.updateRecipe(rid, newRecipe)
             .then(function (response) {
-                model.notificationModel
-                    .createNotification(newRecipe._user, "Updated recipe: " + newRecipe.name)
-                    .then(function (response) {
-                        res.sendStatus(200);
-                    });
+                res.sendStatus(200);
             }, function (err) {
                 console.log(err);
                 res.sendStatus(500);

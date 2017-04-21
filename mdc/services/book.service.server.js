@@ -79,10 +79,6 @@ module.exports = function(app, model) {
 
         model.userModel.findBooksForUser(uid, limit)
             .then(function (user) {
-                var books = user.books;
-                for (var i = 0; i < books.length; i++) {
-                    books[i].description = books[i].description.substring(0, 25);
-                }
                 res.json(user.books);
             }, function (err) {
                 console.log(err);

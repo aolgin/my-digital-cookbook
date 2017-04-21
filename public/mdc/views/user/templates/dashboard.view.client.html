@@ -58,7 +58,7 @@
                         <a href="#/cookbook/{{book._id}}">{{book.name}}</a>
                     </div>
                     <div class="panel-body">
-                        <p>{{book.description}}</p>
+                        <p>{{book.description | limitTo : 140}}...</p>
                     </div>
                 </div>
             </div>
@@ -86,7 +86,7 @@
                         <a href="#/recipe/{{recipe._id}}">{{recipe.name}}</a>
                     </div>
                     <div class="panel-body">
-                        <p>{{recipe.description}}</p>
+                        <p>{{recipe.description | limitTo : 140}}...</p>
                     </div>
                 </div>
             </div>

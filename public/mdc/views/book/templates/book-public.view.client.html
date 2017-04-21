@@ -40,7 +40,7 @@
                             </a>
                         </th>
                         <th>
-                            <span>{{recipe.description | limitTo : 140}}</span>
+                            <span>{{recipe.description | limitTo : 140}}...</span>
                         </th>
                         <th ng-if="model.yourBook">
                             <a ng-click="model.detachRecipeFromBook(recipe._id)">

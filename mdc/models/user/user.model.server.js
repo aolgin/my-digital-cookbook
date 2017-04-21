@@ -90,7 +90,7 @@ module.exports = function() {
             .findById(uid)
             .populate({
                 path: "following",
-                select: "username _id",
+                select: "username _id about",
                 options: { sort: { 'username': 1 } }
             })
             .exec();
