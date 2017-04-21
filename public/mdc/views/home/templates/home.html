@@ -1,73 +1,42 @@
 <ng-include src="'views/misc/templates/header.view.client.html'"></ng-include>
 
-<!--<nav id="mainNav" class="navbar navbar-default navbar-fixed-top">-->
-    <!--<div class="container-fluid">-->
-        <!--<div class="navbar-header mdc-logo pull-left">-->
-            <!--<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">-->
-                <!--<span class="sr-only">Toggle navigation</span> Menu <i class="fa fa-bars"></i>-->
-            <!--</button>-->
-            <!--<a class="navbar-brand" href="/">-->
-                <!--<img src="../../../../img/logo-100x70.png"/>-->
-            <!--</a>-->
-        <!--</div>-->
-        <!--<ng-include src="views/search/templates/search-bar.view.client.html"></ng-include>-->
-        <!--<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">-->
-            <!--<ul class="nav navbar-nav navbar-right">-->
-                <!--<li>-->
-                    <!--<a class="page-scroll" href="#about">About</a>-->
-                <!--</li>-->
-                <!--<li ng-if="!model.user">-->
-                    <!--&lt;!&ndash;Temporary&ndash;&gt;-->
-                    <!--<a class="page-scroll" href="#/login">Login</a>-->
-                <!--</li>-->
-                <!--<li ng-if="!model.user">-->
-                    <!--&lt;!&ndash;Temporary&ndash;&gt;-->
-                    <!--<a class="page-scroll" href="#/register">Register</a>-->
-                <!--</li>-->
-                <!--<li ng-if="model.user">-->
-                    <!--<a class="page-scroll" href="#/profile">Profile</a>-->
-                    <!--<i class="fa fa-user-circle-o" aria-hidden="true"></i>-->
-                <!--</li>-->
-                <!--<li ng-if="model.user">-->
-                    <!--<a class="page-scroll" ng-click="model.logout()">Logout</a>-->
-                <!--</li>-->
-            <!--</ul>-->
-        <!--</div>-->
-    <!--</div>-->
-<!--</nav>-->
+<div id="page-content-wrapper">
 
-<header>
-    <div class="header-content">
-        <div class="header-content-inner">
-            <h1 id="homeHeading">Create your very own digital cookbook!</h1>
-            <hr>
-            <p>Or search for books or recipes below</p>
-            <div class="input-group">
-                <input type="text"
-                       class="form-control btn"
-                       placeholder="Search books or recipes"/>
-                <a class="input-group-addon btn btn-default">
-                    <span class="glyphicon glyphicon-search"></span>
-                </a>
+    <header class="main-page">
+        <div class="header-content">
+            <div class="header-content-inner">
+                <h1 id="homeHeading">Create your very own digital cookbook</h1>
+                <hr>
+                <p>Or search for books or recipes below</p>
+                <div class="main-page">
+                    <ng-include src="'views/search/templates/search-bar.view.client.html'"></ng-include>
+                </div>
+                <!--<div class="input-group">-->
+                <!--<input type="text"-->
+                <!--class="form-control btn"-->
+                <!--placeholder="Search books or recipes"/>-->
+                <!--<a class="input-group-addon btn btn-default">-->
+                <!--<span class="glyphicon glyphicon-search"></span>-->
+                <!--</a>-->
+                <!--</div>-->
             </div>
         </div>
-    </div>
-</header>
+    </header>
 
-<section class="bg-primary" id="about">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-8 col-lg-offset-2 text-center">
-                <h1>CORRECT PAGE</h1>
-                <h2 class="section-heading">Digitize your recipe collection today!</h2>
-                <hr class="light">
-                <p class="text-faded">
-                    My Digital Cookbook is an online repository for cookbooks and recipes. Search our site for options, or go ahead and create a profile and start digitizing your collection!
-                </p>
-                <a href="#/register" class="page-scroll btn btn-default btn-xl sr-button">Get Started!</a>
+    <section class="bg-primary main-page" id="about">
+        <div class="container-fluid">
+            <div>
+                <div class="col-lg-8 col-lg-offset-2 text-center">
+                    <h2 class="section-heading">Digitize your recipe collection today!</h2>
+                    <hr class="light">
+                    <p class="text-faded">
+                        My Digital Cookbook is an online repository for cookbooks and recipes. Search our site for options, or go ahead and create a profile and start digitizing your collection!
+                    </p>
+                    <a href="#/register" class="page-scroll btn btn-default btn-xl sr-button">Get Started!</a>
+                </div>
             </div>
         </div>
-    </div>
-</section>
+    </section>
 
-<ng-include src="'views/misc/templates/footer.view.client.html'"></ng-include>
+    <ng-include src="'views/misc/templates/footer.view.client.html'"></ng-include>
+</div>

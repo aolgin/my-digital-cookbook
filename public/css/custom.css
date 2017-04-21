@@ -1,3 +1,89 @@
+/* --- Start Main Page Specific CSS -- */
+
+header.main-page .header-content .header-content-inner h1 {
+    font-weight: 700;
+    text-transform: uppercase;
+    margin-top: 0;
+    margin-bottom: 0;
+    font-size: 30px;
+}
+
+header.main-page .header-content {
+    position: relative;
+    text-align: center;
+    padding: 100px 15px 100px;
+    width: 100%;
+}
+
+header.main-page {
+    position: relative;
+    width: 100%;
+    min-height: auto;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    background-size: cover;
+    -o-background-size: cover;
+    background-position: center;
+    background-image: url("../../img/header.jpg");
+    text-align: center;
+    color: white;
+}
+
+header.main-page .header-content {
+    position: relative;
+    text-align: center;
+    padding: 100px 15px 100px;
+    width: 100%;
+}
+
+.main-page hr {
+    border-color: #F05F40;
+    border-width: 3px;
+    max-width: 50px;
+}
+
+header.main-page .header-content .header-content-inner p {
+    font-weight: 300;
+    color: rgba(247, 239, 215, 0.9);
+    font-size: 16px;
+    margin-bottom: 50px;
+}
+
+section.main-page {
+    padding: 100px 0;
+}
+
+section.bg-primary {
+    color: #fff;
+    background-color: #F05F40;
+}
+
+.main-page .text-faded {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.main-page p {
+    font-size: 16px;
+    line-height: 1.5;
+    margin-bottom: 20px;
+}
+
+@media (min-width: 768px) {
+    header.main-page .header-content .header-content-inner p {
+        font-size: 18px;
+        max-width: 80%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
+
+
+/*.main-page .form-control {*/
+    /*border-radius: 15px;*/
+/*}*/
+
+/* --- End Main Page Specific CSS */
+
 body {
     padding-top: 60px;
     padding-bottom: 55px;
@@ -66,6 +152,8 @@ hr {
 
 .mdc-msg-text {
     text-align: center;
+    padding: 10px;
+    font-size: 14pt;
 }
 
 .mdc-logo {
