@@ -107,17 +107,21 @@
 
         function renderFeed() {
             var following = currentUser.following;
+            var limit = 30;
             if (!following || following.length === 0) {
                 vm.feed_msg = "You aren\'t following anyone yet! Follow someone to start acquiring a feed.";
             } else {
-                vm.feed_msg = "This feature is not yet ready.";
-                // var promise = NotificationService.findNotificationsForUsers(following);
-                // promise.then(function (response) {
-                //         vm.feed = response.data;
-                //     }).catch(function (err) {
-                //
-                //        vm.error = "An unexpected error occurred while trying to render your feed: \n" + err.data;
-                //     });
+                var promise = NotificationService.findUserFeed(vm.uid, limit);
+                promise.then(function (response) {
+                    var feed = response.data;
+                    if (feed.length > 0) {
+                        vm.feed = feed;
+                    } else {
+                        vm.feed_msg = "Your feed is currently empty!";
+                    }
+                }).catch(function (err) {
+                   vm.error = "An unexpected error occurred while trying to render your feed: \n" + err.data;
+                });
             }
         }
     }

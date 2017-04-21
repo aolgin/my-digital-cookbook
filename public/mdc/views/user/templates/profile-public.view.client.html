@@ -36,7 +36,7 @@
 
                     <h3>Chef {{model.user.username}}</h3>
                 </div>
-                <h5>Started cooking {{model.user.dateCreated | date}}</h5>
+                <h5>Started cooking {{model.user.dateCreated | date : "short"}}</h5>
                 <br>
                 <div ng-if="model.user.about">
                     <h4>About Me: </h4>

@@ -24,7 +24,7 @@
             <h5 ng-if="model.recipe._user">
                 Created by <a href="#/chef/{{model.recipe._user._id}}">{{model.recipe._user.username}}</a> on {{model.recipe.dateCreated | date}}
             </h5>
-            <h5 ng-if="!model.recipe._user">Created by [removed] on {{model.recipe.dateCreated | date}}</h5>
+            <h5 ng-if="!model.recipe._user">Created by [removed] on {{model.recipe.dateCreated | date : "short"}}</h5>
 
             <h4>{{model.recipe.description}}</h4>
             <div ng-if="model.username">
@@ -161,7 +161,7 @@
                         <p>{{comment.text}}</p>
                     </div>
                     <div class="panel-footer" ng-if="comment.rating">
-                        <span> Submitted by <a href="#/chef/{{comment._user._id}}">{{comment._user.username}}</a> on {{comment.dateCreated | date}}</span>
+                        <span> Submitted by <a href="#/chef/{{comment._user._id}}">{{comment._user.username}}</a> on {{comment.dateCreated | date : "short"}}</span>
                     </div>
                 </div>
             </div>

@@ -8,12 +8,17 @@
         var api = {
             "findNotificationById": findNotificationById,
             "findNotificationsByUser": findNotificationsByUser,
-            "findNotificationsForUsers": findNotificationsForUsers,
             "createNotification": createNotification,
             "deleteNotification": deleteNotification,
+            "findUserFeed": findUserFeed,
             "listAllNotifications": listAllNotifications
         };
         return api;
+
+
+        function findUserFeed(uid) {
+            return $http.get("/api/user/" + uid + "/notification");
+        }
 
         function findNotificationById(nid) {
             return $http.get("/api/notification/" + nid);
@@ -21,10 +26,6 @@
 
         function findNotificationsByUser(uid) {
             return $http.get("/api/user/" + uid + "/notification");
-        }
-
-        function findNotificationsForUsers(users) {
-            return $http.get("/api/notification", users);
         }
 
         function createNotification(uid, text) {
