@@ -5,7 +5,7 @@
 
     function SearchController(SearchService, currentUser, $routeParams, UserService, adminUser, $location) {
         var vm = this;
-        var term = $routeParams['term'];
+        vm.term = $routeParams['term'];
         var type = $routeParams['type'];
 
 
@@ -17,8 +17,8 @@
         }
 
         function init() {
-            if (term && type) {
-                search(term, type);
+            if (vm.term && type) {
+                search(vm.term, type);
             }
         }
         init();
@@ -31,6 +31,7 @@
         vm.logout = logout;
 
         function search(term, searchType) {
+            vm.term = term;
             switch (searchType) {
                 case 'Chefs':
                     searchUsers(term);

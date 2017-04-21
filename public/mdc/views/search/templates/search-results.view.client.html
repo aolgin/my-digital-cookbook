@@ -12,109 +12,58 @@
         </div>
     </div>
 
-    {{model.results}}
-
-    <div class="mdc-search-results container-fluid" ng-switch="model.resType">
-        <div ng-switch-when="user">
+    <div class="mdc-search-results container-fluid">
+        <div ng-if="model.resType == 'user'">
             <h3>Chef Search</h3>
+            <h4>Showing results for query: {{model.term}}</h4>
             <ul class="list-group">
-                <li class="list-group-item">
-                    <div class="row">
-                        <div class="col-sm-5 col-xs-10">
-                            Name
-                        </div>
-                        <div class="col-sm-3 hidden-xs">
-                            About
-                        </div>
-                    </div>
-                </li>
-
                 <li ng-repeat="result in model.results" class="list-group-item">
-                    <div class="row">
-                        <div class="col-sm-5 col-xs-10">
-                            <a href="#/chef/{{result._id}}">
-                                {{result.username}}
-                            </a>
-                        </div>
-                        <div class="col-sm-3 hidden-xs">
-                            {{result.about}}
-                        </div>
-                    </div>
+                    <h4 class="list-group-item-heading">
+                        <a href="#/chef/{{result._id}}">
+                        {{result.username}}
+                        </a>
+                    </h4>
+                    <p class="list-group-item-text">{{result.about}}</p>
                 </li>
             </ul>
         </div>
 
-        <div ng-switch-when="book">
+        <div ng-if="model.resType == 'book'">
             <h3>Cookbook Search</h3>
+            <h4>Showing results for query: {{model.term}}</h4>
             <ul class="list-group">
-                <li class="list-group-item">
-                    <div class="row">
-                        <div class="col-sm-5 col-xs-10">
-                            Name
-                        </div>
-                        <div class="col-sm-3 hidden-xs">
-                            Chef
-                        </div>
-                        <div class="col-sm-3 hidden-xs">
-                            Description
-                        </div>
-                    </div>
-                </li>
                 <li ng-repeat="result in model.results" class="list-group-item">
-                    {{result}}
-                    <div class="row">
-                        <div class="col-sm-5 col-xs-10">
+                    <div class="list-group-item-heading">
+                        <h4>
                             <a href="#/cookbook/{{result._id}}">
                                 {{result.name}}
-                            </a>
-                        </div>
-                        <div class="col-sm-3 hidden-xs">
+                            </a> by Chef
                             <a href="#/chef/{{result._user._id}}">{{result._user.username}}</a>
-                        </div>
-                        <div class="col-sm-2 hidden-xs">
-                            {{result.description}}
-                        </div>
+                        </h4>
                     </div>
+                    <p class="list-group-item-text">{{result.description}}</p>
                 </li>
             </ul>
         </div>
 
-        <div ng-switch-when="recipe">
+        <div ng-if="model.resType == 'recipe'">
             <h3>Recipe Search</h3>
+            <h4>Showing results for query: {{model.term}}</h4>
             <ul class="list-group">
-                <li class="list-group-item">
-                    <div class="row">
-                        <div class="col-sm-5 col-xs-10">
-                            Name
-                            <span class="glyphicon glyphicon-triangle-top"></span>
-                        </div>
-                        <div class="col-sm-3 hidden-xs">
-                            Description
-                        </div>
-                        <div class="col-sm-3 hidden-xs">
-                            Chef
-                        </div>
-                        <div class="col-sm-3 hidden-xs">
-                            Rating
-                        </div>
-                    </div>
-                </li>
                 <li ng-repeat="result in model.results" class="list-group-item">
-                    <div class="row">
-                        <div class="col-sm-5 col-xs-10">
-                            <a href="#/recipe/{{result._id}}">
-                                {{result.name}}
-                            </a>
-                        </div>
-                        <div class="col-sm-3 hidden-xs">
-                            {{result.description}}
-                        </div>
-                        <div class="col-sm-2 hidden-xs">
-                            <a href="#/chef/{{result._user._id}}">{{result._user.username}}</a>
-                        </div>
-                        <div class="col-sm-2 hidden-xs">
-                            {{result.rating.actual}}
-                        </div>
+                    <div class="list-group-item-heading">
+                        <span uib-rating
+                              ng-model="result.rating.actual"
+                              max="5"
+                              read-only="true"
+                              class="pull-right"
+                              on-hover="hoveringOver(value)"
+                              on-leave="overStar = null"
+                              aria-labelledby="default-rating"></span>
+                        <h4><a href="#/recipe/{{result._id}}">{{result.name}}</a> by Chef <a ng-if="result._user" href="#/chef/{{result._user._id}}">{{result._user.username}}</a><span ng-if="!result._user">[removed]</span></h4>
+                    </div>
+                    <div class="list-group-item-text">
+                        <p>{{result.description}}</p>
                     </div>
                 </li>
             </ul>
