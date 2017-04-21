@@ -21,10 +21,10 @@
                 var page = pathParts[2];
                 switch (page) {
                     case 'books':
-                        renderBooks(500);
+                        renderBooks();
                         break;
                     case 'recipes':
-                        renderRecipes(500);
+                        renderRecipes();
                         break;
                     case 'following':
                         renderFollowing();
@@ -50,8 +50,8 @@
         }
 
         function renderDashboard() {
-            renderBooks(3);
-            renderRecipes(3);
+            renderBooks(5);
+            renderRecipes(5);
             renderFeed();
         }
 
@@ -96,7 +96,6 @@
 
         function renderFeed() {
             var following = currentUser.following;
-            console.log("Rendering feed...");
             if (!following || following.length === 0) {
                 vm.feed_msg = "You aren\'t following anyone yet! Follow someone to start acquiring a feed.";
             } else {

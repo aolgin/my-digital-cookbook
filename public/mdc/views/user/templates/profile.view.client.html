@@ -10,45 +10,43 @@
         </div>
     </div>
 
-    <form>
-        <div class="form-group">
-            <label for="username">Username</label>
-            <input ng-model="model.user.username"
-                   type="text"
-                   autocorrect="off"
-                   autocapitalize="off"
-                   class="form-control"
-                   id="username"
-                   placeholder="jsmith">
-        </div>
-        <div class="form-group">
-            <label for="first-name">First Name</label>
-            <input ng-model="model.user.firstName"
-                   type="text"
-                   autocorrect="off"
-                   autocapitalize="off"
-                   class="form-control"
-                   id="first-name"
-                   placeholder="John">
-        </div>
-        <div class="form-group">
-            <label for="last-name">Last Name</label>
-            <input ng-model="model.user.lastName"
-                   type="text"
-                   autocorrect="off"
-                   autocapitalize="off"
-                   class="form-control"
-                   id="last-name"
-                   placeholder="Smith">
-        </div>
-        <div class="form-group">
-            <label for="about">About Me</label>
-            <textarea ng-model="model.user.about"
-                      class="form-control"
-                      id="about"
-                      placeholder="A little bit about yourself..."></textarea>
-        </div>
-    </form>
+    <div class="form-group">
+        <label for="username">Username</label>
+        <input ng-model="model.user.username"
+               type="text"
+               autocorrect="off"
+               autocapitalize="off"
+               class="form-control"
+               id="username"
+               placeholder="jsmith">
+    </div>
+    <div class="form-group">
+        <label for="first-name">First Name</label>
+        <input ng-model="model.user.firstName"
+               type="text"
+               autocorrect="off"
+               autocapitalize="off"
+               class="form-control"
+               id="first-name"
+               placeholder="John">
+    </div>
+    <div class="form-group">
+        <label for="last-name">Last Name</label>
+        <input ng-model="model.user.lastName"
+               type="text"
+               autocorrect="off"
+               autocapitalize="off"
+               class="form-control"
+               id="last-name"
+               placeholder="Smith">
+    </div>
+    <div class="form-group">
+        <label for="about">About Me</label>
+        <textarea ng-model="model.user.about"
+                  class="form-control"
+                  id="about"
+                  placeholder="A little bit about yourself..."></textarea>
+    </div>
 
     <a class="btn btn-primary btn-block"
        ng-click="model.update(model.user)">
