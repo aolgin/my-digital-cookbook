@@ -1,7 +1,7 @@
 <ng-include src="'views/misc/templates/header.view.client.html'"></ng-include>
 
 <div id="page-content-wrapper">
-    <!--<ng-include src="'views/search/templates/search-bar.view.client.html'"></ng-include>-->
+    <ng-include src="'views/search/templates/search-bar.view.client.html'"></ng-include>
 
     <div>
         <div class="alert alert-danger" ng-show="model.error">
@@ -36,14 +36,14 @@
                     <div class="row">
                         <div class="col-sm-5 col-xs-10">
                             <a href="#/chef/{{result._id}}">
-                                {{result.displayName}}
+                                {{result.username}}
                             </a>
                         </div>
                         <div class="col-sm-3 hidden-xs">
                             {{result.about}}
                         </div>
                         <div class="col-sm-2 hidden-xs">
-                            {{result.image_id}}
+                            {{result.img_record.url}}
                         </div>
                     </div>
                 </li>
@@ -70,20 +70,21 @@
                     </div>
                 </li>
                 <li ng-repeat="result in model.results" class="list-group-item">
+                    {{result}}
                     <div class="row">
                         <div class="col-sm-5 col-xs-10">
-                            <a href="#/book/{{result._id}}">
+                            <a href="#/cookbook/{{result._id}}">
                                 {{result.name}}
                             </a>
                         </div>
                         <div class="col-sm-3 hidden-xs">
-                            {{result._user}}
+                            <a href="#/chef/{{result._user._id}}">{{result._user.username}}</a>
                         </div>
                         <div class="col-sm-2 hidden-xs">
                             {{result.description}}
                         </div>
                         <div class="col-sm-2 hidden-xs">
-                            {{result.image_id}}
+                            {{result.img_record.url}}
                         </div>
                     </div>
                 </li>
@@ -124,13 +125,13 @@
                             {{result.description}}
                         </div>
                         <div class="col-sm-2 hidden-xs">
-                            {{result._user}}
+                            <a href="#/chef/{{result._user._id}}">{{result._user.username}}</a>
                         </div>
                         <div class="col-sm-2 hidden-xs">
-                            {{result.rating}}
+                            {{result.rating.actual}}
                         </div>
                         <div class="col-sm-2 hidden-xs">
-                            {{result.image_id}}
+                            {{result.img_record}}
                         </div>
                     </div>
                 </li>

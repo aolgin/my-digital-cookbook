@@ -3,11 +3,23 @@ module.exports = function(app, model) {
     var passport = require('passport');
     var bcrypt = require('bcrypt-nodejs');
     var auth = authorized;
-    var LocalStrategy = require('passport-local').Strategy;
-    passport.use(new LocalStrategy(localStrategy));
     passport.serializeUser(serializeUser);
     passport.deserializeUser(deserializeUser);
+    var callback = process.env.GOOGLE_CALLBACK || 'callback';
 
+    var googleConfig = {
+        clientID: process.env.GOOGLE_CLIENT_ID,
+        clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+        callbackURL: callback
+    };
+
+
+    var LocalStrategy = require('passport-local').Strategy;
+    var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
+    passport.use(new LocalStrategy(localStrategy));
+    passport.use(new GoogleStrategy(googleConfig, googleStrategy));
+
+    app.get('/auth/google', passport.authenticate('google', {scope: ['profile', 'email']}));
     app.post  ('/api/login', passport.authenticate('local'), login);
     app.post  ('/api/logout',         logout);
     app.post  ('/api/register',       register);
@@ -27,6 +39,10 @@ module.exports = function(app, model) {
     app.delete("/api/user/:uid/follow", unfollowUser);
     app.get("/api/user/:uid/follow", findFollowingByUserId);
     app.get("/api/user/:uid/follow/:chefId", isFollowingChef);
+    app.get(callback, passport.authenticate('google', {
+        successRedirect: '#/profile',
+        failureRedirect: '#/error?code=401'
+    }));
 
     // Helper Functions
 
@@ -36,6 +52,43 @@ module.exports = function(app, model) {
         } else {
             next();
         }
+    }
+
+    function googleStrategy(token, refreshToken, profile, done) {
+        userModel
+            .findUserByGoogleId(profile.id)
+            .then(
+                function(user) {
+                    if(user) {
+                        return done(null, user);
+                    } else {
+                        var email = profile.emails[0].value;
+                        var emailParts = email.split("@");
+                        var newGoogleUser = {
+                            username:  emailParts[0],
+                            firstName: profile.name.givenName,
+                            lastName:  profile.name.familyName,
+                            email:     email,
+                            google: {
+                                id:    profile.id,
+                                token: token
+                            }
+                        };
+                        return userModel.createUser(newGoogleUser);
+                    }
+                },
+                function(err) {
+                    if (err) { return done(err); }
+                }
+            )
+            .then(
+                function(user){
+                    return done(null, user);
+                },
+                function(err){
+                    if (err) { return done(err); }
+                }
+            );
     }
 
     function localStrategy(username, password, done) {

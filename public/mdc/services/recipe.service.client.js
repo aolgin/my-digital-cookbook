@@ -8,6 +8,7 @@
         var api = {
             "findRecipesByBookId": findRecipesByBookId,
             "createRecipe": createRecipe,
+            "createRecipeInBook": createRecipeInBook,
             "deleteRecipe": deleteRecipe,
             "updateRecipe": updateRecipe,
             "findRecipeById": findRecipeById,
@@ -37,8 +38,12 @@
             return $http.get("/api/book/" + bid + "/recipe");
         }
 
-        function createRecipe(recipe, bid) {
-            return $http.post("/api/book/" + bid + "/recipe", recipe);
+        function createRecipeInBook(recipe, uid, bid) {
+            return $http.post("/api/user/" + uid + "/book/" + bid + "/recipe", recipe);
+        }
+
+        function createRecipe(recipe, uid) {
+            return $http.post("/api/user/" + uid + "/recipe", recipe);
         }
 
         function deleteRecipe(rid) {

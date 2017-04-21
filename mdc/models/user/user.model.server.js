@@ -12,6 +12,7 @@ module.exports = function() {
         findBooksForUser: findBooksForUser,
         findRecipesForUser: findRecipesForUser,
         findUserByUsername: findUserByUsername,
+        findUserByGoogleId: findUserByGoogleId,
         updateUser: updateUser,
         removeUser: removeUser,
         removeBookFromUser: removeBookFromUser,
@@ -32,12 +33,16 @@ module.exports = function() {
         model = _model;
     }
 
+    function findUserByGoogleId(gid) {
+        return UserModel.findOne({'google.id': gid});
+    }
+
     function searchUsers(term) {
         var re = new RegExp(term, 'i');
         return UserModel
             .find()
             .or([{ 'firstName': { $regex: re }}, { 'lastName': { $regex: re }}, { 'about': { $regex: re }}, { 'username': { $regex: re }}])
-            .select("img_record username firstName lastName about -_id")
+            .select("img_record username firstName lastName about")
             .populate("img_record", "url")
             .sort({'username': 1})
             .exec();

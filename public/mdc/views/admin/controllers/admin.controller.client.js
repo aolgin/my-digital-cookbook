@@ -3,7 +3,7 @@
         .module("MyDigitalCookbook")
         .controller("AdminController", AdminController);
 
-    function AdminController(AdminService, $location, $rootScope) {
+    function AdminController(AdminService, $location, $rootScope, UserService) {
         var vm = this;
 
         function init() {
@@ -16,6 +16,16 @@
         vm.renderRecipes = renderRecipes;
         vm.deleteUser = deleteUser;
         vm.login = login;
+        vm.logout = logout;
+
+        function logout() {
+            UserService
+                .logout()
+                .then(function (response) {
+                    $rootScope.currentUser = null;
+                    $location.url("/login/admin");
+                });
+        }
 
         function login(user) {
             if (!user.username || !user.password) {

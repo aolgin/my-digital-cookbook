@@ -30,7 +30,7 @@ module.exports = function() {
                 { 'name': { $regex: re }},
                 { 'description': { $regex: re }}
             ])
-            .select("-_id name description img_record _user")
+            .select("name description img_record _user")
             .populate("_user", "username")
             .populate("img_record", "url")
             .sort({'dateModified': 1})

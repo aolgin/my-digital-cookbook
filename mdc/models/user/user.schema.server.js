@@ -14,7 +14,11 @@ module.exports = function() {
         photos: [String],
         role: {type: String, enum: ['ADMIN', 'USER'], default: 'USER'},
         following: [{type: mongoose.Schema.Types.ObjectId, ref:'UserModel'}],
-        follower_count: Number
+        follower_count: Number,
+        google: {
+            id: String,
+            token: String
+        }
     }, {collection: "user",
         timestamps: {
             createdAt: "dateCreated",

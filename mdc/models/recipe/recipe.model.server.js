@@ -35,7 +35,7 @@ module.exports = function() {
                 { 'ingredients': { $regex: re }},
                 { 'directions': { $regex: re }}
             ])
-            .select("-_id name description img_record rating _user")
+            .select("name description img_record rating _user")
             .populate("rating", "actual")
             .populate("_user", "username")
             .populate("img_record", "url")
