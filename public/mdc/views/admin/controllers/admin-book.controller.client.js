@@ -44,9 +44,7 @@
             BookService.findBookById(bid)
                 .then(function (response) {
                     vm.book = response.data;
-                    console.log(vm.book);
                 }).catch(function (err) {
-                    console.log(err);
                     vm.error = "Error fetching book:\n" + err;
                 });
         }
@@ -56,8 +54,8 @@
                 .then(function (response) {
                     vm.books = response.data;
                 }).catch(function (err) {
-                vm.error = "Error fetching books: \n" + err;
-            })
+                    vm.error = "Error fetching books: \n" + err;
+                })
         }
 
         function renderUsers() {

@@ -29,7 +29,6 @@
                 return
             }
 
-            console.log(user);
             UserService.updatePassword(vm.uid, user)
                 .then(function (response) {
                     $location.url("/profile");
@@ -37,7 +36,7 @@
                     if (err.status === 401) {
                         vm.error = "Password does not match one on file.";
                     } else {
-                        vm.error = "An unexpected issue occurred trying to update your password:\n" + err;
+                        vm.error = "An unexpected issue occurred trying to update your password:\n" + err.data;
                     }
                 });
         }

@@ -55,11 +55,10 @@
                 .then(function (response) {
                     renderFollowing();
                 }).catch(function (err) {
-                    console.log(err);
                     if (err.status === 401) {
                         vm.error = "You are not authorized to perform this action";
                     } else {
-                        vm.error = "An error occurred trying to unfollow this chef:\n" + err;
+                        vm.error = "An error occurred trying to unfollow this chef:\n" + err.data;
                     }
                 });
         }
@@ -78,8 +77,7 @@
                     vm.book_msg = "No cookbooks created yet! Go to the cookbooks tab to make one";
                 }
             }).catch(function (err) {
-                console.log("Error acquiring books: " + err);
-                vm.error = err;
+                vm.error = "An unexpected error occurred while trying to render your cookbooks: \n" + err.data;
             });
         }
 
@@ -91,8 +89,7 @@
                     vm.recipe_msg = "No recipes created yet! Go to the recipes tab to make one";
                 }
             }).catch(function (err) {
-                console.log("Error acquiring recipes:\n" + err);
-                vm.error = err;
+                vm.error = "An unexpected error occurred while trying to render your recipes: \n" + err.data;
             });
         }
 
@@ -104,8 +101,7 @@
                     vm.following_msg = "Not following anyone yet!";
                 }
             }).catch(function (err) {
-                console.log("Error finding following:\n" + err);
-                vm.error = err;
+                vm.error = "An unexpected error occurred while trying to render your following: \n" + err.data;
             });
         }
 
@@ -119,8 +115,8 @@
                 // promise.then(function (response) {
                 //         vm.feed = response.data;
                 //     }).catch(function (err) {
-                //         console.log("Error populating feed:\n" + err);
-                //         vm.error = err;
+                //
+                //        vm.error = "An unexpected error occurred while trying to render your feed: \n" + err.data;
                 //     });
             }
         }

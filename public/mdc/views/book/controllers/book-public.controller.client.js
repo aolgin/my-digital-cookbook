@@ -34,8 +34,7 @@
                     console.log(err);
                     $location.url("/error?code=404");
                 }).catch(function (err) {
-                    console.log(err);
-                    vm.error = "An error occurred finding this cookbook. We apologize for any inconvenience";
+                    vm.error = "An error occurred finding this cookbook. We apologize for any inconvenience:\n" + err;
                     vm.yourBook = false;
                 });
         }

@@ -31,10 +31,8 @@ var port = process.env.PORT || 3000;
 
 app.listen(port);
 
+// Redirect to the angular home page
 app.get('/', function (req, res) {
-    // var url = "http://localhost:3000/mdc/#/";
-    // console.log(url);
-    // res.redirect(url);
     res.writeHead(301, {
         Location: "http" + (req.socket.encrypted ? "s" : "") + "://" +
         req.headers.host + '/mdc/#/'

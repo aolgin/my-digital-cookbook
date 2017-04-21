@@ -44,7 +44,6 @@
                 .then(function (response) {
                     vm.user = response.data;
                 }).catch(function (err) {
-                    console.log(err);
                     vm.error = "Error fetching user:\n" + err;
                 })
         }

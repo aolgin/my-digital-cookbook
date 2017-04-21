@@ -24,8 +24,7 @@
                     }
                     isYourRecipe();
                 }).catch(function (err) {
-                    console.log(err);
-                    vm.error = "An error occurred finding this recipe. We apologize for any inconvenience";
+                    vm.error = "An error occurred finding this recipe. We apologize for any inconvenience:\n" + err;
                     vm.yourRecipe = false;
                 });
         }
@@ -65,8 +64,7 @@
                                 }
                             });
                     }).catch(function (err) {
-                        console.log(err);
-                        vm.commentErr = "An unexpected error occured trying to delete your comment";
+                        vm.commentErr = "An unexpected error occured trying to delete your comment:\n" + err;
                     });
             }
         }

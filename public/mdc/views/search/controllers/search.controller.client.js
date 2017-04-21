@@ -66,7 +66,6 @@
             promise.then(function(response) {
                 vm.results = response.data;
             }).catch(function (err) {
-                console.log(err);
                 vm.results = null;
                 var status = err.status;
                 if (status == 404) {
@@ -84,7 +83,6 @@
             promise.then(function(response) {
                 vm.results = response.data;
             }).catch(function (err) {
-                console.log(err);
                 vm.results = null;
                 var status = err.status;
                 if (status == 404) {
@@ -120,7 +118,6 @@
             promise.then(function(response) {
                 vm.results = response.data;
             }).catch(function (err) {
-                console.log(err);
                 vm.results = null;
                 var status = err.status;
                 if (status == 404) {

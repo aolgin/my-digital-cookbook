@@ -24,7 +24,6 @@
                     $location.url("/dashboard");
                 }
             }).catch(function (err) {
-                console.log(err);
                 var status = err.status;
                 if (status == 404 || status == 401) {
                     vm.error = 'No user found matching those credentials';
