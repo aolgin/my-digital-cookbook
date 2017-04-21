@@ -162,6 +162,7 @@ module.exports = function(app, model) {
                 if (err.code == 11000) {
                     res.sendStatus(409);
                 } else {
+                    console.log(err);
                     res.sendStatus(500);
                 }
             });
