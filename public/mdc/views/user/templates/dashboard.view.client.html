@@ -39,8 +39,8 @@
 
     <div class="container-fluid">
         <div>
-            <a href="#/dashboard/books/new" class="pull-right">
-                <span class="glyphicon glyphicon-plus"></span>
+            <a href="#/dashboard/books" class="pull-right">
+                <span>See all...</span>
             </a>
             <h4>My Cookbooks</h4>
             <hr>
@@ -49,13 +49,13 @@
             {{model.book_msg}}
         </div>
         <div ng-repeat="book in model.books">
-            <div class="col-md-3">
-                <div class="panel panel-default">
+            <div class="col-md-4">
+                <div class="panel panel-default panel-seth-green">
                     <div class="panel-heading">
                         <a href="#/dashboard/books/{{book._id}}" class="pull-right btn">
                             <span class="glyphicon glyphicon-pencil"></span>
                         </a>
-                        <h4><a href="#/cookbook/{{book._id}}">{{book.name}}</a></h4>
+                        <a href="#/cookbook/{{book._id}}">{{book.name}}</a>
                     </div>
                     <div class="panel-body">
                         <p>{{book.description}}</p>
@@ -67,8 +67,8 @@
 
     <div class="container-fluid">
         <div>
-            <a href="#/dashboard/recipes/new" class="pull-right">
-                <span class="glyphicon glyphicon-plus"></span>
+            <a href="#/dashboard/recipes" class="pull-right">
+                <span>See all...</span>
             </a>
             <h4>My Recipes</h4>
             <hr>
@@ -77,13 +77,13 @@
             {{model.recipe_msg}}
         </div>
         <div ng-repeat="recipe in model.recipes">
-            <div class="col-md-3">
-                <div class="panel panel-default">
+            <div class="col-md-4">
+                <div class="panel panel-default panel-seth-green">
                     <div class="panel-heading">
                         <a href="#/dashboard/recipes/{{recipe._id}}" class="pull-right btn">
                             <span class="glyphicon glyphicon-pencil"></span>
                         </a>
-                        <h4><a href="#/recipe/{{recipe._id}}">{{recipe.name}}</a></h4>
+                        <a href="#/recipe/{{recipe._id}}">{{recipe.name}}</a>
                     </div>
                     <div class="panel-body">
                         <p>{{recipe.description}}</p>

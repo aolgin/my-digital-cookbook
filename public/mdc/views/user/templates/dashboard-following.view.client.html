@@ -46,10 +46,13 @@
             {{model.following_msg}}
         </div>
         <div ng-repeat="follower in model.following">
-            <div class="col-md-3">
-                <div class="panel panel-default">
+            <div class="col-md-4">
+                <div class="panel panel-default panel-seth-green">
                     <div class="panel-heading">
-                        <h4><a href="#/chef/{{follower._id}}">{{follower.username}}</a></h4>
+                        <a ng-click="model.unfollowUser()" class="pull-right">
+                            <i class="fa fa-user-times" aria-hidden="true"></i>
+                        </a>
+                        <a href="#/chef/{{follower._id}}">{{follower.username}}</a>
                     </div>
                     <div class="panel-body">
                         <p>{{follower.about}}</p>

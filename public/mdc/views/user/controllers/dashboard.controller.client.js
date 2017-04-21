@@ -50,8 +50,8 @@
         }
 
         function renderDashboard() {
-            renderBooks(5);
-            renderRecipes(5);
+            renderBooks(3);
+            renderRecipes(3);
             renderFeed();
         }
 

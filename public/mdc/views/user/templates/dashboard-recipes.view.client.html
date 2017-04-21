@@ -49,13 +49,13 @@
             {{model.recipe_msg}}
         </div>
         <div ng-repeat="recipe in model.recipes">
-            <div class="col-md-3">
-                <div class="panel panel-default">
+            <div class="col-md-4">
+                <div class="panel panel-default panel-seth-green">
                     <div class="panel-heading">
                         <a href="#/dashboard/recipes/{{recipe._id}}" class="pull-right btn">
                             <span class="glyphicon glyphicon-pencil"></span>
                         </a>
-                        <h4><a href="#/recipe/{{recipe._id}}">{{recipe.name}}</a></h4>
+                        <a href="#/recipe/{{recipe._id}}">{{recipe.name}}</a>
                     </div>
                     <div class="panel-body">
                         <p>{{recipe.description}}</p>
