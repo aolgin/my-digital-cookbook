@@ -71,7 +71,7 @@
                 if (status == 404) {
                     vm.error = 'No users matching your search term found!';
                 } else {
-                    vm.error = 'An uncaught error occurred when searching:\n' + err.data;
+                    vm.error = 'An unexpected error occurred when searching:\n' + err.data;
                 }
             });
         }
@@ -88,7 +88,7 @@
                 if (status == 404) {
                     vm.error = 'No recipes matching your search term found!';
                 } else {
-                    vm.error = 'An uncaught error occurred when searching:\n' + err.data;
+                    vm.error = 'An unexpected error occurred when searching:\n' + err.data;
                 }
             });
         }
@@ -106,7 +106,7 @@
         //         if (status == 404) {
         //             vm.error = 'No recipes matching your search term found!';
         //         } else {
-        //             vm.error = 'An uncaught error occurred when searching:\n' + err.data;
+        //             vm.error = 'An unexpected error occurred when searching:\n' + err.data;
         //         }
         //     });
         // }
@@ -123,7 +123,7 @@
                 if (status == 404) {
                     vm.error = 'No cookbooks matching your search term found!';
                 } else {
-                    vm.error = 'An uncaught error occurred when searching:\n' + err.data;
+                    vm.error = 'An unexpected error occurred when searching:\n' + err.data;
                 }
             });
         }

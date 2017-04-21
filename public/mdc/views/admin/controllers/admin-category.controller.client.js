@@ -80,7 +80,7 @@
                         if (err.status === 401) {
                             vm.error = "You are not authorized to perform that action";
                         } else {
-                            vm.error = "An uncaught error occurred deleting the category: \n" + err.data;
+                            vm.error = "An unexpected error occurred deleting the category: \n" + err.data;
                         }
                     });
             }
@@ -104,7 +104,7 @@
                     } else if (err.status === 401) {
                         vm.error = "You are not authorized to perform that action";
                     } else {
-                        vm.error = "An uncaught error occurred creating the category: \n" + err.data;
+                        vm.error = "An unexpected error occurred creating the category: \n" + err.data;
                     }
                 });
         }
@@ -127,7 +127,7 @@
                     } else if (err.status === 401) {
                         vm.error = "You are not authorized to perform that action";
                     } else {
-                        vm.error = "An uncaught error occurred updating the category: \n" + err.data;
+                        vm.error = "An unexpected error occurred updating the category: \n" + err.data;
                     }
                 });
         }

@@ -54,7 +54,7 @@
                     if (err.status === 401) {
                         vm.error = "You are not authorized to perform this action";
                     } else {
-                        vm.error = "An uncaught error occurred deleting your book: \n" + err.data;
+                        vm.error = "An unexpected error occurred deleting your book: \n" + err.data;
                     }
                 });
             }
@@ -77,7 +77,7 @@
                 } else if (status === 409) {
                     vm.error = "A book with that name already exists! Please use a different name.";
                 } else {
-                    vm.error = "An uncaught error occurred when updating your book: \n" + err.data;
+                    vm.error = "An unexpected error occurred when updating your book: \n" + err.data;
                 }
             });
         }

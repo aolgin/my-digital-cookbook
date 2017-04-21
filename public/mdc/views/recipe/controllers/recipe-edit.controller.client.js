@@ -55,7 +55,7 @@
                     if (err.status === 401) {
                         vm.error = "You are not authorized to perform this action";
                     } else {
-                        vm.error = "An uncaught error occurred deleting your recipe: \n" + err.data;
+                        vm.error = "An unexpected error occurred deleting your recipe: \n" + err.data;
                     }
                 });
             }
@@ -72,7 +72,7 @@
                 if (err.status === 401) {
                     vm.error = "You are not authorized to perform this action";
                 } else {
-                    vm.error = "An uncaught error occurred when updating your recipe: \n" + err.data;
+                    vm.error = "An unexpected error occurred when updating your recipe: \n" + err.data;
                 }
             });
 

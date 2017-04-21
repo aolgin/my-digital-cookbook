@@ -41,7 +41,7 @@
                     if (status == 409) {
                         vm.error = "User with that username already exists: " + user.username;
                     } else {
-                        vm.error = "An uncaught error occurred registering your user: \n" + err.data;
+                        vm.error = "An unexpected error occurred registering your user: \n" + err.data;
                     }
                 });
         }

@@ -57,7 +57,7 @@
                         if (err.status === 401) {
                             vm.error = "You are not authorized to perform that action";
                         } else {
-                            vm.error = "An uncaught error occurred deleting the notification: \n" + err.data;
+                            vm.error = "An unexpected error occurred deleting the notification: \n" + err.data;
                         }
                     });
             }

@@ -46,7 +46,7 @@
                 } else if (status === 409) {
                     vm.error = "A user with that username already exists!";
                 } else {
-                    vm.error = "An uncaught error occurred updating your user information: \n" + err.data;
+                    vm.error = "An unexpected error occurred updating your user information: \n" + err.data;
                 }
             });
         }
@@ -63,7 +63,7 @@
                     if (err.status === 401) {
                         vm.error = "You are not authorized to perform this action";
                     } else {
-                        vm.error = "An uncaught error occurred deleting your user: \n" + err.data;
+                        vm.error = "An unexpected error occurred deleting your user: \n" + err.data;
                     }
                 });
             }

@@ -28,7 +28,7 @@
                 if (status == 404 || status == 401) {
                     vm.error = 'No user found matching those credentials';
                 } else {
-                    vm.error = 'An uncaught error occurred when logging in:\n' + err.data;
+                    vm.error = 'An unexpected error occurred when logging in:\n' + err.data;
                 }
             });
         }
