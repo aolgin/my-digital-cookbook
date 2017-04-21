@@ -94,9 +94,14 @@ module.exports = function() {
     }
 
     function findBookById(bid) {
+        //TODO: sort these
         return BookModel
             .findById(bid)
-            .populate("recipes", "name description _user _id")
+            .populate({
+                path: "recipes",
+                select: "name description _user _id",
+                options: { sort: { dateModified: -1 }}
+            })
             .populate("_user", "username _id")
             .exec();
     }

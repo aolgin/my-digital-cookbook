@@ -22,6 +22,8 @@
 
         function init() {
             renderProfile(vm.chefId);
+            renderBooks(vm.chefId);
+            renderRecipes(vm.chefId);
             if (currentUser) {
                 areYouTheChef();
                 if (!vm.yourProfile) {
@@ -73,6 +75,26 @@
                 }).catch(function (err) {
                     console.log(err);
                     vm.error = "Unable to find a user with the specified ID";
+                });
+        }
+
+        function renderBooks(uid) {
+            UserService.findBooksByUserId(uid, 5)
+                .then(function (response) {
+                    vm.books = response.data;
+                }).catch(function (err) {
+                    console.log(err);
+                    vm.error = "Error rendering user\'s books";
+                });
+        }
+
+        function renderRecipes(uid) {
+            UserService.findRecipesByUserId(uid, 5)
+                .then(function (response) {
+                    vm.recipes = response.data;
+                }).catch(function (err) {
+                    console.log(err);
+                    vm.error = "Error rendering user\'s recipes";
                 });
         }
 

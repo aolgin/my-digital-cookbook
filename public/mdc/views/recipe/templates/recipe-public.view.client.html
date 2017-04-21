@@ -126,7 +126,7 @@
                 <textarea id="comment-text"
                           class="form-control"
                           ng-model="comment.text"></textarea>
-                <div class="btn-group btn-group-justified mdc-extra-vertical-padding">
+                <div class="btn-group btn-group-justified">
                     <a ng-click="model.commentOnRecipe(comment)"
                             class="btn btn-primary">Post</a>
                     <a ng-click="model.commentBoxToggle()"
@@ -135,7 +135,7 @@
             </form>
         </div>
 
-        <div ng-show="model.commentsMsg" class="mdc-msg-text">
+        <div ng-if="model.commentsMsg" class="mdc-msg-text">
             <span>{{model.commentsMsg}}</span>
         </div>
 

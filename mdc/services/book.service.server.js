@@ -81,7 +81,7 @@ module.exports = function(app, model) {
             .then(function (user) {
                 var books = user.books;
                 for (var i = 0; i < books.length; i++) {
-                    books[i].description = books[i].description.substring(0, 50);
+                    books[i].description = books[i].description.substring(0, 25);
                 }
                 res.json(user.books);
             }, function (err) {

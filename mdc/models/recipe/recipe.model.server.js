@@ -49,7 +49,7 @@ module.exports = function() {
             .select("name description rating _user")
             .populate("_user", "username")
             .populate("categories", "name -_id")
-            .sort({'dateModified': 1})
+            .sort({'dateModified': -1})
             .exec();
     }
 
@@ -123,7 +123,7 @@ module.exports = function() {
             .populate({
                 path: "comments",
                 select: "_user text rating _id dateCreated",
-                options: { sort: { dateCreated: -1 }},
+                options: { sort: { dateModified: -1 }},
                 populate: {
                     path: "_user",
                     select: "username _id",
