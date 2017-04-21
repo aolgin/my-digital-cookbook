@@ -1,18 +1,11 @@
-<!--ng-controller="SearchController"-->
 <div class="mdc-search-bar">
-    <!-- https://angular-ui.github.io/bootstrap/ -->
     <div class="container-fluid">
-        <form>
-            <div class="input-group">
-                <input type="text"
-                       ng-model="searchText"
-                       class="form-control"
-                       placeholder="Search {{searchType || 'for ...'}}"/>
-                <!--<button type="button" class="input-group-addon btn btn-default" uib-dropdown-toggle>-->
-                    <!--<span class="caret"></span>-->
-                    <!--<span class="sr-only"></span>-->
-                <!--</button>-->
-                <div class="input-group-btn">
+            <input type="text"
+                   ng-model="searchText"
+                   class="form-control"
+                   placeholder="Search {{searchType || 'for ...'}}"/>
+            <div class="btn-group btn-group-justified">
+                <div class="btn-group">
                     <select ng-model="searchType" class="btn btn-default">
                         <option value="">---</option>
                         <option value="Chefs">Chef</option>
@@ -20,17 +13,12 @@
                         <option value="Recipes">Recipe</option>
                     </select>
                 </div>
+                <div class="btn-group">
+                    <a class="btn btn-default" role="group"
+                       ng-click="model.search(searchText, searchType)">
+                        <span>Search</span>
+                    </a>
+                </div>
             </div>
-        </form>
-    </div>
-    <div>
-        <div>
-            <div class="btn-group">
-                <a class="btn btn-default" role="group"
-                   ng-click="model.search(searchText, searchType)">
-                    Search <span class="glyphicon glyphicon-search"></span>
-                </a>
-            </div>
-        </div>
     </div>
 </div>
