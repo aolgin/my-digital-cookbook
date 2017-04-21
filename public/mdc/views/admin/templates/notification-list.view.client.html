@@ -1,0 +1,48 @@
+<ng-include src="'views/misc/templates/header.view.client.html'"></ng-include>
+
+<div id="page-content-wrapper">
+    <a href="#/admin">
+        <span class="glyphicon glyphicon-chevron-left"></span>
+        Back
+    </a>
+
+    <h3>Manage Notifications</h3>
+
+    <div class="mdc-msg-text">
+        <div class="alert alert-danger" ng-show="model.error">
+            {{model.error}}
+        </div>
+        <div class="alert alert-success" ng-show="model.message">
+            {{model.message}}
+        </div>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>User</th>
+                    <th>Description</th>
+                    <th>Modified</th>
+                    <th>Remove</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="notification in model.notifications">
+                    <th>{{notification._id}}</th>
+                    <th><a href="#/admin/user/{{notification._user._id}}/details">{{notification._user.username}}</a></th>
+                    <th>{{notification.description}}</th>
+                    <th>{{notification.dateModified | date}}</th>
+                    <th>
+                        <a ng-click="model.deleteCategory(notification._id)">
+                            <span class="glyphicon glyphicon-remove"></span>
+                        </a>
+                    </th>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <ng-include src="'views/misc/templates/footer.view.client.html'"></ng-include>
+</div>

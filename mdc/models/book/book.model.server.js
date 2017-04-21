@@ -46,6 +46,7 @@ module.exports = function() {
             .find()
             .populate("_user", "_id username")
             .populate("recipes", "_id name")
+            .sort({"dateModified": -1})
             .exec();
     }
 
@@ -65,7 +66,12 @@ module.exports = function() {
                         model.userModel
                             .removeBookFromUser(bookObj)
                             .then(function (response) {
-                                return BookModel.remove({_id: bid});
+                                BookModel
+                                    .remove({_id: bid})
+                                    .then(function (response) {
+                                        return model.notificationModel
+                                            .createNotification(bookObj._user, "Deleting book: " + bookObj.name);
+                                    })
                             })
                     })
             }).catch(function (err) {
@@ -78,9 +84,10 @@ module.exports = function() {
             .findById(userId)
             .populate({
                 path: "recipes",
-                options: {limit: limit, sort: { 'dateCreated': -1 } },
+                options: {limit: limit, sort: { 'dateModified': -1 } },
                 populate: { path: "rating" }
             })
+            .sort({"dateModified": -1})
             .exec();
     }
 
@@ -89,12 +96,14 @@ module.exports = function() {
             {
                 name: book.name,
                 description: book.description
-            }
-        );
+            })
+            .then(function (response) {
+                return model.notificationModel
+                    .createNotification(book._user, "Updated book: " + book.name);
+            })
     }
 
     function findBookById(bid) {
-        //TODO: sort these
         return BookModel
             .findById(bid)
             .populate({
@@ -116,7 +125,9 @@ module.exports = function() {
                         bookObj._user = userObj._id;
                         bookObj.save();
                         userObj.books.push(bookObj);
-                        return userObj.save();
+                        userObj.save();
+                        return model.notificationModel
+                            .createNotification(userId, "Created book: " + book.name);
                     })
             }).catch(function (err) {
                 console.log(err);

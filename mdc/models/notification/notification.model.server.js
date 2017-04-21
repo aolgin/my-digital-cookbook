@@ -26,7 +26,7 @@ module.exports = function() {
         // https://stackoverflow.com/questions/7382207/mongooses-find-method-with-or-condition-does-not-work-properly
         // http://mongoosejs.com/docs/api.html#query_Query-in
         // https://stackoverflow.com/questions/5818303/how-do-i-perform-an-id-array-query-in-mongoose
-        return Notification
+        return NotificationModel
             .find()
             .where(_user)
             .in(users)
@@ -40,7 +40,10 @@ module.exports = function() {
     }
 
     function createNotification(uid, description) {
-        return NotificationModel.create(description)
+        var notification = {
+            description: description
+        };
+        return NotificationModel.create(notification)
             .then(function (notifyObj) {
                 model.userModel.findUserById(uid)
                     .then(function (userObj) {
@@ -50,11 +53,14 @@ module.exports = function() {
                         console.log(err);
                     })
             })
-
     }
 
     function findAllNotifications() {
-        return NotificationModel.find();
+        return NotificationModel
+            .find()
+            .populate("_user", "_id username")
+            .sort({"dateModified": -1})
+            .exec();
     }
 
     function removeNotification(nid) {

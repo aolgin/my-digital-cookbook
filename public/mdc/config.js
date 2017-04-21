@@ -182,6 +182,12 @@
                 controllerAs: 'model',
                 resolve: { adminUser: isAdmin }
             })
+            .when("/admin/notification", {
+                templateUrl: 'views/admin/templates/notification-list.view.client.html',
+                controller: 'AdminNotificationController',
+                controllerAs: 'model',
+                resolve: { adminUser: isAdmin }
+            })
             .when("/register",{
                 templateUrl: 'views/user/templates/register.view.client.html',
                 controller: 'RegisterController',

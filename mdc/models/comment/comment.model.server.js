@@ -21,7 +21,6 @@ module.exports = function() {
     }
 
     function createComment(comment, rid, uid) {
-        // TODO Need to somehow insert rating here
         return CommentModel
             .create(comment)
             .then(function (commentObj) {
@@ -39,7 +38,9 @@ module.exports = function() {
                                 commentObj._recipe = recipeObj;
                                 commentObj._user = userObj;
                                 commentObj.save();
-                                return recipeObj;
+                                recipeObj;
+                                return model.notificationModel
+                                    .createNotification(uid, "Commented on recipe: " + recipeObj.name);
                             });
                     })
             })
@@ -103,7 +104,8 @@ module.exports = function() {
                         recipeObj.save();
                         CommentModel.remove({_id: cid})
                             .then(function (response) {
-                                return recipeObj;
+                                return model.notificationModel
+                                    .createNotification(userId, "Removed comment from recipe: " + recipeObj.name);
                             });
                     })
             });

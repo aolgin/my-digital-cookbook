@@ -56,7 +56,9 @@ module.exports = function() {
                         follower.following.addToSet(followingUser);
                         follower.save();
                         followingUser.follower_count += 1;
-                        return followingUser.save();
+                        followingUser.save();
+                        return model.notificationModel
+                            .createNotification(followerId, "Started following user: " + followingUser.username);
                     })
             })
     }
@@ -69,7 +71,9 @@ module.exports = function() {
                         follower.following.pull(followingUser);
                         follower.save();
                         followingUser.follower_count -= 1;
-                        return followingUser.save();
+                        followingUser.save();
+                        return model.notificationModel
+                            .createNotification(followerId, "Stopped following user: " + followingUser.username);
                     })
             })
     }
@@ -87,13 +91,18 @@ module.exports = function() {
             .populate({
                 path: "following",
                 select: "username _id",
-                options: { sort: { 'username': -1 } }
+                options: { sort: { 'username': 1 } }
             })
             .exec();
     }
 
     function findAllUsers() {
-        return UserModel.find();
+        return UserModel
+            .find()
+            .populate("books", "_id name")
+            .populate("recipes", "_id name")
+            .sort({"dateModified": -1})
+            .exec();
     }
 
     function removeBookFromUser(book) {
@@ -140,7 +149,7 @@ module.exports = function() {
                 .populate({
                     path: "recipes",
                     select: "-_user -books",
-                    options: {limit: limit, sort: { 'dateCreated': -1 } }
+                    options: {limit: limit, sort: { 'dateModified': -1 } }
                 })
                 .exec();
         } else {
@@ -149,20 +158,10 @@ module.exports = function() {
                 .populate({
                     path: "recipes",
                     select: "-_user -books",
-                    options: { sort: { 'dateCreated': -1 } }
+                    options: { sort: { 'dateModified': -1 } }
                 })
                 .exec();
         }
-        //
-        // return UserModel
-        //     .findById(userId)
-        //     // .populate("recipes", "-books -_user")
-        //     .populate({
-        //         path: "recipes",
-        //         select: "-_user -books",
-        //         options: {limit: limit, sort: { 'dateCreated': -1 } }
-        //     })
-        //     .exec();
     }
 
     function findBooksForUser(userId, limit) {
@@ -173,7 +172,7 @@ module.exports = function() {
                 .populate({
                     path: "books",
                     select: "-_user -recipes",
-                    options: {limit: limit, sort: { 'dateCreated': -1 } }
+                    options: {limit: limit, sort: { 'dateModified': -1 } }
                 })
                 .exec();
         } else {
@@ -182,7 +181,7 @@ module.exports = function() {
                 .populate({
                     path: "books",
                     select: "-_user -recipes",
-                    options: { sort: { 'dateCreated': -1 } }
+                    options: { sort: { 'dateModified': -1 } }
                 })
                 .exec();
         }
@@ -207,8 +206,11 @@ module.exports = function() {
                 lastName: user.lastName,
                 username: user.username,
                 about: user.about
-            }
-        );
+            })
+            .then(function(response) {
+                return model.notificationModel
+                    .createNotification(userId, "User profile updated!");
+            });
     }
 
     function updateUser(userId, user) {
@@ -221,8 +223,7 @@ module.exports = function() {
                 about: user.about,
                 password: user.password,
                 role: user.role
-            }
-        );
+            });
     }
 
     function updatePassword(userId, password) {
@@ -234,11 +235,12 @@ module.exports = function() {
     }
 
     function findUserById(userId) {
+        //TODO: order the population of these
         return UserModel
             .findById(userId)
-            .populate("books", "name")
-            .populate("recipes", "name")
-            .populate("following", "username")
+            .populate("books", "name description")
+            .populate("recipes", "name description")
+            .populate("following", "username about")
             .exec();
     }
 

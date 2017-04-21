@@ -10,7 +10,6 @@ module.exports = function() {
         attachRecipeToBook: attachRecipeToBook,
         detachRecipeFromBook: detachRecipeFromBook,
         findRecipeById: findRecipeById,
-        findBooksWithRecipe: findBooksWithRecipe,
         updateRecipe: updateRecipe,
         removeRecipe: removeRecipe,
         searchRecipes: searchRecipes,
@@ -62,7 +61,7 @@ module.exports = function() {
             .select("-_id name description rating _user")
             .populate("categories", "name")
             .populate("_user", "username")
-            .sort({'dateModified': 1})
+            .sort({'dateModified': -1})
             .exec();
     }
 
@@ -70,12 +69,10 @@ module.exports = function() {
         return RecipeModel
             .find()
             .populate("_user", "_id username")
+            .populate("books", "_id name")
             .populate("categories", "name")
+            .sort({"dateModified": -1})
             .exec();
-    }
-
-    function findBooksWithRecipe(rid) {
-
     }
 
     function removeRecipe(rid) {
@@ -90,7 +87,12 @@ module.exports = function() {
                                 model.userModel
                                     .removeRecipeFromUser(recipeObj)
                                     .then(function (response) {
-                                        return RecipeModel.remove({_id: rid})
+                                        RecipeModel
+                                            .remove({_id: rid})
+                                            .then(function (response) {
+                                                return model.notificationModel
+                                                    .createNotification(recipeObj._user, "Deleting recipe: " + recipeObj.name);
+                                            })
                                     })
                             })
                     })
@@ -111,8 +113,11 @@ module.exports = function() {
                 yield: recipe.yield,
                 num_servings: recipe.num_servings,
                 cook_time: recipe.cook_time
-            }
-        );
+            })
+            .then(function(response) {
+                return model.notificationModel
+                    .createNotification(recipe._user, "Updating recipe: " + recipe.name);
+            });
     }
 
     function findRecipeById(bid) {
@@ -141,7 +146,9 @@ module.exports = function() {
                         bookObj.recipes.pull(recipeObj);
                         bookObj.save();
                         recipeObj.books.pull(bookObj);
-                        return recipeObj.save();
+                        recipeObj.save();
+                        return model.notificationModel
+                            .createNotification(bookObj._user, "Detaching recipe \"" + recipeObj.name + "\" from book \"" + bookObj.name + "\"");
                     })
             }).catch(function (err) {
                 console.log(err);
@@ -156,7 +163,9 @@ module.exports = function() {
                         bookObj.recipes.addToSet(recipeObj);
                         bookObj.save();
                         recipeObj.books.addToSet(bookObj);
-                        return recipeObj.save();
+                        recipeObj.save();
+                        return model.notificationModel
+                            .createNotification(bookObj._user, "Attaching recipe \"" + recipeObj.name + "\" to book \"" + bookObj.name + "\"");
                     })
             }).catch(function (err) {
                 console.log(err);
@@ -173,7 +182,9 @@ module.exports = function() {
                         recipeObj._user = userObj._id;
                         recipeObj.save();
                         userObj.recipes.push(recipeObj);
-                        return userObj.save();
+                        userObj.save();
+                        return model.notificationModel
+                            .createNotification(uid, "Creating new recipe: " + recipe.name);
                     }, function(error){
                         console.log(error);
                     });

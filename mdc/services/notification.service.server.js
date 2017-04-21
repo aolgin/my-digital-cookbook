@@ -5,8 +5,17 @@ module.exports = function(app, model) {
     app.get("/api/user/:uid/notification", findNotificationsByUser);
     app.get("/api/notification", findNotificationsForUsers);
     app.post("/api/user/:uid/notification", createNotification);
-    app.delete("/api/notification/:nid", deleteNotification);
-    app.get("/api/admin/notifications", listAllNotifications);
+    app.delete("/api/notification/:nid", checkAdmin, deleteNotification);
+    app.get("/api/admin/notifications", checkAdmin, listAllNotifications);
+
+    // Helper Functions
+    function checkAdmin(req, res, next) {
+        if(req.user && req.user.role === 'ADMIN') {
+            next();
+        } else {
+            res.sendStatus(401);
+        }
+    }
 
     // Service Functions
 
@@ -70,7 +79,7 @@ module.exports = function(app, model) {
 
     function deleteNotification(req, res) {
         var nid = req.params['nid'];
-        NotificationModel.deleteNotification(nid)
+        NotificationModel.removeNotification(nid)
             .then(function (response) {
                 res.sendStatus(200);
             }, function (err) {
