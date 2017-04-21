@@ -235,12 +235,23 @@ module.exports = function() {
     }
 
     function findUserById(userId) {
-        //TODO: order the population of these
         return UserModel
             .findById(userId)
-            .populate("books", "name description")
-            .populate("recipes", "name description")
-            .populate("following", "username about")
+            .populate({
+                path: "books",
+                select: "name description",
+                options: { sort: { 'dateModified': -1 } }
+            })
+            .populate({
+                path: "recipes",
+                select: "name description",
+                options: { sort: { 'dateModified': -1 } }
+            })
+            .populate({
+                path: "following",
+                select: "username about",
+                options: { sort: { 'username': 1 } }
+            })
             .exec();
     }
 

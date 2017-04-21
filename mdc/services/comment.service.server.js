@@ -4,7 +4,7 @@ module.exports = function(app, model) {
     var auth = authorized;
 
     app.get("/api/comment/:cid", findCommentById);
-    app.get("/api/recipe/:rid/comment", findCommentsForRecipe);
+    // app.get("/api/recipe/:rid/comment", findCommentsForRecipe);
     app.post("/api/recipe/:rid/comment", auth, createComment);
     app.delete("/api/comment/:cid", auth, deleteComment);
     app.put("/api/comment/:cid", auth, updateComment);
@@ -34,18 +34,18 @@ module.exports = function(app, model) {
 
     // Service Functions
 
-    // TODO potentially unnecessary
-    function findCommentsForRecipe(req, res) {
-        var rid = req.params['rid'];
-
-        CommentModel.findCommentsForRecipe(rid)
-            .then(function(results) {
-                res.json(results);
-            }, function (err) {
-                console.log(err);
-                res.sendStatus(500);
-            });
-    }
+    // // Was not really in use
+    // function findCommentsForRecipe(req, res) {
+    //     var rid = req.params['rid'];
+    //
+    //     CommentModel.findCommentsForRecipe(rid)
+    //         .then(function(results) {
+    //             res.json(results);
+    //         }, function (err) {
+    //             console.log(err);
+    //             res.sendStatus(500);
+    //         });
+    // }
 
     function findCommentById(req, res) {
         var cid = req.params['cid'];

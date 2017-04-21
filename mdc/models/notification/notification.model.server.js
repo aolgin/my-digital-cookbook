@@ -41,6 +41,7 @@ module.exports = function() {
 
     function findNotificationsByUser(uid) {
         // TODO: verify that this works properly. May need to grab the userobj first
+        // NOTE: Not in use at the moment
         return NotificationModel.find({_user: uid});
     }
 

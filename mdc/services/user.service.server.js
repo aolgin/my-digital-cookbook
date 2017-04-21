@@ -34,7 +34,6 @@ module.exports = function(app, model) {
     app.delete('/api/admin/user/:uid', checkAdmin, unregisterUser);
     app.get("/api/user/:uid", findUserById);
     app.get("/api/admin/users", checkAdmin, findAllUsers);
-    //TODO: add in favoriting and friend requests
     app.put("/api/user/:uid/follow", auth, followUser);
     app.delete("/api/user/:uid/follow", auth, unfollowUser);
     app.get("/api/user/:uid/follow", findFollowingByUserId);
