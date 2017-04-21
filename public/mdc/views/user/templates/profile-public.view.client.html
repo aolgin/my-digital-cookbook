@@ -70,7 +70,7 @@
                                 </a>
                             </th>
                             <th>
-                                <span>{{book.description}}</span>
+                                <span>{{book.description | limitTo : 140}}</span>
                             </th>
                             <th>
                                 <span>{{book.dateModified | date}}</span>
@@ -101,7 +101,7 @@
                                 </a>
                             </th>
                             <th>
-                                <span>{{recipe.description}}</span>
+                                <span>{{recipe.description | limitTo : 140}}</span>
                             </th>
                             <th>
                                 <span>{{recipe.dateModified | date}}</span>

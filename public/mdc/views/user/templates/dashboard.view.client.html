@@ -106,7 +106,7 @@
                 class="list-group-item">
                 <span>{{item.dateCreated | date : "short"}}</span> - Chef
                 <span><a href="#/chef/{{item._user._id}}">{{item._user.username}}</a></span>
-                <span>{{item.description}}</span>
+                <span>{{item.description | limitTo : 140}}</span>
             </li>
         </ul>
     </div>

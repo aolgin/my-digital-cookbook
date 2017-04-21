@@ -63,7 +63,7 @@
                         <h4><a href="#/recipe/{{result._id}}">{{result.name}}</a> by Chef <a ng-if="result._user" href="#/chef/{{result._user._id}}">{{result._user.username}}</a><span ng-if="!result._user">[removed]</span></h4>
                     </div>
                     <div class="list-group-item-text">
-                        <p>{{result.description}}</p>
+                        <p>{{result.description | limitTo : 140}}</p>
                     </div>
                 </li>
             </ul>

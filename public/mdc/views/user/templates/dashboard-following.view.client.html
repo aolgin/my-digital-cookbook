@@ -55,7 +55,7 @@
                         <a href="#/chef/{{follower._id}}">{{follower.username}}</a>
                     </div>
                     <div class="panel-body">
-                        <p>{{follower.about}}</p>
+                        <p>{{follower.about | limitTo : 140}}</p>
                     </div>
                 </div>
             </div>
