@@ -3,12 +3,18 @@
         .module("MyDigitalCookbook")
         .controller("HomeController", HomeController);
 
-    function HomeController(currentUser, adminUser, $location, UserService) {
+    function HomeController(currentUser, adminUser, $location, UserService, $route) {
         var vm = this;
-        // vm.uid = currentUser._id;
+
 
         function init() {
-            // console.log(vm.uid);
+            if (currentUser) {
+                vm.uid = currentUser._id;
+                vm.username = currentUser.username;
+            }
+            if (adminUser) {
+                vm.admin = true;
+            }
         }
         init();
 
@@ -24,7 +30,7 @@
             UserService
                 .logout()
                 .then(function (response) {
-                    $location.url("/");
+                    $route.reload();
                 });
         }
     }

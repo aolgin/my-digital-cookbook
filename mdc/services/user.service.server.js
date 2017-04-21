@@ -39,9 +39,9 @@ module.exports = function(app, model) {
     app.delete("/api/user/:uid/follow", auth, unfollowUser);
     app.get("/api/user/:uid/follow", findFollowingByUserId);
     app.get("/api/user/:uid/follow/:chefId", isFollowingChef);
-    app.get(callback, passport.authenticate('google', {
-        successRedirect: '#/profile',
-        failureRedirect: '#/error?code=401'
+    app.get('/google/callback', passport.authenticate('google', {
+        successRedirect: '/mdc/#/dashboard',
+        failureRedirect: '/mdc/#/error?code=401'
     }));
 
     // Helper Functions
@@ -68,7 +68,6 @@ module.exports = function(app, model) {
                             username:  emailParts[0],
                             firstName: profile.name.givenName,
                             lastName:  profile.name.familyName,
-                            email:     email,
                             google: {
                                 id:    profile.id,
                                 token: token

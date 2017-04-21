@@ -32,13 +32,12 @@ var port = process.env.PORT || 3000;
 app.listen(port);
 
 app.get('/', function (req, res) {
-    // var url = "http://localhost:3000/mdc/index.html#/";
+    // var url = "http://localhost:3000/mdc/#/";
     // console.log(url);
     // res.redirect(url);
     res.writeHead(301, {
         Location: "http" + (req.socket.encrypted ? "s" : "") + "://" +
-        req.headers.host + '/mdc/home.html#/'
+        req.headers.host + '/mdc/#/'
     });
     res.end();
-    // res.sendFile('/public/mdc/views/home/templates/home.html#/');
 });
